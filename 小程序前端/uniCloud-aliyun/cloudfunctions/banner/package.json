@@ -1,0 +1,6 @@
+{
+  "name": "banner",
+  "version": "1.0.0",
+  "description": "轮播图管理云函数",
+  "main": "index.js"
+}

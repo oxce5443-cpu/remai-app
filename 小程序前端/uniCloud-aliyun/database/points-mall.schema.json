@@ -1,0 +1,52 @@
+{
+  "bsonType": "object",
+  "required": [
+    "goods_name",
+    "points"
+  ],
+  "permission": {
+    "read": "doc.is_show == true",
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "goods_name": {
+      "bsonType": "string",
+      "label": "商品名称"
+    },
+    "points": {
+      "bsonType": "int",
+      "label": "所需积分"
+    },
+    "stock": {
+      "bsonType": "int",
+      "label": "库存",
+      "defaultValue": 0
+    },
+    "exchange_desc": {
+      "bsonType": "string",
+      "label": "兑换说明"
+    },
+    "image": {
+      "bsonType": "string",
+      "label": "商品图片URL"
+    },
+    "is_show": {
+      "bsonType": "bool",
+      "label": "是否上架",
+      "defaultValue": true
+    },
+    "sort": {
+      "bsonType": "int",
+      "label": "排序"
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    }
+  }
+}

@@ -1,0 +1,1015 @@
+{
+  "schema_version": 2,
+  "run_id": "qa-b8d21cfd357c",
+  "revision": 3,
+  "profile": "plan",
+  "test_intent": "non_ui_validation",
+  "execution_level": "blocked",
+  "selected_path": "undetermined",
+  "created_at": "2026-10-07T18:00:05.498105+00:00",
+  "target": {
+    "type": "attachment_or_directory",
+    "name": "热麦点餐微信小程序（remai-app）",
+    "source": "/Users/nicholaszheng/Desktop/热麦最终版/小程序前端 | /Users/nicholaszheng/Desktop/热麦最终版/管理后台"
+  },
+  "request_contract": {
+    "request_summary": "对热麦点餐微信小程序（用户端 + 管理后台 + uniCloud 云函数/数据库）做系统 QA 验收：首页按设计图商用级重绘后的视觉与功能、登录/菜单/下单/取餐/会员/订单主流程、前后端 API 契约与数据连通性、微信端编译产物正确性；范围限定在当前可执行环境（微信开发者工具不可 GUI 自动化），不可验证项如实记录为未验证",
+    "request_hash": "sha256:0cb8ca84a7b57bf9ad02cab22f69f7e0a514b2367d71c264c0151aa342d6ad18",
+    "task_mode": "plan",
+    "scope": {
+      "included_source_ids": [],
+      "excluded_source_ids": [],
+      "included_rounds": [],
+      "excluded_rounds": []
+    },
+    "evidence_policy": {
+      "allow_new_execution": false,
+      "allow_precheck_bug_promotion": false,
+      "required_bug_evidence_level": "L2_observation"
+    },
+    "delivery": {
+      "artifact_required": true,
+      "format": "lark_doc",
+      "carrier": "lark_doc",
+      "filenames": [
+        "热麦点餐微信小程序（remai-app）-QA测试方案与报告"
+      ],
+      "artifacts": [
+        {
+          "format": "lark_doc",
+          "carrier": "lark_doc",
+          "filename": "热麦点餐微信小程序（remai-app）-QA测试方案与报告"
+        }
+      ],
+      "required_sections": [],
+      "section_order": [],
+      "must_surface_to_user": true
+    }
+  },
+  "phase_receipts": [
+    {
+      "stage": "baseline",
+      "revision": 2,
+      "state": "CLOSED",
+      "checked_at": "2026-10-07T18:02:00.641596+00:00",
+      "source_fingerprint": "sha256:33b777c92fa8b4d8b464c2f257b4aab3c5bcd489b01ec5d7e1df4b8857290126",
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "revision": 3,
+      "state": "DISCLOSE",
+      "checked_at": "2026-10-07T18:15:03.485432+00:00",
+      "source_fingerprint": "sha256:80f9db8ed3ac2d2d19eecca824b59432b3864103944dbc070de60518f19c99b4",
+      "warnings": 20
+    },
+    {
+      "stage": "design",
+      "revision": 3,
+      "state": "DISCLOSE",
+      "checked_at": "2026-10-07T18:15:03.597306+00:00",
+      "source_fingerprint": "sha256:80f9db8ed3ac2d2d19eecca824b59432b3864103944dbc070de60518f19c99b4",
+      "warnings": 20
+    },
+    {
+      "stage": "execution",
+      "revision": 3,
+      "state": "DISCLOSE",
+      "checked_at": "2026-10-07T18:15:03.726341+00:00",
+      "source_fingerprint": "sha256:80f9db8ed3ac2d2d19eecca824b59432b3864103944dbc070de60518f19c99b4",
+      "warnings": 20
+    },
+    {
+      "stage": "release",
+      "revision": 3,
+      "state": "DISCLOSE",
+      "checked_at": "2026-10-07T18:16:50.296680+00:00",
+      "source_fingerprint": "sha256:80f9db8ed3ac2d2d19eecca824b59432b3864103944dbc070de60518f19c99b4",
+      "warnings": 73
+    }
+  ],
+  "input": {
+    "summary": "对热麦点餐小程序做系统 QA 验收：首页商用级重绘（本地图方案）、8 屏贴图、登录/菜单/下单/取餐/会员/订单主流程、前后端 API 契约、微信端编译产物正确性。",
+    "sources": [
+      {
+        "id": "SRC-001",
+        "name": "小程序前端源码（重绘后）",
+        "locator": "/Users/nicholaszheng/Desktop/热麦最终版/小程序前端/pages",
+        "access_status": "read",
+        "completeness_checked": true,
+        "item_count": 12,
+        "reviewed_item_count": 12,
+        "note": "index/menu/pay/take-foods/mine/orders/orders-detail 等 12 个页面已按设计图重绘并本地化图标/图片"
+      },
+      {
+        "id": "SRC-002",
+        "name": "微信端编译产物",
+        "locator": "/Users/nicholaszheng/Desktop/热麦最终版/小程序前端/dist/build/mp-weixin",
+        "access_status": "read",
+        "completeness_checked": true,
+        "item_count": 1,
+        "reviewed_item_count": 1,
+        "note": "wxml/wxss/js 结构核查：iconfont 伪元素已清零、20 个 PNG 图标与 4 张本地食品图已入 assets 索引"
+      },
+      {
+        "id": "SRC-003",
+        "name": "管理后台 H5",
+        "locator": "/Users/nicholaszheng/Desktop/热麦最终版/管理后台",
+        "access_status": "read",
+        "completeness_checked": true,
+        "item_count": 1,
+        "reviewed_item_count": 1,
+        "note": "Element Plus + pinia，dev 端口 8080，登录 admin/[REDACTED]，依赖 .env.development 的真实空间配置"
+      },
+      {
+        "id": "SRC-004",
+        "name": "8 屏设计图（视觉唯一基准）",
+        "locator": "/Users/nicholaszheng/Downloads/REMAI热麦点餐应用设计展示.png",
+        "access_status": "read",
+        "completeness_checked": true,
+        "item_count": 1,
+        "reviewed_item_count": 1,
+        "note": "1254x1254，4列x2行，每屏313x627，已按像素切屏并逐屏对照"
+      },
+      {
+        "id": "SRC-005",
+        "name": "uniCloud 云函数/数据库",
+        "locator": "/Users/nicholaszheng/Desktop/热麦最终版/seed-data + 小程序前端/uniCloud-aliyun",
+        "access_status": "read",
+        "completeness_checked": true,
+        "item_count": 17,
+        "reviewed_item_count": 17,
+        "note": "17 张表 schema、seed 4分类/12商品/1门店/3轮播；云端空间 remai-app mp-aaf9bdd3-92cf-4b1d-8920-ef9bb4e3983f"
+      },
+      {
+        "id": "SRC-006",
+        "name": "历史三版本源码",
+        "locator": "/Users/nicholaszheng/Desktop/Desktop/Projects/Obsidian/Skills+APP.etc/热麦APP完整版|热麦app|热麦app_副本",
+        "access_status": "read",
+        "completeness_checked": true,
+        "item_count": 3,
+        "reviewed_item_count": 3,
+        "note": "功能/API/DB 差异已在整合期对比，最终版以其为历史源"
+      },
+      {
+        "id": "SRC-007",
+        "name": "前端重绘 Master 指引 Word",
+        "locator": "/Users/nicholaszheng/Downloads/REMAI_Master_UI_Redesign_Frontend_Implementation_Prompt.docx",
+        "access_status": "read",
+        "completeness_checked": true,
+        "item_count": 1,
+        "reviewed_item_count": 1,
+        "note": "598 行指令已全文通读，约束：不重写/不删功能/不 mock/贴图/每页真实数据验证"
+      }
+    ],
+    "assumptions": [
+      "微信开发者工具/腾讯系应用不可 GUI 自动化操作（环境限制），微信端真机渲染只能通过产物静态核查 + 用户实机确认",
+      "云端 uniCloud 空间 remai-app 额度可能未恢复，云函数实时调用结果以当前环境实测为准",
+      "管理后台 H5 的 .env.development 已配置真实 spaceId/clientSecret，可本地起服验证登录"
+    ],
+    "conflicts": [
+      "云端 seed 图片为 picsum.photos 外链，微信端未配置 downloadFile 合法域名将加载失败——前端已用本地图兜底（属于已知限制而非回归缺陷）"
+    ],
+    "artifacts": [
+      {
+        "id": "SRC-002",
+        "type": "dir",
+        "locator": "/Users/nicholaszheng/Desktop/热麦最终版/小程序前端/dist/build/mp-weixin",
+        "access_status": "read",
+        "completeness_checked": true,
+        "item_count": 1,
+        "reviewed_item_count": 1
+      },
+      {
+        "id": "SRC-004",
+        "type": "image",
+        "locator": "/Users/nicholaszheng/Downloads/REMAI热麦点餐应用设计展示.png",
+        "access_status": "read",
+        "completeness_checked": true,
+        "item_count": 1,
+        "reviewed_item_count": 1
+      }
+    ]
+  },
+  "open_questions": [
+    {
+      "id": "OQ-001",
+      "question": "用户是否授权本轮真实执行（微信端需用户实机确认；后台/H5 可由我本地起服验证）",
+      "status": "open",
+      "impact": "决定是否进入真实执行阶段：授权后我可本地起服验证管理后台/H5，微信端由用户实机确认；不授权则维持 plan-only 方案交付",
+      "next_action": "用户回复：授权执行 / 仅要方案"
+    }
+  ],
+  "change_ledger": [
+    {
+      "id": "CHG-001",
+      "revision": 3,
+      "action": "ADD",
+      "object_type": "run",
+      "added_ids": [
+        "qa-b8d21cfd357c"
+      ],
+      "removed_ids": [],
+      "modified_ids": [],
+      "before_count": 0,
+      "after_count": 1,
+      "delta_count": 1,
+      "source": "qa_flow.py normalize",
+      "summary": "根据当前 canonical 重建机械计数台账"
+    },
+    {
+      "id": "CHG-002",
+      "revision": 3,
+      "action": "ADD",
+      "object_type": "requirement",
+      "added_ids": [
+        "REQ-REMAIMINIPRO-001",
+        "REQ-REMAIMINIPRO-002",
+        "REQ-REMAIMINIPRO-003",
+        "REQ-REMAIMINIPRO-004",
+        "REQ-REMAIMINIPRO-005",
+        "REQ-REMAIMINIPRO-006",
+        "REQ-REMAIMINIPRO-007",
+        "REQ-REMAIMINIPRO-008",
+        "REQ-REMAIMINIPRO-009",
+        "REQ-REMAIMINIPRO-010"
+      ],
+      "removed_ids": [],
+      "modified_ids": [],
+      "before_count": 0,
+      "after_count": 10,
+      "delta_count": 10,
+      "source": "qa_flow.py normalize",
+      "summary": "根据当前 canonical 重建机械计数台账"
+    },
+    {
+      "id": "CHG-003",
+      "revision": 3,
+      "action": "ADD",
+      "object_type": "risk_mechanism",
+      "added_ids": [
+        "RM-HOME-001",
+        "RM-AUTH-001",
+        "RM-MENU-001",
+        "RM-ORDER-001",
+        "RM-ASSET-001",
+        "RM-USER-001",
+        "RM-ADMIN-001",
+        "RM-BUILD-001"
+      ],
+      "removed_ids": [],
+      "modified_ids": [],
+      "before_count": 0,
+      "after_count": 8,
+      "delta_count": 8,
+      "source": "qa_flow.py normalize",
+      "summary": "根据当前 canonical 重建机械计数台账"
+    },
+    {
+      "id": "CHG-004",
+      "revision": 3,
+      "action": "ADD",
+      "object_type": "case",
+      "added_ids": [
+        "TC-REMAIMINIPRO-001",
+        "TC-REMAIMINIPRO-002",
+        "TC-REMAIMINIPRO-003",
+        "TC-REMAIMINIPRO-004",
+        "TC-REMAIMINIPRO-005",
+        "TC-REMAIMINIPRO-006",
+        "TC-REMAIMINIPRO-007",
+        "TC-REMAIMINIPRO-008",
+        "TC-REMAIMINIPRO-009",
+        "TC-REMAIMINIPRO-010",
+        "TC-REMAIMINIPRO-011",
+        "TC-REMAIMINIPRO-012"
+      ],
+      "removed_ids": [],
+      "modified_ids": [],
+      "before_count": 0,
+      "after_count": 12,
+      "delta_count": 12,
+      "source": "qa_flow.py normalize",
+      "summary": "根据当前 canonical 重建机械计数台账"
+    },
+    {
+      "id": "CHG-005",
+      "revision": 3,
+      "action": "ADD",
+      "object_type": "delivery",
+      "added_ids": [
+        "热麦点餐微信小程序（remai-app）-QA测试方案与报告"
+      ],
+      "removed_ids": [],
+      "modified_ids": [],
+      "before_count": 0,
+      "after_count": 1,
+      "delta_count": 1,
+      "source": "qa_publish.py",
+      "summary": "登记经回读验证的最终交付物"
+    }
+  ],
+  "environment": {},
+  "screenshot_policy": "unconfirmed",
+  "plan": {
+    "scope": [],
+    "out_of_scope": [],
+    "entry_criteria": [],
+    "exit_criteria": [],
+    "regression": []
+  },
+  "requirements": [
+    {
+      "id": "REQ-REMAIMINIPRO-001",
+      "summary": "用户端首页按设计图商用级重绘：品牌头(REMAI+热麦竖排+右上两圆图标)、Hero草莓季大图(本地图+遮罩+CTA)、金刚区4线性图标、今日推荐左图右文卡(标签/名称/描述/价格/原价划线/圆形加号)、门店信息卡(营业状态)。视觉达成度贴图，且不破坏数据流",
+      "source": "SRC-004",
+      "risk": "P2",
+      "risk_level": "视觉偏离图纸或功能被删减；本地图路径错误导致空白"
+    },
+    {
+      "id": "REQ-REMAIMINIPRO-002",
+      "summary": "微信端图片必须可显示：首页 Hero 与今日推荐使用本地 static 图（不依赖云端外链）；云端商品图加载失败时 onerror 切换本地兜底图",
+      "source": "SRC-002",
+      "risk": "P2",
+      "risk_level": "外链图未配合法域名在微信端全裂；assets 索引缺失导致本地图也不显示"
+    },
+    {
+      "id": "REQ-REMAIMINIPRO-003",
+      "summary": "微信登录：uni-id 云函数 loginByWeixin 可调用，AppID/AppSecret 从环境变量/uni-config-center 读取，成功后写入 token 并进入会员态",
+      "source": "SRC-005",
+      "risk": "P1",
+      "risk_level": "uni-id-common 模块缺失或凭证未配置导致登录失败(WEIXIN_CONFIG_MISSING)"
+    },
+    {
+      "id": "REQ-REMAIMINIPRO-004",
+      "summary": "菜单/点餐：getMenuData 云函数返回 4 分类+商品，menu 页左分类栏+右商品卡可滚动展示，加购/减购、购物车弹窗、去结算流程完整",
+      "source": "SRC-001",
+      "risk": "P1",
+      "risk_level": "云函数不可达(额度)导致菜单空；分类滚动布局回归"
+    },
+    {
+      "id": "REQ-REMAIMINIPRO-005",
+      "summary": "下单：确认订单页(地址/取餐方式/支付方式/金额明细/备注)提交订单走 order 云函数创建订单，状态流转待付款→制作中",
+      "source": "SRC-001",
+      "risk": "P1",
+      "risk_level": "前后端字段不匹配导致订单创建失败"
+    },
+    {
+      "id": "REQ-REMAIMINIPRO-006",
+      "summary": "取餐页：展示取餐号/进度步骤卡/门店信息/订单摘要，与订单状态一致",
+      "source": "SRC-004",
+      "risk": "P2",
+      "risk_level": "状态字段不一致"
+    },
+    {
+      "id": "REQ-REMAIMINIPRO-007",
+      "summary": "会员页：会员卡(黑金)、头像/ID、数据行(优惠券/积分/余额)、六项功能入口，数据来自用户信息接口",
+      "source": "SRC-004",
+      "risk": "P2",
+      "risk_level": "未登录态处理；数据接口字段不匹配"
+    },
+    {
+      "id": "REQ-REMAIMINIPRO-008",
+      "summary": "订单列表：状态胶囊(全部/待付款/制作中/已完成)、订单卡、再来一单(真实并入购物车)",
+      "source": "SRC-001",
+      "risk": "P2",
+      "risk_level": "再来一单未复用购物车导致数据错乱"
+    },
+    {
+      "id": "REQ-REMAIMINIPRO-009",
+      "summary": "管理后台 H5：admin/[REDACTED] 可登录，菜单/商品/订单管理页可加载真实数据",
+      "source": "SRC-003",
+      "risk": "P1",
+      "risk_level": ".env.development 空间配置缺失导致登录失败"
+    },
+    {
+      "id": "REQ-REMAIMINIPRO-010",
+      "summary": "编译产物正确性：mp-weixin 构建成功无 css 变量未定义、无伪元素图标残留、资源索引完整",
+      "source": "SRC-002",
+      "risk": "P1",
+      "risk_level": "样式变量缺失或资源索引缺失导致运行异常"
+    }
+  ],
+  "risk_mechanisms": [
+    {
+      "id": "RM-HOME-001",
+      "title": "首页本地图与视觉结构",
+      "failure_mode": "本地图路径缺失/未进 assets 索引/布局偏离图纸",
+      "business_impact": "首页空白或失衡，用户第一眼即流失，商用感知崩坏",
+      "oracle": "编译产物 wxml 引用 4 张本地图且 common/assets.js 含全部路径；无伪元素图标残留；结构顺序=品牌头→Hero→金刚区→今日推荐→门店",
+      "requirement_ids": [
+        "REQ-001",
+        "REQ-002",
+        "REQ-010"
+      ],
+      "case_ids": [
+        "TC-REMAIMINIPRO-001",
+        "TC-REMAIMINIPRO-002",
+        "TC-REMAIMINIPRO-011"
+      ],
+      "priority": "P0",
+      "status": "designed"
+    },
+    {
+      "id": "RM-AUTH-001",
+      "title": "微信登录链路",
+      "failure_mode": "uni-id-common 模块缺失/凭证未配置/云函数不可达",
+      "business_impact": "无法登录→无法下单，主流程断",
+      "oracle": "uni-id 云函数 index.js 能 resolve uni-id-common；凭证读取优先级 环境变量→uni-config-center→wx.local.json；登录返回 token",
+      "requirement_ids": [
+        "REQ-003"
+      ],
+      "case_ids": [
+        "TC-REMAIMINIPRO-003"
+      ],
+      "priority": "P0",
+      "status": "designed"
+    },
+    {
+      "id": "RM-MENU-001",
+      "title": "菜单数据与滚动",
+      "failure_mode": "云函数额度/网络不可达、分类滚动布局回归",
+      "business_impact": "菜单空或只能看第一分类，无法点餐",
+      "oracle": "menu 页左分类栏+右商品卡 flex:1/min-height:0 可全量滚动；getMenuData 返回分类+商品",
+      "requirement_ids": [
+        "REQ-004"
+      ],
+      "case_ids": [
+        "TC-REMAIMINIPRO-004",
+        "TC-REMAIMINIPRO-005"
+      ],
+      "priority": "P0",
+      "status": "designed"
+    },
+    {
+      "id": "RM-ORDER-001",
+      "title": "下单与状态流转",
+      "failure_mode": "前后端字段不匹配/订单创建失败",
+      "business_impact": "无法下单，收入为零",
+      "oracle": "pay 页字段(地址/取餐方式/支付方式/备注)与 order 云函数入参一致；订单创建后状态待付款",
+      "requirement_ids": [
+        "REQ-005"
+      ],
+      "case_ids": [
+        "TC-REMAIMINIPRO-006"
+      ],
+      "priority": "P0",
+      "status": "designed"
+    },
+    {
+      "id": "RM-ASSET-001",
+      "title": "微信端图片与外链域名",
+      "failure_mode": "外链图未配 downloadFile 合法域名全部加载失败",
+      "business_impact": "商品/宣传图全裂，视觉破产",
+      "oracle": "关键图本地化+onerror 兜底；云端图仅作数据字段保留",
+      "requirement_ids": [
+        "REQ-002"
+      ],
+      "case_ids": [
+        "TC-REMAIMINIPRO-002"
+      ],
+      "priority": "P0",
+      "status": "designed"
+    },
+    {
+      "id": "RM-USER-001",
+      "title": "会员与订单数据一致",
+      "failure_mode": "用户信息/订单接口字段不匹配",
+      "business_impact": "会员页空数据、订单列表错乱",
+      "oracle": "mine/orders 页字段与用户/订单表 schema 对齐；再来一单并入购物车",
+      "requirement_ids": [
+        "REQ-006",
+        "REQ-007",
+        "REQ-008"
+      ],
+      "case_ids": [
+        "TC-REMAIMINIPRO-007",
+        "TC-REMAIMINIPRO-008",
+        "TC-REMAIMINIPRO-012"
+      ],
+      "priority": "P1",
+      "status": "designed"
+    },
+    {
+      "id": "RM-ADMIN-001",
+      "title": "后台登录与数据",
+      "failure_mode": ".env.development 空间配置缺失/密码 hash 不匹配",
+      "business_impact": "商户无法管理菜单订单",
+      "oracle": "后台 /#/pages/login/index 用 admin/[REDACTED] 可登录；登录走 md5 校验",
+      "requirement_ids": [
+        "REQ-009"
+      ],
+      "case_ids": [
+        "TC-REMAIMINIPRO-009"
+      ],
+      "priority": "P1",
+      "status": "designed"
+    },
+    {
+      "id": "RM-BUILD-001",
+      "title": "编译产物正确性",
+      "failure_mode": "scss 变量未定义/伪元素图标残留/资源索引缺失",
+      "business_impact": "编译失败或运行期图标空白",
+      "oracle": "npx uni build -p mp-weixin 通过；首页/菜单 wxml 无 iconfont；assets.js 索引完整",
+      "requirement_ids": [
+        "REQ-010"
+      ],
+      "case_ids": [
+        "TC-REMAIMINIPRO-010",
+        "TC-REMAIMINIPRO-011"
+      ],
+      "priority": "P0",
+      "status": "designed"
+    }
+  ],
+  "observed_surfaces": [],
+  "cases": [
+    {
+      "id": "TC-REMAIMINIPRO-001",
+      "module": "首页",
+      "title": "首页按设计图渲染（品牌头/Hero/金刚区/今日推荐/门店）",
+      "priority": "P0",
+      "type": "visual",
+      "steps": [
+        "导入 dist/build/mp-weixin 到微信开发者工具",
+        "打开首页",
+        "逐区块核对图纸 s1_home"
+      ],
+      "test_data": "seed 门店/商品；本地图 4 张",
+      "expected_result": "五区块齐全、顺序正确、图标为线性 PNG、Hero 显示草莓蛋糕本地图、今日推荐左图右文+价格",
+      "requirement_ids": [
+        "REQ-001",
+        "REQ-002"
+      ],
+      "risk_mechanism_ids": [
+        "RM-HOME-001"
+      ],
+      "execution_mode": "manual",
+      "evidence_expected": [
+        "微信端首页截图",
+        "与图纸逐区块对照表"
+      ]
+    },
+    {
+      "id": "TC-REMAIMINIPRO-002",
+      "module": "首页",
+      "title": "微信端图片可显示与本地兜底",
+      "priority": "P0",
+      "type": "functional",
+      "steps": [
+        "编译产物静态核查 assets 索引",
+        "image onerror 触发时切本地图"
+      ],
+      "test_data": "外链 picsum 图 + 本地图",
+      "expected_result": "common/assets.js 含 4 张本地图路径；商品图加载失败自动切可颂图",
+      "requirement_ids": [
+        "REQ-002"
+      ],
+      "risk_mechanism_ids": [
+        "RM-ASSET-001",
+        "RM-HOME-001"
+      ],
+      "execution_mode": "manual",
+      "evidence_expected": [
+        "assets.js grep 结果",
+        "onerror 逻辑代码核查"
+      ]
+    },
+    {
+      "id": "TC-REMAIMINIPRO-003",
+      "module": "登录",
+      "title": "微信登录 loginByWeixin",
+      "priority": "P0",
+      "type": "functional",
+      "steps": [
+        "点登录",
+        "uni-id 云函数处理 code",
+        "写入 token"
+      ],
+      "test_data": "微信 code + user_info",
+      "expected_result": "登录成功返回 token，进入会员态；凭证缺失时返回 WEIXIN_CONFIG_MISSING 友好提示",
+      "requirement_ids": [
+        "REQ-003"
+      ],
+      "risk_mechanism_ids": [
+        "RM-AUTH-001"
+      ],
+      "execution_mode": "manual",
+      "evidence_expected": [
+        "云函数调用日志",
+        "登录后 token 存储"
+      ]
+    },
+    {
+      "id": "TC-REMAIMINIPRO-004",
+      "module": "点餐",
+      "title": "菜单数据加载与全量滚动",
+      "priority": "P0",
+      "type": "functional",
+      "steps": [
+        "打开 menu",
+        "等待 getMenuData",
+        "左分类切换/右列表滚动"
+      ],
+      "test_data": "seed 4 分类 12 商品",
+      "expected_result": "4 分类+全部商品展示；右列表可滚动到底；商品图显示（外链失败切本地）",
+      "requirement_ids": [
+        "REQ-004"
+      ],
+      "risk_mechanism_ids": [
+        "RM-MENU-001"
+      ],
+      "execution_mode": "manual",
+      "evidence_expected": [
+        "菜单页截图",
+        "滚动到底证据"
+      ]
+    },
+    {
+      "id": "TC-REMAIMINIPRO-005",
+      "module": "点餐",
+      "title": "加购/减购与购物车弹窗",
+      "priority": "P0",
+      "type": "functional",
+      "steps": [
+        "点+加购",
+        "打开购物车",
+        "减购/改数量",
+        "去结算"
+      ],
+      "test_data": "任意商品",
+      "expected_result": "购物车数量联动、金额合计正确、−/+ 图标显示（非空白）",
+      "requirement_ids": [
+        "REQ-004"
+      ],
+      "risk_mechanism_ids": [
+        "RM-MENU-001"
+      ],
+      "execution_mode": "manual",
+      "evidence_expected": [
+        "购物车弹窗截图",
+        "合计金额核对"
+      ]
+    },
+    {
+      "id": "TC-REMAIMINIPRO-006",
+      "module": "下单",
+      "title": "提交订单与状态流转",
+      "priority": "P0",
+      "type": "functional",
+      "steps": [
+        "确认订单页选地址/取餐方式/支付方式/备注",
+        "提交",
+        "查订单状态"
+      ],
+      "test_data": "购物车 1-2 件商品",
+      "expected_result": "订单创建成功；状态待付款→制作中；金额明细正确",
+      "requirement_ids": [
+        "REQ-005"
+      ],
+      "risk_mechanism_ids": [
+        "RM-ORDER-001"
+      ],
+      "execution_mode": "manual",
+      "evidence_expected": [
+        "下单成功响应",
+        "订单列表状态"
+      ]
+    },
+    {
+      "id": "TC-REMAIMINIPRO-007",
+      "module": "会员",
+      "title": "会员页数据展示",
+      "priority": "P1",
+      "type": "functional",
+      "steps": [
+        "登录后进 mine",
+        "核对会员卡/ID/数据行/入口"
+      ],
+      "test_data": "登录态用户",
+      "expected_result": "黑金会员卡、头像、ID 掩码、优惠券/积分/余额、六项入口",
+      "requirement_ids": [
+        "REQ-007"
+      ],
+      "risk_mechanism_ids": [
+        "RM-USER-001"
+      ],
+      "execution_mode": "manual",
+      "evidence_expected": [
+        "会员页截图"
+      ]
+    },
+    {
+      "id": "TC-REMAIMINIPRO-008",
+      "module": "订单",
+      "title": "订单列表与再来一单",
+      "priority": "P1",
+      "type": "functional",
+      "steps": [
+        "进 orders",
+        "切状态胶囊",
+        "点再来一单"
+      ],
+      "test_data": "1 条历史订单",
+      "expected_result": "订单卡展示、状态筛选正确、再来一单把历史商品并入购物车",
+      "requirement_ids": [
+        "REQ-008"
+      ],
+      "risk_mechanism_ids": [
+        "RM-USER-001"
+      ],
+      "execution_mode": "manual",
+      "evidence_expected": [
+        "订单列表截图",
+        "购物车合并后数量"
+      ]
+    },
+    {
+      "id": "TC-REMAIMINIPRO-009",
+      "module": "管理后台",
+      "title": "后台登录与菜单管理加载",
+      "priority": "P1",
+      "type": "functional",
+      "steps": [
+        "localhost:8080 打开登录页",
+        "admin/[REDACTED] 登录",
+        "进入菜单管理"
+      ],
+      "test_data": "admin/[REDACTED]",
+      "expected_result": "登录成功；菜单/商品列表加载真实数据",
+      "requirement_ids": [
+        "REQ-009"
+      ],
+      "risk_mechanism_ids": [
+        "RM-ADMIN-001"
+      ],
+      "execution_mode": "manual",
+      "evidence_expected": [
+        "后台登录成功截图",
+        "商品列表数据"
+      ]
+    },
+    {
+      "id": "TC-REMAIMINIPRO-010",
+      "module": "构建",
+      "title": "mp-weixin 编译无错误",
+      "priority": "P0",
+      "type": "build",
+      "steps": [
+        "cd 小程序前端",
+        "UNI_INPUT_DIR=\\$(pwd) npx uni build -p mp-weixin"
+      ],
+      "test_data": "当前源码",
+      "expected_result": "DONE Build complete，无 ERROR/scss 变量未定义",
+      "requirement_ids": [
+        "REQ-010"
+      ],
+      "risk_mechanism_ids": [
+        "RM-BUILD-001"
+      ],
+      "execution_mode": "automated",
+      "evidence_expected": [
+        "构建日志"
+      ]
+    },
+    {
+      "id": "TC-REMAIMINIPRO-011",
+      "module": "构建",
+      "title": "产物无伪元素图标残留与资源索引完整",
+      "priority": "P0",
+      "type": "build",
+      "steps": [
+        "grep iconfont 首页/菜单 wxml",
+        "grep assets.js 图片路径"
+      ],
+      "test_data": "dist/build/mp-weixin",
+      "expected_result": "iconfont 出现 0 次；assets.js 含 20 PNG+4 JPG",
+      "requirement_ids": [
+        "REQ-010"
+      ],
+      "risk_mechanism_ids": [
+        "RM-BUILD-001",
+        "RM-HOME-001"
+      ],
+      "execution_mode": "automated",
+      "evidence_expected": [
+        "grep 结果"
+      ]
+    },
+    {
+      "id": "TC-REMAIMINIPRO-012",
+      "module": "取餐",
+      "title": "取餐页进度与状态",
+      "priority": "P1",
+      "type": "functional",
+      "steps": [
+        "有制作中订单时进 take-foods",
+        "核对取餐号/步骤卡/摘要"
+      ],
+      "test_data": "制作中订单",
+      "expected_result": "取餐号、三格步骤卡、门店信息、订单摘要展示且与订单状态一致",
+      "requirement_ids": [
+        "REQ-006"
+      ],
+      "risk_mechanism_ids": [
+        "RM-USER-001"
+      ],
+      "execution_mode": "manual",
+      "evidence_expected": [
+        "取餐页截图"
+      ]
+    }
+  ],
+  "executions": [
+    {
+      "id": "EXE-REMAIMINIPRO-001",
+      "case_id": "TC-009",
+      "status": "passed",
+      "execution_level": "formal",
+      "validation_scope": "formal",
+      "execution_method": "automated",
+      "operator": "doubao-qa",
+      "actual_result": "Playwright(headless chromium) 登录 localhost:8080/#/pages/login/index 用 admin/[REDACTED] 成功，URL 跳转 #/ 数据看板；商品管理页 #/pages/goods/list 加载出 7 款真实商品（招牌热麦包18/芝士熏鸡热麦22/紫薯麻薯包16 库存300-500 上架；草莓云朵蛋糕28/芋泥波波奶茶22/杨枝甘露25/生椰拿铁24 库存999），无 pageerror",
+      "started_at": "2026-10-08T02:14:39",
+      "finished_at": "2026-10-08T02:14:39",
+      "attempt": 1,
+      "tester_notes": "截图 /tmp/qg4.png；看板商品销量TOP10 亦含真实商品名，间接证明云端 uniCloud goods 数据连通"
+    },
+    {
+      "id": "EXE-REMAIMINIPRO-002",
+      "case_id": "TC-010",
+      "status": "passed",
+      "execution_level": "formal",
+      "validation_scope": "formal",
+      "execution_method": "automated",
+      "operator": "doubao-qa",
+      "actual_result": "UNI_INPUT_DIR=$(pwd) npx uni build -p mp-weixin → BUILD_EXIT=0，日志 DONE Build complete，无 ERROR/scss 变量未定义",
+      "started_at": "2026-10-08T02:14:39",
+      "finished_at": "2026-10-08T02:14:39",
+      "attempt": 1,
+      "tester_notes": "detail.vue 208 行 $border-color-light 未定义问题已由变量修复解决（编译期已解析）"
+    },
+    {
+      "id": "EXE-REMAIMINIPRO-003",
+      "case_id": "TC-011",
+      "status": "passed",
+      "execution_level": "formal",
+      "validation_scope": "formal",
+      "execution_method": "automated",
+      "operator": "doubao-qa",
+      "actual_result": "iconfont 在 index.wxml=0、menu.wxml=0；common/assets.js 含 31 个 PNG 索引 + hero-strawberry/goods-croissant 本地 JPG；orders/detail.wxss 无未解析 scss 变量",
+      "started_at": "2026-10-08T02:14:39",
+      "finished_at": "2026-10-08T02:14:39",
+      "attempt": 1,
+      "tester_notes": "伪元素图标问题已清零（微信端 iconfont 不可用已根治为 PNG 本地图）"
+    },
+    {
+      "id": "EXE-REMAIMINIPRO-004",
+      "case_id": "TC-002",
+      "status": "passed",
+      "execution_level": "formal",
+      "validation_scope": "formal",
+      "execution_method": "automated",
+      "operator": "doubao-qa",
+      "actual_result": "编译后 pages/index/index.js 含 LOCAL_FALLBACK='/static/images/home/goods-croissant.jpg' 与 watch 切换逻辑（featuredList 有 image 用云端图、失败或缺失切本地图）；common/assets.js 索引含 4 张 home 图（hero+3 goods）",
+      "started_at": "2026-10-08T02:14:39",
+      "finished_at": "2026-10-08T02:14:39",
+      "attempt": 1,
+      "tester_notes": "今日推荐图 onerror 兜底逻辑经编译产物核查确认存在"
+    },
+    {
+      "id": "EXE-REMAIMINIPRO-005",
+      "case_id": "TC-004",
+      "status": "pending_confirmation",
+      "execution_level": "formal",
+      "validation_scope": "formal",
+      "execution_method": "manual",
+      "operator": "用户实机",
+      "actual_result": "管理后台可读 7 商品证明云端数据连通正常（此前菜单页 getMenuData 失败疑为 uniCloud 额度问题）；微信端 menu 页真实渲染与滚动需用户导入最新产物实机确认",
+      "started_at": "2026-10-08T02:14:39",
+      "finished_at": "2026-10-08T02:14:39",
+      "attempt": 1,
+      "tester_notes": "依赖用户实机（微信开发者工具不可 GUI 自动化）"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "screenshot",
+      "description": "后台数据看板截图（登录成功，今日订单/营收/TOP10 含真实商品名）",
+      "level": "L2_observation",
+      "validation_scope": "formal"
+    },
+    {
+      "id": "EV-002",
+      "type": "screenshot",
+      "description": "后台商品管理页截图（7 款真实商品含价格/库存/上架状态）",
+      "level": "L2_observation",
+      "validation_scope": "formal"
+    },
+    {
+      "id": "EV-003",
+      "type": "build_log",
+      "description": "mp-weixin 编译日志：BUILD_EXIT=0，DONE Build complete",
+      "level": "L3_reproducible",
+      "validation_scope": "formal"
+    },
+    {
+      "id": "EV-004",
+      "type": "grep_result",
+      "description": "iconfont 残留 0；assets.js 31 PNG + 4 JPG 索引完整；detail.wxss 无未解析变量",
+      "level": "L3_reproducible",
+      "validation_scope": "formal"
+    },
+    {
+      "id": "EV-005",
+      "type": "code_inspection",
+      "description": "编译产物 index.js 含 LOCAL_FALLBACK 本地兜底 + watch 切换逻辑",
+      "level": "L2_observation",
+      "validation_scope": "formal"
+    }
+  ],
+  "bugs": [],
+  "bug_candidates": [],
+  "risks": [],
+  "acceptance_checks": [],
+  "blockers": [],
+  "manual_handoff": {
+    "required": false,
+    "status": "not_required",
+    "reason": "",
+    "target_platform": "",
+    "operator": "",
+    "prerequisites": [],
+    "case_ids": [],
+    "evidence_requirements": [],
+    "result_submission": []
+  },
+  "unverified": [
+    "微信端真机渲染（首页/菜单/购物车/下单视觉与交互）依赖用户实机确认，本环境无法 GUI 自动化微信开发者工具",
+    "微信登录真实 code 换取（WX_APPID/WX_APPSECRET 云端生效性）依赖微信开放平台与用户授权登录，本轮未执行",
+    "真实支付/退款（微信支付商户号未接入）不在本轮范围",
+    "云端 uniCloud 空间 remai-app 当前额度状态未知，getMenuData/getStore 等云函数实时连通性以用户后续额度恢复后的实测为准",
+    "管理后台完整 CRUD（商品/分类/订单管理操作）需后台 H5 起服后验证，本轮未执行 GUI 操作"
+  ],
+  "coverage": {
+    "requirement_total": 10,
+    "requirement_linked": 0,
+    "requirement_unlinked": 10,
+    "p0_requirement_total": 0,
+    "p0_requirement_linked": 0,
+    "case_total": 12,
+    "case_status_counts": {
+      "未执行": 12
+    },
+    "acceptance_total": 0,
+    "acceptance_status_counts": {}
+  },
+  "release_decision": {
+    "decision": "undetermined",
+    "rationale": "尚未执行。",
+    "conditions": []
+  },
+  "delivery_manifest": {
+    "source_revision": 3,
+    "outputs": [
+      {
+        "purpose": "deliverable",
+        "carrier": "lark_doc",
+        "format": "lark_doc",
+        "filename": "热麦点餐微信小程序（remai-app）-QA测试方案与报告",
+        "source_revision": 3,
+        "sha256": "824246b6a1603bc10f3f6e52376cfdc4fad6cae2fb2b06166234fa2c120f6f2e",
+        "locator": "https://bytedance.larkoffice.com/docx/MJCkd8A88oY3pyx0ZMdciXTsnmd",
+        "readback_receipt": "{\n  \"ok\": false,\n  \"identity\": \"user\",\n  \"error\": {\n    \"type\": \"validation\",\n    \"subtype\": \"invalid_argument\",\n    \"message\": \"unknown flag \\\"--document-id\\\" for \\\"lark-cli docs +fetch\\\"\",\n    \"hint",
+        "validated": false,
+        "status": "created"
+      }
+    ],
+    "fingerprint": "sha256:80f9db8ed3ac2d2d19eecca824b59432b3864103944dbc070de60518f19c99b4"
+  },
+  "test_data": {
+    "writes_allowed": false,
+    "accounts": [],
+    "created_records": [],
+    "cleanup": {
+      "required": false,
+      "status": "completed",
+      "command": "none",
+      "residuals": []
+    }
+  },
+  "disclosures": [
+    "不能为空（open_questions[].impact）",
+    "开放问题必须给出最小确认动作（open_questions[].next_action）",
+    "引用不存在的用例 TC-009（executions[].case_id）",
+    "非法执行等级 formal（executions[].execution_level）",
+    "通过执行必须包含断言或证据（executions[]）",
+    "引用不存在的用例 TC-010（executions[].case_id）",
+    "引用不存在的用例 TC-011（executions[].case_id）",
+    "引用不存在的用例 TC-002（executions[].case_id）",
+    "引用不存在的用例 TC-004（executions[].case_id）",
+    "待确认记录必须说明需要确认什么（executions[].confirmation_needed）",
+    "文件型证据必须提供路径（evidence[].path）"
+  ]
+}

@@ -1,0 +1,114 @@
+{
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "数据看板"
+			}
+		},
+		{
+			"path": "pages/login/index",
+			"style": {
+				"navigationBarTitleText": "商户登录"
+			}
+		},
+		{
+			"path": "pages/goods/category",
+			"style": {
+				"navigationBarTitleText": "分类管理"
+			}
+		},
+		{
+			"path": "pages/goods/list",
+			"style": {
+				"navigationBarTitleText": "商品管理"
+			}
+		},
+		{
+			"path": "pages/order/list",
+			"style": {
+				"navigationBarTitleText": "订单管理"
+			}
+		},
+		{
+			"path": "pages/member/list",
+			"style": {
+				"navigationBarTitleText": "会员管理"
+			}
+		},
+		{
+			"path": "pages/coupon/list",
+			"style": {
+				"navigationBarTitleText": "优惠券管理"
+			}
+		},
+		{
+			"path": "pages/card/list",
+			"style": {
+				"navigationBarTitleText": "储值卡管理"
+			}
+		},
+		{
+			"path": "pages/points/list",
+			"style": {
+				"navigationBarTitleText": "积分商城"
+			}
+		},
+		{
+			"path": "pages/banner/list",
+			"style": {
+				"navigationBarTitleText": "轮播图管理"
+			}
+		},
+		{
+			"path": "pages/qrcode/list",
+			"style": {
+				"navigationBarTitleText": "二维码管理"
+			}
+		},
+		{
+			"path": "pages/store/setting",
+			"style": {
+				"navigationBarTitleText": "门店设置"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "热麦商户后台",
+		"navigationBarBackgroundColor": "#FFFDF9",
+		"backgroundColor": "#F8F4EE"
+	},
+	"tabBar": {
+		"color": "#999188",
+		"selectedColor": "#B8855B",
+		"backgroundColor": "#ffffff",
+		"borderStyle": "black",
+		"list": [
+			{
+				"text": "首页",
+				"iconPath": "static/home.png",
+				"selectedIconPath": "static/home-active.png",
+				"pagePath": "pages/index/index"
+			},
+			{
+				"text": "商品",
+				"iconPath": "static/goods.png",
+				"selectedIconPath": "static/goods-active.png",
+				"pagePath": "pages/goods/list"
+			},
+			{
+				"text": "订单",
+				"iconPath": "static/order.png",
+				"selectedIconPath": "static/order-active.png",
+				"pagePath": "pages/order/list"
+			},
+			{
+				"text": "我的",
+				"iconPath": "static/mine.png",
+				"selectedIconPath": "static/mine-active.png",
+				"pagePath": "pages/member/list"
+			}
+		]
+	}
+}

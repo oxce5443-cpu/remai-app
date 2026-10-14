@@ -1,0 +1,79 @@
+{
+  "bsonType": "object",
+  "required": [
+    "member_id",
+    "goods_id"
+  ],
+  "permission": {
+    "read": "doc.member_id == auth.uid",
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "index": [
+    {
+      "name": "member_id",
+      "key": {
+        "member_id": 1
+      }
+    }
+  ],
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "member_id": {
+      "bsonType": "string",
+      "label": "会员ID"
+    },
+    "goods_id": {
+      "bsonType": "string",
+      "label": "商品ID"
+    },
+    "goods_name": {
+      "bsonType": "string",
+      "label": "商品名称快照"
+    },
+    "cate_id": {
+      "bsonType": "string",
+      "label": "分类ID"
+    },
+    "price": {
+      "bsonType": "double",
+      "label": "单价（元）"
+    },
+    "number": {
+      "bsonType": "int",
+      "label": "数量"
+    },
+    "image": {
+      "bsonType": "string",
+      "label": "商品图片"
+    },
+    "use_property": {
+      "bsonType": "bool",
+      "label": "是否使用规格"
+    },
+    "props_text": {
+      "bsonType": "string",
+      "label": "规格文本"
+    },
+    "props": {
+      "bsonType": "string",
+      "label": "规格ID"
+    },
+    "selected": {
+      "bsonType": "bool",
+      "label": "是否选中",
+      "defaultValue": true
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    },
+    "updated_at": {
+      "bsonType": "date",
+      "label": "更新时间"
+    }
+  }
+}

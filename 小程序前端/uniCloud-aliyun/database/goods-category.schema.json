@@ -1,0 +1,47 @@
+{
+  "bsonType": "object",
+  "required": [
+    "name",
+    "sort"
+  ],
+  "permission": {
+    "read": "doc.is_show == true || auth.uid != null",
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "index": [
+    {
+      "name": "sort",
+      "key": {
+        "sort": 1
+      }
+    }
+  ],
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "name": {
+      "bsonType": "string",
+      "label": "分类名称"
+    },
+    "icon": {
+      "bsonType": "string",
+      "label": "分类图标URL"
+    },
+    "sort": {
+      "bsonType": "int",
+      "label": "排序（越小越靠前）"
+    },
+    "is_show": {
+      "bsonType": "bool",
+      "label": "是否显示",
+      "defaultValue": true
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    }
+  }
+}

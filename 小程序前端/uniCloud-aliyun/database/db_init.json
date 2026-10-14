@@ -1,0 +1,224 @@
+{
+  "goods-category": [
+    {
+      "_id": "cat_signature",
+      "name": "招牌热麦",
+      "sort": 1,
+      "is_show": true,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "_id": "cat_drinks",
+      "name": "特调饮品",
+      "sort": 2,
+      "is_show": true,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "_id": "cat_snacks",
+      "name": "小食配饮",
+      "sort": 3,
+      "is_show": true,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "_id": "cat_new",
+      "name": "新品尝鲜",
+      "sort": 4,
+      "is_show": true,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    }
+  ],
+  "goods": [
+    {
+      "name": "招牌热麦包",
+      "category_id": "cat_signature",
+      "price": 18.0,
+      "original_price": 22.0,
+      "description": "招牌现烤热麦包，外皮酥脆，内馅丰富",
+      "image": "https://picsum.photos/seed/remai-bread1/400/400",
+      "is_sell": true,
+      "stock": 500,
+      "sales": 128,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "name": "芝士熏鸡热麦",
+      "category_id": "cat_signature",
+      "price": 22.0,
+      "original_price": 26.0,
+      "description": "咸香熏鸡肉搭配浓郁芝士",
+      "image": "https://picsum.photos/seed/remai-bread2/400/400",
+      "is_sell": true,
+      "stock": 300,
+      "sales": 89,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "name": "紫薯软欧包",
+      "category_id": "cat_signature",
+      "price": 16.0,
+      "original_price": 0,
+      "description": "天然紫薯粉制作，口感绵软",
+      "image": "https://picsum.photos/seed/remai-bread3/400/400",
+      "is_sell": true,
+      "stock": 400,
+      "sales": 67,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "name": "霸气芝士草莓",
+      "category_id": "cat_drinks",
+      "price": 28.0,
+      "original_price": 32.0,
+      "description": "新鲜草莓现切，搭配进口芝士奶盖",
+      "image": "https://picsum.photos/seed/remai-drink1/400/400",
+      "is_sell": true,
+      "stock": 999,
+      "sales": 245,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "name": "芋泥波波奶茶",
+      "category_id": "cat_drinks",
+      "price": 22.0,
+      "original_price": 0,
+      "description": "手捣芋泥 + Q弹波波，层次丰富",
+      "image": "https://picsum.photos/seed/remai-drink2/400/400",
+      "is_sell": true,
+      "stock": 999,
+      "sales": 312,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "name": "杨枝甘露",
+      "category_id": "cat_drinks",
+      "price": 25.0,
+      "original_price": 0,
+      "description": "芒果西柚椰浆，清爽甜蜜",
+      "image": "https://picsum.photos/seed/remai-drink3/400/400",
+      "is_sell": true,
+      "stock": 999,
+      "sales": 198,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "name": "生椰拿铁",
+      "category_id": "cat_drinks",
+      "price": 24.0,
+      "original_price": 0,
+      "description": "冷萃咖啡 + 菲诺生椰乳",
+      "image": "https://picsum.photos/seed/remai-drink4/400/400",
+      "is_sell": true,
+      "stock": 999,
+      "sales": 156,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "name": "薯条小食套餐",
+      "category_id": "cat_snacks",
+      "price": 12.0,
+      "original_price": 0,
+      "description": "现炸薯条 + 番茄酱，经典搭配",
+      "image": "https://picsum.photos/seed/remai-food1/400/400",
+      "is_sell": true,
+      "stock": 800,
+      "sales": 88,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "name": "鸡米花小食",
+      "category_id": "cat_snacks",
+      "price": 15.0,
+      "original_price": 18.0,
+      "description": "香脆鸡米花，份量十足",
+      "image": "https://picsum.photos/seed/remai-food2/400/400",
+      "is_sell": true,
+      "stock": 600,
+      "sales": 73,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "name": "芝士培根焗饭",
+      "category_id": "cat_snacks",
+      "price": 32.0,
+      "original_price": 0,
+      "description": "米饭铺满培根和芝士，烤制金黄",
+      "image": "https://picsum.photos/seed/remai-food3/400/400",
+      "is_sell": true,
+      "stock": 200,
+      "sales": 45,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "name": "茉莉奶绿（新品）",
+      "category_id": "cat_new",
+      "price": 19.0,
+      "original_price": 0,
+      "description": "茉莉花茶 + 牛奶，清香不腻",
+      "image": "https://picsum.photos/seed/remai-drink5/400/400",
+      "is_sell": true,
+      "stock": 999,
+      "sales": 12,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "name": "牛油果旧识（新品）",
+      "category_id": "cat_new",
+      "price": 26.0,
+      "original_price": 0,
+      "description": "牛油果奶昔，微甜顺滑",
+      "image": "https://picsum.photos/seed/remai-drink6/400/400",
+      "is_sell": true,
+      "stock": 999,
+      "sales": 8,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    }
+  ],
+  "store": [
+    {
+      "name": "热麦点餐（示范店）",
+      "address": "杭州市西湖区文三路 xxx 号",
+      "tel": "0571-88888888",
+      "lat": "30.2741",
+      "lng": "120.1551",
+      "min_price": 15.0,
+      "packing_fee": 1.0,
+      "delivery_fee": 5.0,
+      "server_time": "09:00-22:00",
+      "is_open": true,
+      "is_eat": true,
+      "is_takeout": true,
+      "image": "",
+      "notice": "新客首单满30减5元，欢迎光临！",
+      "avg_delivery_time": 30,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    }
+  ],
+  "banner": [
+    {
+      "title": "新品上市 · 茉莉奶绿",
+      "image": "https://picsum.photos/seed/remai-banner1/750/400",
+      "link": "",
+      "sort": 1,
+      "is_show": true,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "title": "会员专享 · 满30减5",
+      "image": "https://picsum.photos/seed/remai-banner2/750/400",
+      "link": "",
+      "sort": 2,
+      "is_show": true,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "title": "招牌热麦包 · 限时特惠",
+      "image": "https://picsum.photos/seed/remai-banner3/750/400",
+      "link": "",
+      "sort": 3,
+      "is_show": true,
+      "created_at": "2026-04-01T00:00:00.000Z"
+    }
+  ]
+}

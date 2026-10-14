@@ -1,0 +1,6 @@
+{
+  "name": "seed",
+  "version": "1.0.0",
+  "description": "种子数据插入（一次性使用，运行后可删除）",
+  "main": "index.js"
+}

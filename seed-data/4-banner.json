@@ -1,0 +1,26 @@
+[
+  {
+    "title": "新品上市 · 茉莉奶绿",
+    "image": "https://picsum.photos/seed/remai-banner1/750/400",
+    "link": "",
+    "sort": 1,
+    "is_show": true,
+    "created_at": "2026-04-01T00:00:00.000Z"
+  },
+  {
+    "title": "会员专享 · 满30减5",
+    "image": "https://picsum.photos/seed/remai-banner2/750/400",
+    "link": "",
+    "sort": 2,
+    "is_show": true,
+    "created_at": "2026-04-01T00:00:00.000Z"
+  },
+  {
+    "title": "招牌热麦包 · 限时特惠",
+    "image": "https://picsum.photos/seed/remai-banner3/750/400",
+    "link": "",
+    "sort": 3,
+    "is_show": true,
+    "created_at": "2026-04-01T00:00:00.000Z"
+  }
+]

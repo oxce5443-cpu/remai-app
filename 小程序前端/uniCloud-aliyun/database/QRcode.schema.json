@@ -1,0 +1,52 @@
+{
+  "bsonType": "object",
+  "required": [
+    "code",
+    "table_no"
+  ],
+  "permission": {
+    "read": true,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "code": {
+      "bsonType": "string",
+      "label": "二维码编号（唯一）"
+    },
+    "table_no": {
+      "bsonType": "string",
+      "label": "桌号"
+    },
+    "store_id": {
+      "bsonType": "string",
+      "label": "所属门店ID"
+    },
+    "file_id": {
+      "bsonType": "string",
+      "label": "云存储fileID"
+    },
+    "qrcode": {
+      "bsonType": "string",
+      "label": "二维码图片URL"
+    },
+    "status": {
+      "bsonType": "string",
+      "enum": [
+        "idle",
+        "using",
+        "inactive"
+      ],
+      "label": "状态：idle/using/inactive",
+      "defaultValue": "idle"
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    }
+  }
+}

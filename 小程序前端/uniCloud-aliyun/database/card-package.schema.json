@@ -1,0 +1,43 @@
+{
+  "bsonType": "object",
+  "required": [
+    "name",
+    "amount"
+  ],
+  "permission": {
+    "read": true,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "name": {
+      "bsonType": "string",
+      "label": "套餐名称（如：充100送10）"
+    },
+    "amount": {
+      "bsonType": "double",
+      "label": "充值金额（元）"
+    },
+    "gift_amount": {
+      "bsonType": "double",
+      "label": "赠送金额（元）"
+    },
+    "is_show": {
+      "bsonType": "bool",
+      "label": "是否上架",
+      "defaultValue": true
+    },
+    "sort": {
+      "bsonType": "int",
+      "label": "排序"
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    }
+  }
+}

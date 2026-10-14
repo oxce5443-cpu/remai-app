@@ -1,0 +1,129 @@
+{
+  "bsonType": "object",
+  "permission": {
+    "read": "doc._id == auth.uid || 'READ_UNI_ID_USERS' in auth.permission",
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "description": "用户ID"
+    },
+    "nickname": {
+      "bsonType": "string",
+      "label": "昵称"
+    },
+    "avatar": {
+      "bsonType": "string",
+      "label": "头像URL字符串"
+    },
+    "mobile": {
+      "bsonType": "string",
+      "label": "手机号"
+    },
+    "wx_openid": {
+      "bsonType": "object",
+      "label": "微信OpenID",
+      "properties": {
+        "mp": {
+          "bsonType": "string",
+          "label": "小程序OpenID"
+        }
+      },
+      "permission": {
+        "read": false,
+        "write": false
+      }
+    },
+    "wx_unionid": {
+      "bsonType": "string",
+      "label": "微信UnionID",
+      "permission": {
+        "read": false,
+        "write": false
+      }
+    },
+    "weixin": {
+      "bsonType": "object",
+      "label": "微信会话信息",
+      "permission": {
+        "read": false,
+        "write": false
+      }
+    },
+    "role": {
+      "bsonType": "array",
+      "label": "角色",
+      "defaultValue": [],
+      "permission": {
+        "write": false
+      }
+    },
+    "status": {
+      "bsonType": "int",
+      "label": "状态",
+      "defaultValue": 0,
+      "permission": {
+        "write": false
+      }
+    },
+    "balance": {
+      "bsonType": "double",
+      "label": "储值余额（元）",
+      "defaultValue": 0,
+      "permission": {
+        "write": false
+      }
+    },
+    "points": {
+      "bsonType": "int",
+      "label": "会员积分",
+      "defaultValue": 0,
+      "permission": {
+        "write": false
+      }
+    },
+    "member_level": {
+      "bsonType": "int",
+      "label": "会员等级",
+      "defaultValue": 1,
+      "permission": {
+        "write": false
+      }
+    },
+    "member_level_name": {
+      "bsonType": "string",
+      "label": "会员等级名称",
+      "defaultValue": "VIP1",
+      "permission": {
+        "write": false
+      }
+    },
+    "last_login_date": {
+      "bsonType": "timestamp",
+      "label": "最后登录时间"
+    },
+    "register_date": {
+      "bsonType": "timestamp",
+      "label": "注册时间"
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    },
+    "updated_at": {
+      "bsonType": "date",
+      "label": "更新时间"
+    },
+    "token": {
+      "bsonType": "array",
+      "permission": {
+        "read": false,
+        "write": false
+      },
+      "description": "服务端管理的登录令牌，禁止客户端读取"
+    }
+  },
+  "required": []
+}

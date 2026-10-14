@@ -1,0 +1,20 @@
+[
+  {
+    "name": "热麦点餐（示范店）",
+    "address": "杭州市西湖区文三路 xxx 号",
+    "tel": "0571-88888888",
+    "lat": "30.2741",
+    "lng": "120.1551",
+    "min_price": 15,
+    "packing_fee": 1,
+    "delivery_fee": 5,
+    "server_time": "09:00-22:00",
+    "is_open": true,
+    "is_eat": true,
+    "is_takeout": true,
+    "image": "",
+    "notice": "新客首单满30减5元，欢迎光临！",
+    "avg_delivery_time": 30,
+    "created_at": "2026-04-01T00:00:00.000Z"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "name": "card",
+  "version": "1.0.0",
+  "description": "储值卡云函数",
+  "main": "index.js",
+  "dependencies": {
+    "uni-id-common": "file:../common/uni-id-common"
+  }
+}

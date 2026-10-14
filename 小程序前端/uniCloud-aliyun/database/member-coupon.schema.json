@@ -1,0 +1,70 @@
+{
+  "bsonType": "object",
+  "required": [
+    "member_id",
+    "coupon_id",
+    "status"
+  ],
+  "permission": {
+    "read": "doc.member_id == auth.uid",
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "index": [
+    {
+      "name": "member_coupon",
+      "key": {
+        "member_id": 1,
+        "coupon_id": 1
+      }
+    },
+    {
+      "name": "member_status",
+      "key": {
+        "member_id": 1,
+        "status": 1
+      }
+    }
+  ],
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "member_id": {
+      "bsonType": "string",
+      "label": "会员ID",
+      "foreignKey": "uni-id-users._id"
+    },
+    "coupon_id": {
+      "bsonType": "string",
+      "label": "优惠券模板ID",
+      "foreignKey": "coupon._id"
+    },
+    "status": {
+      "bsonType": "string",
+      "enum": [
+        "unused",
+        "used",
+        "expired"
+      ],
+      "label": "状态"
+    },
+    "receive_time": {
+      "bsonType": "date",
+      "label": "领取时间"
+    },
+    "used_at": {
+      "bsonType": "date",
+      "label": "使用时间"
+    },
+    "order_id": {
+      "bsonType": "string",
+      "label": "使用订单ID"
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    }
+  }
+}

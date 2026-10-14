@@ -1,0 +1,332 @@
+[
+  {
+    "path": "README.md",
+    "sha256_before": "45048a3e64eadc95e3d2ac242c7bf9853bb6af97e186dda8028bdef5bed33c52",
+    "sha256_after": "3937ee89cb0dd9696a74e78a3c44db7c941a3c1c65607ecd16a6219ea2db716d"
+  },
+  {
+    "path": "工程报告/热麦点餐小程序整合工程报告.md",
+    "sha256_before": "bc7e5c1c39585db3d58629bb2d90ad3877f3623e8177ace4abc68a1305ea7967",
+    "sha256_after": "c32fe1b3e00ad3cb17a5109626458c896578752c555cedd3d44307b11873cc28"
+  },
+  {
+    "path": "小程序前端/package.json",
+    "sha256_before": "d574d8e484c55090fec5c058dc05b94b1826b3a08d9ee08063c335967d62aa74",
+    "sha256_after": "5c075d93c2da05f60361b6a0428f4e585d16b084448d7ffc8c442c701b20c384"
+  },
+  {
+    "path": "小程序前端/manifest.json",
+    "sha256_before": "1040430b97580b0a16caf7e1526af64889f56aa13bbd967be53c0738dc6fedf8",
+    "sha256_after": "23b447b48fdeb6304dcbc9b4280418c2c48e41ac893f87f5fdf8d37c5586571f"
+  },
+  {
+    "path": "管理后台/src/pages/order/list.vue",
+    "sha256_before": "6ff03ee443193dd74b690bbd0c8f673abb2ed6fb736493d0937f7c4915b6b7d5",
+    "sha256_after": "bdc1e699180bc22b1e07ffa7bf844f9ee66a7a6feb810c23f3ec673d9e0d2d51"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/README.md",
+    "sha256_before": "6aba56d7bf8910dba2c11319255f69a8c6a240fee5f9668568062c71a6b608d6",
+    "sha256_after": "f45f4ed2e379359459486947608d3052c78323b34b14c16b3fd4609394ebd41a"
+  },
+  {
+    "path": "小程序前端/api/index.js",
+    "sha256_before": "67fb51d609211732dce0a19ee578a3bcdaf764f5c6f18780917e94162b0ff873",
+    "sha256_after": "889686bb9a0c3bfe63e4d8a6128412752dba4f5f475ca987c394a4389887f8f8"
+  },
+  {
+    "path": "小程序前端/store/index.js",
+    "sha256_before": "64df87feb6c1c73ad2f75561db54cf03178c9e989e6cb650e0df9b04fdb0098d",
+    "sha256_after": "7aa4accfed1b09ce5d090ae1e942fb272ef97233040131afaeaf9d1b6f8cc55f"
+  },
+  {
+    "path": "小程序前端/uni_modules/uni-config-center/uniCloud/cloudfunctions/common/uni-config-center/index.js",
+    "sha256_before": "23dd44ce13aa35902e1772f5bf2e223e958d991f493bfc96373b88bb1886faa5",
+    "sha256_after": "e2bedcc45a548f687cbdc0e9ed599f4e884b77470d66d870902dc7b9455c9f45"
+  },
+  {
+    "path": "小程序前端/uni_modules/uni-id-common/uniCloud/cloudfunctions/common/uni-id-common/index.js",
+    "sha256_before": "e99f0792bf4940ec435eb53a633b23753f3b8cfaf1e1cff48a4117fd89a0b68e",
+    "sha256_after": "524cbdbf39fcce0d33055714b0faba686ac37fbd10d200f7a669d194a7415cf1"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/goods-category.schema.json",
+    "sha256_before": "b2dc8a149afde06b468a1743cd20bd353fdbb9507cc66b8068886ab751b8bb46",
+    "sha256_after": "63c0ed62acc65e66ad1e81e05686ace65b2c3b499aa63420910cb4ff9f645872"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/orders.schema.json",
+    "sha256_before": "ea96452a7f1c8d42c52c19f1c8d3bd14599bc2bfc01e833feb832d15cad99df7",
+    "sha256_after": "6cc9d13531629c8e991a546d4a0a32afc4c52266267efa9ee145ad53674fd131"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/banner.schema.json",
+    "sha256_before": "20dcc956335d47903a91956397f0534f59227e60fa759fa6b44c95f1c4655956",
+    "sha256_after": "49dcc237d3ce48ef982cb64d74dabe7883156232f076ba02cbcf990e5851cabb"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/goods.schema.json",
+    "sha256_before": "3433ccf1ff6f0b12d86c5290c2f506fd616444525b1af0d02503567946d5b29b",
+    "sha256_after": "e0a595d475c12a4fa10584284e7f827a4742bbd44d0f38e21a6c5eed4fc82539"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/card-package.schema.json",
+    "sha256_before": "5d1a0bf80cfb7b587c3789ecba5b35bde79a5dcb1d89159c8aef2bf26e74d5f5",
+    "sha256_after": "64f41ffa43ff9d7ecb4cf0815bd96230ce6f0161fcbb404a4094a4a0c8621ab4"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/cart.schema.json",
+    "sha256_before": "037b0e6501efd978a91ac43e3d80c12c3f043f00bb16189fd01c5ca76fb853ae",
+    "sha256_after": "a7546223c9960354bdb6532ba65d3ad35aec333ee1ff5febf38450f19930f6e7"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/coupon.schema.json",
+    "sha256_before": "d34a801853344ed11148454dec2f790404219d56479be4bbf902bb34c2ba0ddb",
+    "sha256_after": "0cc8742377a729863ef978305431f30fb8d48b1b7d91c51bafadd1d516fa8bda"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/store.schema.json",
+    "sha256_before": "ada19bbfc8620374749afa80a8e9efa8dd3d8909816661ac230314454ed6c693",
+    "sha256_after": "5f4f01ac77d190b016badc4e41f7585eccb33de12965474de95530197378d9a3"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/goods-spec.schema.json",
+    "sha256_before": "9e043b831bfe261abcbcf047c3e0ddc8bfeb6973f04e27effa2c1b14ef81f1a8",
+    "sha256_after": "7ba89711200e960c506c5e97294429a361860c291a6f15e8c62564d779ff7708"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/member-coupon.schema.json",
+    "sha256_before": "53951b63b216063b37e32b48e275266e5318ac5bcf6dbccf94a0ef855c8db142",
+    "sha256_after": "898088cbc6178471c51149e0792198be7f08c3876a0d706e317e34a01efdc5b8"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/QRcode.schema.json",
+    "sha256_before": "e7bbbbce52f4937f2f178b180239ed2207c2ee691d352d8f17c405b4b6d4524b",
+    "sha256_after": "bf696a08767bdcbfc0e9bd5ed3b6ef5348dfbd9a89634d63ae35fe18369d56ac"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/order-goods.schema.json",
+    "sha256_before": "83d2b89253a14ba98a834f6706f38da70dfc6a8c821b2f24b2a77fcc12b34e5e",
+    "sha256_after": "e1df181521919bbc6d95a01e421a17f4c8d37ad28c23da4a4cd8b6aa4538e895"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/points-log.schema.json",
+    "sha256_before": "8420590862551fd8e315738a4b20d7a5cd4c37eabfbc63004dd5cf6c87a0a31a",
+    "sha256_after": "a13cf0a0456344d44762640620fda030f76a874e57eb33cdf97aaa0330891bfb"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/uni-id-users.schema.json",
+    "sha256_before": "ffad6ee667d0fc02a6525f7f42a899d4036a23aa8262a4a4337f63e6c570a843",
+    "sha256_after": "289b9941143bb6d9ce399a39637293a0fc911051eba3ad5ed3aff4e923c25993"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/address.schema.json",
+    "sha256_before": "80ef0a19920fca9661d166294ef383ba8845d5ce12c5baf8f5a3c1ff2aacb3e3",
+    "sha256_after": "405c598d66808ab819c097aa297b1e9a2f57e462502d0f062f8fc6a59f15ba4d"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/recharge-log.schema.json",
+    "sha256_before": "c8e63d9caee0334f6253c2c4c986bd18ae4471f5c1e2827094483e7cdcf5a1ce",
+    "sha256_after": "cd80a4cb8c09be77caa7901f12c7cafe3d618e6928fdd4433039e830dbbbdfa7"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/database/points-mall.schema.json",
+    "sha256_before": "26e0acbbedbf6d59144cec3d43963b9ccc842159e4e40a0e9911e85d5a7f1050",
+    "sha256_after": "78d57d5ab5c5ce031cb6a74082b3a43cc71b87fb066cb7f12d9ce22beb872690"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/order/index.js",
+    "sha256_before": "8a2afd0f8e008fbcfec461c57749dea7f9c906ddf4bda9911b58b4da2cb8d8b6",
+    "sha256_after": "125c9ae92b21d3a36f268eb5e49d10862aa983c2ec6162a82025bb04e0c87c57"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/order/package.json",
+    "sha256_before": "8a5abbf9c48cf5a06480153ef2d6d1068c5c760eddfd24795cb38f976dc9c559",
+    "sha256_after": "b24d5fffac278653b7ceff4eee806d5548434df8b023eda87dee474de2ebbb95"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/seed/package.json",
+    "sha256_before": "12ba9695b46c1060e673b91d9fe59e74b472faee4e8b96f3452890b57278f2b5",
+    "sha256_after": "b112b24cca7687b56998848f02b109661a1ef08bbfc86fafecc8275668bb6cb3"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/card/index.js",
+    "sha256_before": "5f514134c2acfe9adfaca61116d3a4131b2d1a8ea50a14fadc5c2c866f2b168d",
+    "sha256_after": "cc790b581304e4c610a3d7643f42cf86e7508db85967356eaddecadd187ca100"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/card/package.json",
+    "sha256_before": "9b01995f7a4e7d96222fdb2bfa398755afcda553975c0bc20b02b9923169e123",
+    "sha256_after": "bb9e0fec188f0a171d01705eabbc78ae526f6b913dfcb829e1a007038e29361e"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/member/index.js",
+    "sha256_before": "24fee86c21d05fb91a5d50f6ba5fa09ba8f2c94c900277bb09dbd1a8ea6d7e68",
+    "sha256_after": "70d2aa68cf3c1da0f65dc117f55fd5e1d5ad29087ddf8cac8505f66eb2099bc9"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/member/package.json",
+    "sha256_before": "cf22ea7203a8bc65af42eccfde5b69115fdf7df662dc411aa4fd84cee87240b2",
+    "sha256_after": "77e1e7b8013942a586e0334b25f5d921a871f6c0ac93355d7f7d3b9b6717789d"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/admin/index.js",
+    "sha256_before": "69373a4f049cd5b8948fb61a43dc327a1c0000a28c8ceec4af75c580e75a2892",
+    "sha256_after": "f52593c5e981969beeec385c9ff8ec97a59ba918c8833384859ef3bb5414bfb9"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/admin/package.json",
+    "sha256_before": "518ebdd12b5e934ffb0ac1bc687b9599217d576d07cdfe55f52da8d0c69a2567",
+    "sha256_after": "01c3c5dcd30d5899943a1daae1fc470878978375b2e773ecb181a1fa74db2a75"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/pay/index.js",
+    "sha256_before": "a89deb24fb924eb57fb71d3e7243b38a449ec8bb78893e0b3e9028aeabe40a78",
+    "sha256_after": "420aa3985a7e16852cabf25f2a11dada49c0457b738cdd51afc949359e82490a"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/pay/package.json",
+    "sha256_before": "608180ceef92c993b3be7741c2634dd08c915ddbeabe49573b8a4ae25447e908",
+    "sha256_after": "36b45a8e08ede7fb64987320f640c2f34cd7ca6f85d9dea391fab6e946ae1c34"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/coupon/index.js",
+    "sha256_before": "66034e0383f3885b95c193028b8efe312bd2ba8a6f42088d036c71bc7d913afe",
+    "sha256_after": "8429068de98f6310470a825685124058b9c2782770171e2592d7ad579aa1836a"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/coupon/package.json",
+    "sha256_before": "69a5cffb41df12a018f5f371e734d4b0eabe19a39e1d2aca9a6b862de4856705",
+    "sha256_after": "c1f85966b8bd8b80e99d6239926bd4fc4bedf22e598893947e7028565fbba044"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/QRcode/index.js",
+    "sha256_before": "8141b36e5faf082f9a798d724d810680f52f1dac238a7b767da3f9f8e8b0e619",
+    "sha256_after": "407a6203612333b8f65163e85b6e350bcaad74f49ec166d586b5d893ead5cc44"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/QRcode/package.json",
+    "sha256_before": "a1f2e2467ad2617373bb4cb79884666b5456b488c8e1677e5c39e37d029f9865",
+    "sha256_after": "52d958c2a6f90156babbdd65e654112107e1851d03338ba04bdd231f13b921ba"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/address/index.js",
+    "sha256_before": "332e66e7b7cbffaa3ff022a2517aae565a42a6ef0f753afe5b6aa7c0bb221393",
+    "sha256_after": "f19dc207d4a395923ccd59d6162d6bb9ebdf1a39f3b8c3e83ef60f5f416570e2"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/address/package.json",
+    "sha256_before": "93359745cca143fcc036b85be8393b135991e6a027b7ac4a860b778968becb71",
+    "sha256_after": "09e1aea5b10aded9faa4371916826cb396d33f491e1e6f188355d11b4f91281a"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/points/index.js",
+    "sha256_before": "5d837fe86a2f1087aeef9fabaee8819b14f94073e34ec209da9e02a6d075e755",
+    "sha256_after": "1099606e49398294590ea1507a6e125719efe2ec328c4caeb19bb7a2ebe07fe5"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/points/package.json",
+    "sha256_before": "f5e2cb500988817b44b964d84c4f8d49a8f95fbe9be67af78063012c8aa90ebc",
+    "sha256_after": "dfb80da86d9949ed391508fc9087a4c488ff52e913bada550da429e013c59eb4"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/cart/index.js",
+    "sha256_before": "4068610b04b18f6ce8c84ac377d509537e867c3b67141d1e6af84d8d69d4d03c",
+    "sha256_after": "4b5077d8b11c857aab374228b84a7bae6e0fa0b337ae88bdfa3876687da275a1"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/cart/package.json",
+    "sha256_before": "376ecb432583cfe5431b5be83ddce0472c66c19ed4a7317efbbc69df5619843c",
+    "sha256_after": "f38174bf6081e226f773146f3e29950dee09f5c8d8e7a45f321283bf6ee35d31"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/goods/index.js",
+    "sha256_before": "e1362d315d626fc8b766b4a74d211580ad4f4d38a3634326fe493384c6493b74",
+    "sha256_after": "b23f9798c5442b392c4af4f9621aecebc95e92403e85a9506410217f3ef4b3ed"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/goods/package.json",
+    "sha256_before": "3f11184d0f2afde564589028f5200314046fcd9ba0d946f980fee79a566b5fbf",
+    "sha256_after": "009571bbfbcd7f024138ee5684e0dc021aabf3253be59b8199aba809ad173474"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/uni-id/index.js",
+    "sha256_before": "8fe6008adafad8b2210a86d5d8f9d30178bd30f1da166c7daa76a1af319fb69e",
+    "sha256_after": "319fbe5321f5ade98e8189ad38d230ad3324b01f0c287f2e4d85c81967ffd15a"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/uni-id/package.json",
+    "sha256_before": "01ac15de1771d45dc23d2b64784f42f6580de3eeb5604ae6a632ebfa65a7a9f1",
+    "sha256_after": "da076ccf7d92197808de733d3c2c93019cb98fe2b7ec404b0b65e9777c05d749"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/banner/index.js",
+    "sha256_before": "2b2bcccfefb23622cb4f74dc7e18c7b802817b4cbd2a89d5fef44a4ceecf1bf1",
+    "sha256_after": "04e13c82383b9a46883474d52e50ea148f2142a8c626e3ab761c168181cc2238"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/banner/package.json",
+    "sha256_before": "de0d3ea7bdda45fc01d1a763e2e5f69e99fad6225cc632ccfad6d16ee0256da0",
+    "sha256_after": "34b27978076e7bba14f2e3d01c34012e50c3990cb14b00b8856f37b729dfe7f6"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/store/index.js",
+    "sha256_before": "5455e33f513cf6c22a9f7d721dc7551de673e828ae147086ef9361af55dc8a59",
+    "sha256_after": "f63c6ea1c60103e0a37e1dc62c4b1516bd4b0892d8ca7f1fa5ef54f3b2e9cf8b"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/store/package.json",
+    "sha256_before": "0dcaf7d043a35358c68207db5c63cde0d4b73133455fed0f41c6714042bfc1df",
+    "sha256_after": "7855e68620e4be8f008248162adcae4d96194675215a4f50bc8468c30012bfa4"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/common/uni-config-center/index.js",
+    "sha256_before": "23dd44ce13aa35902e1772f5bf2e223e958d991f493bfc96373b88bb1886faa5",
+    "sha256_after": "e2bedcc45a548f687cbdc0e9ed599f4e884b77470d66d870902dc7b9455c9f45"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/common/uni-id-common/index.js",
+    "sha256_before": "e99f0792bf4940ec435eb53a633b23753f3b8cfaf1e1cff48a4117fd89a0b68e",
+    "sha256_after": "524cbdbf39fcce0d33055714b0faba686ac37fbd10d200f7a669d194a7415cf1"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/cloudfunctions/common/uni-id-common/package.json",
+    "sha256_before": "19554e2b707320a5aa2b22de81dbba1b6f9830d3eb377adc9b232399a552912b",
+    "sha256_after": "8c323de32eef016b2a7eb8873ca2ae2d708aa164364418c852fba8927452a6e6"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/common/uni-config-center/index.js",
+    "sha256_before": "23dd44ce13aa35902e1772f5bf2e223e958d991f493bfc96373b88bb1886faa5",
+    "sha256_after": "e2bedcc45a548f687cbdc0e9ed599f4e884b77470d66d870902dc7b9455c9f45"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/common/uni-id-common/index.js",
+    "sha256_before": "e99f0792bf4940ec435eb53a633b23753f3b8cfaf1e1cff48a4117fd89a0b68e",
+    "sha256_after": "524cbdbf39fcce0d33055714b0faba686ac37fbd10d200f7a669d194a7415cf1"
+  },
+  {
+    "path": "小程序前端/uniCloud-aliyun/common/uni-id-common/package.json",
+    "sha256_before": "19554e2b707320a5aa2b22de81dbba1b6f9830d3eb377adc9b232399a552912b",
+    "sha256_after": "8c323de32eef016b2a7eb8873ca2ae2d708aa164364418c852fba8927452a6e6"
+  },
+  {
+    "path": "小程序前端/pages/pay/pay.vue",
+    "sha256_before": "c10c76c6c0b9d71e73e4712b27eee34e4381f84291c1438af87f31df64e604f3",
+    "sha256_after": "70f84062b8a6781f79d3eb859fd51255f46982feaa8b892440b3495666c0dcb5"
+  },
+  {
+    "path": "小程序前端/pages/menu/menu.vue",
+    "sha256_before": "8f73be103db875ad2e9140be7f918f375ab4801a5a87256991d39f1fea17c3a6",
+    "sha256_after": "41723cff6fefc528b75db8b2c075fb6e3672d5af59d4bb9d9462c669b9816cc8"
+  },
+  {
+    "path": "小程序前端/pages/orders/detail.vue",
+    "sha256_before": "54410c20f53ae412109e74289964c53d40d7748a1407ffbbcfe5fc4d1353503a",
+    "sha256_after": "edca3c81d290403ef2ef4df03ded77ec988a098d499f875e431e10b5a982f047"
+  },
+  {
+    "path": "小程序前端/pages/login/login.vue",
+    "sha256_before": "d3fadf819c4fded971ad37bd55c0eb15f0d55ead850c96f866ae1b7e40dc4c30",
+    "sha256_after": "6be19e136248ac2ec981d1b0a5a8af0f59d1d4818e758fba3b34a541dc507b76"
+  }
+]

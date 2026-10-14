@@ -1,0 +1,7 @@
+PASS  index.html 存在且含 #app 与 /main.js
+PASS  main.js 存在
+PASS  pages.json 合法且路由全部对应 .vue（29 路由）
+PASS  pages/ 无 wxml/wxss 编译产物
+PASS  manifest.json 含 mp-weixin appid
+
+==== PASS ====

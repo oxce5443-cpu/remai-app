@@ -1,0 +1,82 @@
+{
+  "bsonType": "object",
+  "required": [
+    "category_id",
+    "name",
+    "price"
+  ],
+  "permission": {
+    "read": "doc.is_sell == true || auth.uid != null",
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "index": [
+    {
+      "name": "category_isSell",
+      "key": {
+        "category_id": 1,
+        "is_sell": 1
+      }
+    },
+    {
+      "name": "sales",
+      "key": {
+        "sales": -1
+      }
+    }
+  ],
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "category_id": {
+      "bsonType": "string",
+      "label": "分类ID",
+      "foreignKey": "goods-category._id"
+    },
+    "name": {
+      "bsonType": "string",
+      "label": "商品名称"
+    },
+    "price": {
+      "bsonType": "double",
+      "label": "售价（元）"
+    },
+    "original_price": {
+      "bsonType": "double",
+      "label": "原价（元）"
+    },
+    "description": {
+      "bsonType": "string",
+      "label": "商品描述"
+    },
+    "image": {
+      "bsonType": "string",
+      "label": "商品图片URL"
+    },
+    "is_sell": {
+      "bsonType": "bool",
+      "label": "是否上架",
+      "defaultValue": true
+    },
+    "stock": {
+      "bsonType": "int",
+      "label": "库存",
+      "defaultValue": 9999
+    },
+    "sales": {
+      "bsonType": "int",
+      "label": "销量",
+      "defaultValue": 0
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    },
+    "updated_at": {
+      "bsonType": "date",
+      "label": "更新时间"
+    }
+  }
+}

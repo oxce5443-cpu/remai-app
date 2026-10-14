@@ -1,0 +1,43 @@
+{
+  "bsonType": "object",
+  "required": [
+    "goods_id",
+    "name",
+    "options"
+  ],
+  "permission": {
+    "read": "auth.uid != null",
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "index": [
+    {
+      "name": "goods_id",
+      "key": {
+        "goods_id": 1
+      }
+    }
+  ],
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "goods_id": {
+      "bsonType": "string",
+      "label": "商品ID",
+      "foreignKey": "goods._id"
+    },
+    "name": {
+      "bsonType": "string",
+      "label": "规格名称（如：辣度、配菜）"
+    },
+    "options": {
+      "bsonType": "array",
+      "label": "选项数组",
+      "items": {
+        "bsonType": "string"
+      }
+    }
+  }
+}

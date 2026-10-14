@@ -1,0 +1,75 @@
+{
+  "bsonType": "object",
+  "required": [
+    "member_id",
+    "accept_name",
+    "mobile",
+    "street"
+  ],
+  "permission": {
+    "read": "doc.member_id == auth.uid",
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "index": [
+    {
+      "name": "member_default",
+      "key": {
+        "member_id": 1,
+        "is_default": -1
+      }
+    }
+  ],
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "member_id": {
+      "bsonType": "string",
+      "label": "会员ID",
+      "foreignKey": "uni-id-users._id"
+    },
+    "accept_name": {
+      "bsonType": "string",
+      "label": "收货人姓名"
+    },
+    "mobile": {
+      "bsonType": "string",
+      "label": "联系电话"
+    },
+    "province": {
+      "bsonType": "string",
+      "label": "省份"
+    },
+    "city": {
+      "bsonType": "string",
+      "label": "城市"
+    },
+    "area": {
+      "bsonType": "string",
+      "label": "区县"
+    },
+    "street": {
+      "bsonType": "string",
+      "label": "详细地址"
+    },
+    "lat": {
+      "bsonType": "string",
+      "label": "纬度"
+    },
+    "lng": {
+      "bsonType": "string",
+      "label": "经度"
+    },
+    "is_default": {
+      "bsonType": "bool",
+      "label": "是否默认",
+      "defaultValue": false
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    }
+  }
+}

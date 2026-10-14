@@ -1,0 +1,66 @@
+{
+  "bsonType": "object",
+  "required": [
+    "order_id",
+    "goods_id",
+    "goods_name",
+    "price",
+    "num"
+  ],
+  "permission": {
+    "read": false,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "index": [
+    {
+      "name": "order_id",
+      "key": {
+        "order_id": 1
+      }
+    }
+  ],
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "order_id": {
+      "bsonType": "string",
+      "label": "订单ID",
+      "foreignKey": "orders._id"
+    },
+    "goods_id": {
+      "bsonType": "string",
+      "label": "商品ID",
+      "foreignKey": "goods._id"
+    },
+    "goods_name": {
+      "bsonType": "string",
+      "label": "商品名称（快照）"
+    },
+    "price": {
+      "bsonType": "double",
+      "label": "单价快照（元）"
+    },
+    "num": {
+      "bsonType": "int",
+      "label": "数量"
+    },
+    "image": {
+      "bsonType": "string",
+      "label": "商品图片快照"
+    },
+    "specs": {
+      "bsonType": "array",
+      "label": "规格快照",
+      "items": {
+        "bsonType": "object"
+      }
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    }
+  }
+}

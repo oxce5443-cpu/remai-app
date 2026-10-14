@@ -1,0 +1,58 @@
+{
+  "bsonType": "object",
+  "required": [
+    "member_id",
+    "type",
+    "points",
+    "reason"
+  ],
+  "permission": {
+    "read": "doc.member_id == auth.uid",
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "index": [
+    {
+      "name": "member_created",
+      "key": {
+        "member_id": 1,
+        "created_at": -1
+      }
+    }
+  ],
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "member_id": {
+      "bsonType": "string",
+      "label": "会员ID",
+      "foreignKey": "uni-id-users._id"
+    },
+    "type": {
+      "bsonType": "string",
+      "enum": [
+        "increase",
+        "decrease"
+      ],
+      "label": "类型：increase=增加，decrease=减少"
+    },
+    "points": {
+      "bsonType": "int",
+      "label": "积分数量"
+    },
+    "reason": {
+      "bsonType": "string",
+      "label": "原因（签到/消费赠送/兑换等）"
+    },
+    "order_id": {
+      "bsonType": "string",
+      "label": "关联订单ID"
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "时间"
+    }
+  }
+}

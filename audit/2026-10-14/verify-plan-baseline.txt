@@ -1,0 +1,64 @@
+PASS  云函数存在: address
+PASS  云函数存在: admin
+PASS  云函数存在: banner
+PASS  云函数存在: card
+PASS  云函数存在: cart
+PASS  云函数存在: coupon
+PASS  云函数存在: goods
+PASS  云函数存在: member
+PASS  云函数存在: order
+PASS  云函数存在: pay
+PASS  云函数存在: points
+PASS  云函数存在: QRcode
+PASS  云函数存在: seed
+PASS  云函数存在: store
+PASS  云函数存在: uni-id
+PASS  云函数总数 = 15
+PASS  Schema 存在: address
+PASS  Schema 存在: banner
+PASS  Schema 存在: card-package
+PASS  Schema 存在: cart
+PASS  Schema 存在: coupon
+PASS  Schema 存在: goods-category
+PASS  Schema 存在: goods-spec
+PASS  Schema 存在: goods
+PASS  Schema 存在: member-coupon
+PASS  Schema 存在: order-goods
+PASS  Schema 存在: orders
+PASS  Schema 存在: points-log
+PASS  Schema 存在: points-mall
+PASS  Schema 存在: QRcode
+PASS  Schema 存在: recharge-log
+PASS  Schema 存在: store
+PASS  Schema 存在: uni-id-users
+PASS  Schema 总数 = 17
+PASS  admin: login 免鉴权但其余强制 checkAdminAuth
+PASS  admin: 凭据来自 process.env（无硬编码密码）
+PASS  admin: HMAC-SHA256 token 签名
+PASS  pay: WX 配置来自 process.env（无硬编码 mch_id）
+PASS  seed: 生产环境拒绝执行（SEED_ENABLED 开关）
+PASS  uni-id: appsecret 来自 process.env
+PASS  V3 行为: order 保留 adminGetOrders/adminUpdateStatus
+PASS  V3 行为: member 保留 adminGetMembers/adminChangePoints
+PASS  member: V3 actions 保留（getMember/updateMember/changePoints/changeBalance）
+PASS  cart: getCart + syncCart 保留
+PASS  member: signIn action 存在（按日幂等）
+PASS  store: getPackages 返回空数组
+PASS  orders: status 枚举含 refunded
+PASS  orders: total_price 为 double(number)
+PASS  uni-id-users: avatar 为 URL 字符串、balance 为 double
+PASS  orders: 声明 member_id+status 索引
+PASS  管理后台 api.js: 无硬编码 clientSecret 默认值
+PASS  管理后台: .env.example 存在
+PASS  管理后台: .env.development 存在
+PASS  管理后台: .env.production 存在
+PASS  管理后台登录: 无硬编码 admin/123456 校验
+PASS  管理后台: ECharts 看板 5 统计 action 保留
+PASS  seed-data: 4 个 JSON 存在
+PASS  seed-data: 无 TODO_CATEGORY_ID 占位
+PASS  seed-data: 商品引用确定性分类 id
+PASS  全局敏感项 grep = 0（无泄漏密钥）
+共 62 项检查，失败 2 项
+FAIL  pay: notify action 存在（V3 桩实现，真实回调待商户号实测）
+FAIL  pay: 支付签名 generateWxPaySign 保留
+exit=1

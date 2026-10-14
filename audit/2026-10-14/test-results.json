@@ -1,0 +1,26 @@
+{
+  "security": {
+    "exit_code": 0,
+    "log": "security-final.log"
+  },
+  "static-plan": {
+    "exit_code": 0,
+    "log": "verify-plan-final.txt"
+  },
+  "wechat-entry": {
+    "exit_code": 0,
+    "log": "verify-wechat-entry-final.txt"
+  },
+  "cloud-syntax": {
+    "checked_files": 19,
+    "failed_files": []
+  },
+  "mini-build": {
+    "build_complete_marker": true,
+    "log": "build-mini-final.log"
+  },
+  "admin-build": {
+    "build_complete_marker": true,
+    "log": "build-admin-final.log"
+  }
+}

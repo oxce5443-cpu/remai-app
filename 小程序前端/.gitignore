@@ -1,0 +1,26 @@
+# 热麦点餐小程序前端 · .gitignore
+# 编译产物一律不入库（Rule 9 无死代码）
+
+# uni-app / HBuilderX 编译输出
+unpackage/
+dist/
+.hbuilderx/
+
+# 依赖
+node_modules/
+
+# 云函数依赖不入库（uniCloud 上传时按 package.json 在云端安装）
+uniCloud-aliyun/cloudfunctions/*/node_modules/
+uniCloud-aliyun/cloudfunctions/common/*/node_modules/
+
+# 编译产物（mp-weixin 源树中永不存在）
+*.wxml
+*.wxss
+
+# 系统 / 日志
+.DS_Store
+*.log
+
+# 环境与本地配置
+.env
+project.private.config.json

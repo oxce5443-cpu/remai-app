@@ -1,0 +1,70 @@
+# 热麦点餐微信小程序（remai-app）— QA 测试方案与报告（含执行结果）
+
+- 测试对象：热麦点餐微信小程序（用户端微信小程序 + 管理后台 H5 + uniCloud 云函数/数据库 remai-app）
+- 输入依据：8 屏设计图（唯一视觉基准）、前端源码、编译产物、管理后台源码、uniCloud 17 张表 schema + seed、历史三版本源码、重绘 Master 指引
+- 本版状态：用户已授权真实执行；执行证据见「重验结论」
+
+---
+
+## 一、本轮变更
+
+用户授权后，本轮从「方案设计」进入「真实执行」：在本地环境对**管理后台 H5 登录与数据加载、微信端编译产物正确性、本地图资源与兜底逻辑**完成自动化验证，微信端真机渲染仍待用户实机确认。
+
+新增执行记录 5 条（EXE-001 ~ EXE-005），新增证据 5 条（EV-001 ~ EV-005）。
+
+## 二、受影响集合
+
+| 需求 | 用例 | 执行 | 结果 |
+|---|---|---|---|
+| REQ-009 管理后台 | TC-009 后台登录与菜单管理加载 | EXE-001 | 通过 |
+| REQ-010 构建 | TC-010 mp-weixin 编译无错误 | EXE-002 | 通过 |
+| REQ-010 构建 | TC-011 产物无伪元素图标残留与资源索引完整 | EXE-003 | 通过 |
+| REQ-002 图片显示 | TC-002 本地图与兜底 | EXE-004 | 通过 |
+| REQ-004 点餐 | TC-004 菜单数据加载 | EXE-005 | 待实机确认 |
+
+## 三、增删改对账
+
+- 需求基线：10 条（REQ-001 ~ REQ-010），无增删
+- 风险机制：8 条（RM-HOME/AUTH/MENU/ORDER/ASSET/USER/ADMIN/BUILD-001），无增删
+- 测试用例：12 条（TC-001 ~ TC-012），无增删
+- 执行记录：新增 5 条（EXE-001 ~ EXE-005）
+- 证据：新增 5 条（EV-001 ~ EV-005）
+- 开放问题：OQ-001（授权执行）已由用户确认关闭
+
+## 四、重验结论
+
+### 4.1 管理后台 H5（REQ-009）— 通过
+
+Playwright（headless Chromium）实测 `localhost:8080`：
+
+- **登录**：`admin / [REDACTED]` 登录成功，URL 由 `#/pages/login/index` 跳转至 `#/`（数据看板），无 pageerror
+- **看板**：今日订单/营收/新增会员/客单价 4 项指标、订单趋势图（7 天/30 天）、商品销量 TOP10、消费分布环形图、实时订单流全部渲染；商品销量 TOP10 出现真实商品名（草莓云朵蛋糕、生椰拿铁等）
+- **商品管理**：`#/pages/goods/list` 加载 **7 款真实商品**——招牌热麦（招牌热麦包 ¥18/库存500、芝士熏鸡热麦 ¥22/库存300、紫薯麻薯包 ¥16/库存400）与特调饮品（草莓云朵蛋糕 ¥28、芋泥波波奶茶 ¥22、杨枝甘露 ¥25、生椰拿铁 ¥24，库存999），均"上架"状态，编辑/删除操作列齐全
+- **结论**：后台登录、路由守卫、看板与商品数据链路真实可用；**云端 uniCloud goods 数据连通正常**（此前菜单页 getMenuData 失败的额度问题在当前环境已不阻塞后台数据读取）
+
+### 4.2 微信端编译产物（REQ-010）— 通过
+
+- `UNI_INPUT_DIR=$(pwd) npx uni build -p mp-weixin`：BUILD_EXIT=0，日志 `DONE Build complete`，无 ERROR、无 scss 变量未定义（历史 detail.vue 208 行 `$border-color-light` 问题已根治）
+- iconfont 残留：`pages/index/index.wxml` = 0、`pages/menu/menu.wxml` = 0（微信端不支持伪元素的图标问题已清零）
+- 资源索引：`common/assets.js` 含 31 个 PNG + 本地 JPG（hero-strawberry、goods-croissant）；`pages/orders/detail.wxss` 无未解析变量
+
+### 4.3 本地图与兜底（REQ-002）— 通过
+
+- 编译产物 `pages/index/index.js` 核查：`LOCAL_FALLBACK='/static/images/home/goods-croissant.jpg'` + watch 切换逻辑存在（数据有图用云端图，失败/缺失自动切本地图）
+- `common/assets.js` 索引含 4 张 home 图（hero-strawberry + goods-croissant/chicken-cheese/strawberry-drink）
+
+### 4.4 待实机确认（REQ-004 等微信端全链路）
+
+微信开发者工具无法 GUI 自动化，以下依赖用户导入 `小程序前端_微信编译产物_20261008_v3.zip` 实机确认：首页渲染与图纸对照、菜单 4 分类全量滚动、加购/购物车、下单、取餐页、会员页、订单列表。
+
+## 五、未受影响范围（unverified 更新）
+
+1. 微信端真机渲染（视觉 + 交互）：待用户实机确认
+2. 微信登录真实 code 换取（WX_APPID/WX_APPSECRET 云端生效性）：依赖微信开放平台授权登录，未执行
+3. 真实支付/退款：微信支付商户号未接入
+4. 管理后台新增/编辑/删除商品等写操作 CRUD：本轮仅验证读链路，写操作待后续执行
+5. H5 预览白屏（小程序前端 build h5）：历史既有问题，微信端不受影响
+
+### 待确认
+
+- EXE-005（TC-004 菜单微信端渲染）pending_confirmation：需用户实机确认后关闭。

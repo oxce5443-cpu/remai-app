@@ -1,0 +1,139 @@
+/**
+ * 热麦烘焙 · 品牌设计系统 v2
+ * Remai Boulangerie Design Tokens
+ * 温暖、克制、质感 — 精品烘焙品牌语言
+ */
+
+/* ═══════════ 品牌主色 ═══════════ */
+$c-brown:    #4A3427;   /* 深巧 — 标题/VIP */
+$c-caramel:  #B6855B;   /* 驼棕 — 主按钮/点缀（规格主色） */
+$c-toast:    #D4A76A;   /* 烤面包 — 渐变中段 */
+$c-wheat:    #D9B38C;   /* 小麦 — 浅按钮/背景 */
+$c-cream:    #F8F4EE;   /* 淡奶油 — 页面底色 */
+$c-ivory:    #FFFBF6;   /* 象牙白 — 卡片 */
+$c-blush:    #D8B7AE;   /* 干枯玫瑰 — 点缀 */
+$c-terra:    #C4876E;   /* 陶土 — 价格/强调 */
+$c-sage:     #8DA399;   /* 鼠尾草 — 成功 */
+$c-divider:  #E8DDD2;   /* 暖沙 — 分割线 */
+$c-muted:    #B5A097;   /* 暖灰 — 弱化 */
+$c-ink:      #2A1E17;   /* 墨棕 — 最深文字 */
+
+/* ═══════════ 功能色 ═══════════ */
+$c-vip-bg:   #0D0805;
+$c-vip-gold: #EAD0A2;
+
+/* ═══════════ 文字 ═══════════ */
+$t-primary:   #2A1E17;   /* 正文 */
+$t-secondary: #7A6A5C;   /* 辅助 */
+$t-tertiary:  #9B8573;   /* 弱化 */
+$t-inverse:   #FFF8EF;   /* 深底白字 */
+
+/* ═══════════ 背景 ═══════════ */
+$bg-page:    #F8F4EE;
+$bg-card:    #FFFAF5;
+$bg-soft:    #F3ECE3;
+$bg-warm:    #FBF8F2;
+
+/* ═══════════ 字体层级 ═══════════ */
+$f-xs:   20rpx;   /* 极小标注 */
+$f-sm:   22rpx;   /* 辅助文字 */
+$f-base: 24rpx;   /* 正文 */
+$f-md:   26rpx;   /* 中等 */
+$f-lg:   30rpx;   /* 卡片标题 */
+$f-xl:   36rpx;   /* 区块标题 */
+$f-2xl:  44rpx;   /* 页面标题 */
+$f-3xl:  52rpx;   /* Hero */
+
+$font-serif: Georgia, 'Times New Roman', 'Songti SC', 'Noto Serif SC', serif;
+$font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif;
+
+/* ═══════════ 间距 ═══════════ */
+$s-xs:  6rpx;
+$s-sm:  12rpx;
+$s-md:  18rpx;
+$s-lg:  26rpx;
+$s-xl:  36rpx;
+$s-2xl: 48rpx;
+
+/* ═══════════ 圆角 ═══════════ */
+$r-sm:  10rpx;
+$r-md:  16rpx;
+$r-lg:  22rpx;
+$r-xl:  28rpx;
+$r-2xl: 36rpx;
+$r-full: 999rpx;
+
+/* ═══════════ 阴影 — 暖色光 ═══════════ */
+$shadow-xs:  0 2rpx 8rpx  rgba(74,52,39,.04);
+$shadow-sm:  0 6rpx 20rpx rgba(74,52,39,.06);
+$shadow-md:  0 10rpx 30rpx rgba(74,52,39,.08);
+$shadow-lg:  0 16rpx 44rpx rgba(74,52,39,.10);
+$shadow-btn: 0 8rpx 24rpx rgba(184,149,91,.24);
+
+/* ═══════════ 渐变 ═══════════ */
+$grad-caramel:   linear-gradient(135deg, $c-toast, $c-caramel);
+$grad-hero:      linear-gradient(135deg, #201713 0%, $c-brown 44%, $c-caramel 100%);
+$grad-cream:     linear-gradient(180deg, #F8F5F0 0%, #F4EADF 52%, #EAD9C9 100%);
+$grad-card:      linear-gradient(135deg, $c-cream, #F2E7DA);
+$grad-vip:       linear-gradient(135deg, #111 0%, #2B2019 45%, $c-caramel 100%);
+
+/* ═══════════ 兼容旧变量名 ═══════════ */
+$color-primary:       $c-caramel;
+$color-primary-light: $c-toast;
+$color-caramel:       $c-caramel;
+$color-caramel-light: $c-wheat;
+$color-chocolate:     $c-brown;
+$color-chocolate-deep:#0D0805;
+$color-cream:         $c-cream;
+$color-ivory:         $c-ivory;
+$color-blush:         $c-blush;
+$color-success:       $c-sage;
+$color-warning:       $c-caramel;
+$color-error:         $c-terra;
+$color-accent:        $c-blush;
+$color-muted:         $c-muted;
+$text-color-base:     $t-primary;
+$text-color-assist:   $t-secondary;
+$text-color-black:    $t-primary;
+$text-color-grey:     $t-tertiary;
+$text-color-white:    $t-inverse;
+$bg-color:            $bg-page;
+$bg-color-grey:       $bg-soft;
+$bg-color-primary:    $bg-warm;
+$border-color:        $c-divider;
+$border-color-light:  #F2EAE0;   /* 更浅暖沙 — 次级分割线/卡片内分隔 */
+$box-shadow-sm:       $shadow-sm;
+$box-shadow:          $shadow-md;
+$box-shadow-lg:       $shadow-lg;
+$card-shadow:         $shadow-md;
+$border-radius-sm:    $r-sm;
+$border-radius-base:  $r-md;
+$border-radius-md:    $r-md;
+$border-radius-lg:    $r-lg;
+$border-radius-xl:    $r-xl;
+$border-radius-2xl:   $r-2xl;
+$card-radius-lg:      $r-2xl;
+$font-size-sm:        $f-sm;
+$font-size-base:      $f-base;
+$font-size-lg:        $f-lg;
+$font-size-xl:        $f-xl;
+$gradient-primary:    $grad-caramel;
+$gradient-caramel:    $grad-caramel;
+$gradient-cream:      $grad-cream;
+$gradient-vip:        $grad-vip;
+$vip-bg:              #1E1A18;
+$vip-gold:            $c-vip-gold;
+$color-subtle:        $c-sage;
+$bg-color-pink:       rgba($c-blush, .15);
+$spacing-row-sm:      10px;
+$spacing-row-base:    20rpx;
+$spacing-row-lg:      30rpx;
+$spacing-col-sm:      8rpx;
+$spacing-col-base:    16rpx;
+$spacing-col-lg:      24rpx;
+$opacity-disabled:    0.3;
+$img-size-sm:         40rpx;
+$img-size-base:       52rpx;
+$img-size-lg:         80rpx;
+
+@import '~@/static/iconfont/iconfont.scss';

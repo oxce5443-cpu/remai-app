@@ -1,0 +1,64 @@
+{
+  "bsonType": "object",
+  "required": [
+    "title",
+    "type",
+    "value"
+  ],
+  "permission": {
+    "read": true,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "title": {
+      "bsonType": "string",
+      "label": "券名"
+    },
+    "type": {
+      "bsonType": "string",
+      "enum": [
+        "cash",
+        "discount"
+      ],
+      "label": "类型：cash=满减，discount=折扣"
+    },
+    "value": {
+      "bsonType": "double",
+      "label": "优惠值（减X元 或 打X折）"
+    },
+    "min_price": {
+      "bsonType": "double",
+      "label": "使用门槛（满X元）"
+    },
+    "start_time": {
+      "bsonType": "date",
+      "label": "开始时间"
+    },
+    "end_time": {
+      "bsonType": "date",
+      "label": "结束时间"
+    },
+    "total_count": {
+      "bsonType": "int",
+      "label": "发行总量"
+    },
+    "remain_count": {
+      "bsonType": "int",
+      "label": "剩余数量"
+    },
+    "is_show": {
+      "bsonType": "bool",
+      "label": "是否上架",
+      "defaultValue": true
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    }
+  }
+}

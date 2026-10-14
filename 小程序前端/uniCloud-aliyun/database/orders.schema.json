@@ -1,0 +1,150 @@
+{
+  "bsonType": "object",
+  "required": [
+    "member_id",
+    "order_no",
+    "type",
+    "status"
+  ],
+  "permission": {
+    "read": "doc.member_id == auth.uid",
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "index": [
+    {
+      "name": "member_id_status",
+      "key": {
+        "member_id": 1,
+        "status": 1
+      }
+    },
+    {
+      "name": "created_at",
+      "key": {
+        "created_at": -1
+      }
+    },
+    {
+      "name": "order_no",
+      "key": {
+        "order_no": 1
+      },
+      "unique": true
+    }
+  ],
+  "properties": {
+    "_id": {
+      "description": "ID，系统自动生成"
+    },
+    "order_no": {
+      "bsonType": "string",
+      "label": "订单编号"
+    },
+    "member_id": {
+      "bsonType": "string",
+      "label": "会员ID",
+      "foreignKey": "uni-id-users._id"
+    },
+    "type": {
+      "bsonType": "string",
+      "enum": [
+        "takein",
+        "takeout"
+      ],
+      "label": "订单类型：takein=堂食，takeout=外卖"
+    },
+    "status": {
+      "bsonType": "string",
+      "enum": [
+        "pending",
+        "paid",
+        "processing",
+        "completed",
+        "cancelled",
+        "refunded"
+      ],
+      "label": "状态：pending=待支付, paid=已支付, processing=制作中, completed=已完成, cancelled=已取消, refunded=已退款"
+    },
+    "total_price": {
+      "bsonType": "double",
+      "label": "订单总价（元）"
+    },
+    "packing_fee": {
+      "bsonType": "double",
+      "label": "打包费（元）"
+    },
+    "delivery_fee": {
+      "bsonType": "double",
+      "label": "配送费（元）"
+    },
+    "address_id": {
+      "bsonType": "string",
+      "label": "收货地址ID",
+      "foreignKey": "address._id"
+    },
+    "people_number": {
+      "bsonType": "int",
+      "label": "就餐人数"
+    },
+    "qrcode_id": {
+      "bsonType": "string",
+      "label": "扫码点餐二维码ID"
+    },
+    "remark": {
+      "bsonType": "string",
+      "label": "订单备注"
+    },
+    "pay_time": {
+      "bsonType": "date",
+      "label": "支付时间"
+    },
+    "pay_mode": {
+      "bsonType": "string",
+      "label": "支付方式：wechat/balance",
+      "defaultValue": "wechat"
+    },
+    "transaction_id": {
+      "bsonType": "string",
+      "label": "微信支付流水号"
+    },
+    "inventory_deducted": {
+      "bsonType": "bool",
+      "label": "是否已扣减库存",
+      "defaultValue": false
+    },
+    "cancel_time": {
+      "bsonType": "date",
+      "label": "取消时间"
+    },
+    "cancel_reason": {
+      "bsonType": "string",
+      "label": "取消原因"
+    },
+    "refund_time": {
+      "bsonType": "date",
+      "label": "退款时间"
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    },
+    "updated_at": {
+      "bsonType": "date",
+      "label": "更新时间"
+    },
+    "cutlery_count": {
+      "bsonType": "int",
+      "minimum": 0,
+      "maximum": 99,
+      "defaultValue": 0,
+      "label": "餐具份数，0 表示无需餐具"
+    },
+    "settlement_complete": {
+      "bsonType": "bool",
+      "defaultValue": false,
+      "label": "支付事务完整提交标识"
+    }
+  }
+}

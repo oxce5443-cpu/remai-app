@@ -1,0 +1,42 @@
+/* ===== 热麦烘焙 · 品牌设计系统（对齐经营看板既有色板） ===== */
+
+/* 主色 */
+$color-primary: #B8855B;       /* 焦糖金 */
+$color-primary-dark: #96684A;   /* 深焦糖 */
+$color-primary-darker: #4A3427; /* 深烘焙棕 */
+$color-accent: #D9B38C;        /* 浅金 */
+
+/* 语义色 */
+$color-success: #6B9E5E;
+$color-warning: #D4943A;
+$color-danger: #C75050;
+$color-info: #999188;
+
+/* 背景层级 */
+$bg-page: #F8F4EE;             /* 奶油底 */
+$bg-card: #FFFFFF;
+$bg-soft: #F5EDE3;
+
+/* 文字层级 */
+$text-primary: #332D27;
+$text-secondary: #4A3427;
+$text-tertiary: #665F57;
+$text-mute: #999188;
+$text-inverse: #F8F4EE;
+
+/* 边框 */
+$border-light: #F0E6DA;
+$border-base: #EFE5D9;
+$border-dark: #D9C4B0;
+
+/* 圆角 */
+$radius-sm: 4rpx;
+$radius-base: 8rpx;
+$radius-lg: 16rpx;
+
+/* 间距 */
+$spacing-xs: 10rpx;
+$spacing-sm: 16rpx;
+$spacing-base: 24rpx;
+$spacing-lg: 40rpx;
+$spacing-xl: 64rpx;

@@ -1,0 +1,13 @@
+{
+  "name": "uni-id",
+  "version": "1.0.0",
+  "description": "热麦用户端 uni-id 兼容登录入口",
+  "main": "index.js",
+  "dependencies": {
+    "uni-config-center": "file:../common/uni-config-center",
+    "uni-id-common": "file:../common/uni-id-common"
+  },
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

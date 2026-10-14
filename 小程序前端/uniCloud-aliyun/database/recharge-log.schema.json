@@ -1,0 +1,60 @@
+{
+  "bsonType": "object",
+  "required": [
+    "member_id",
+    "amount"
+  ],
+  "permission": {
+    "read": "doc.member_id == auth.uid",
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "index": [
+    {
+      "name": "member_created",
+      "key": {
+        "member_id": 1,
+        "created_at": -1
+      }
+    }
+  ],
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "member_id": {
+      "bsonType": "string",
+      "label": "会员ID",
+      "foreignKey": "uni-id-users._id"
+    },
+    "type": {
+      "bsonType": "string",
+      "label": "类型：recharge=充值/consume=消费"
+    },
+    "amount": {
+      "bsonType": "double",
+      "label": "金额（元）"
+    },
+    "gift_amount": {
+      "bsonType": "double",
+      "label": "赠送金额（元）"
+    },
+    "balance_after": {
+      "bsonType": "double",
+      "label": "操作后余额（元）"
+    },
+    "order_id": {
+      "bsonType": "string",
+      "label": "关联订单ID"
+    },
+    "order_no": {
+      "bsonType": "string",
+      "label": "关联订单号"
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "时间"
+    }
+  }
+}

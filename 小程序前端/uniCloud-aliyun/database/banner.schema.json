@@ -1,0 +1,44 @@
+{
+  "bsonType": "object",
+  "required": [
+    "title",
+    "image"
+  ],
+  "permission": {
+    "read": "doc.is_show == true",
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "description": "ID"
+    },
+    "title": {
+      "bsonType": "string",
+      "label": "标题"
+    },
+    "image": {
+      "bsonType": "string",
+      "label": "图片URL"
+    },
+    "link": {
+      "bsonType": "string",
+      "label": "跳转链接"
+    },
+    "sort": {
+      "bsonType": "int",
+      "label": "排序",
+      "defaultValue": 0
+    },
+    "is_show": {
+      "bsonType": "bool",
+      "label": "是否显示",
+      "defaultValue": true
+    },
+    "created_at": {
+      "bsonType": "date",
+      "label": "创建时间"
+    }
+  }
+}
