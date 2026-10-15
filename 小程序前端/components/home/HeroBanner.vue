@@ -11,9 +11,9 @@
 			<slot></slot>
 		</view>
 		<view class="hero-banner__content" v-else-if="title">
-			<view class="hero-banner__eyebrow" v-if="eyebrow">{{ eyebrow }}</view>
-			<view class="hero-banner__title">{{ title }}</view>
-			<view class="hero-banner__subtitle" v-if="subtitle">{{ subtitle }}</view>
+			<view class="hero-banner__eyebrow" v-if="eyebrow">{{ $t(eyebrow) }}</view>
+			<view class="hero-banner__title">{{ $t(title) }}</view>
+			<view class="hero-banner__subtitle" v-if="subtitle">{{ $t(subtitle) }}</view>
 		</view>
 	</view>
 </template>

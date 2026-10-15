@@ -6,17 +6,17 @@
 					<view class="package-card" v-for="(item, index) in packages" :key="index" @tap="pay(item.id)">
 						<image :src="item.image" class="package-img"></image>
 						<view class="package-info">
-							<view class="package-title">{{ item.title }}</view>
+							<view class="package-title">{{ $t(item.title) }}</view>
 							<view class="package-bottom">
-								<view class="package-price">￥{{ item.amount }}</view>
-								<button type="primary" size="mini" plain class="buy-btn">去购买</button>
+								<view class="package-price">￥{{ $t(item.amount) }}</view>
+								<button type="primary" size="mini" plain class="buy-btn">{{ $t("去购买") }}</button>
 							</view>
 						</view>
 					</view>
 				</view>
 			</template>
 		</async-state>
-		<view class="bottom-bar">购买记录</view>
+		<view class="bottom-bar">{{ $t("购买记录") }}</view>
 	</view>
 </template>
 

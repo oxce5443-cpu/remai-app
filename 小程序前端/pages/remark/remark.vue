@@ -2,7 +2,7 @@
 	<view class="page rm-page old-money">
 		<view class="textarea-wrap">
 			<textarea
-				placeholder="请填写备注信息"
+				:placeholder="$t(&quot;请填写备注信息&quot;)"
 				placeholder-class="placeholder"
 				v-model="remark"
 				class="textarea"
@@ -10,19 +10,19 @@
 				focus
 			/>
 			<view class="counter" :class="{'counter--danger': remarkLength > 50}">
-				{{ remarkLength }}/50
+				{{ $t(remarkLength) }}/50
 			</view>
 		</view>
 
-		<view class="quick-title">快捷输入</view>
+		<view class="quick-title">{{ $t("快捷输入") }}</view>
 		<view class="quick-list">
 			<view class="quick-item" v-for="(item, index) in quickInputs" :key="index" @tap="handleQuickInput(item)">
-				{{ item }}
+				{{ $t(item) }}
 			</view>
 		</view>
 
 		<view class="btn-section">
-			<button type="primary" class="submit-btn" @tap="submit">完成</button>
+			<button type="primary" class="submit-btn" @tap="submit">{{ $t("完成") }}</button>
 		</view>
 	</view>
 </template>

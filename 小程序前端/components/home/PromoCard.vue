@@ -4,11 +4,11 @@
 		<view class="promo-card__body">
 			<view class="promo-card__content">
 				<Tag v-if="tag" :text="tag" :type="tagType" size="sm" />
-				<view class="promo-card__title">{{ title }}</view>
-				<view class="promo-card__desc" v-if="desc">{{ desc }}</view>
+				<view class="promo-card__title">{{ $t(title) }}</view>
+				<view class="promo-card__desc" v-if="desc">{{ $t(desc) }}</view>
 			</view>
 			<view class="promo-card__action" v-if="actionText">
-				<text class="promo-card__action-text">{{ actionText }}</text>
+				<text class="promo-card__action-text">{{ $t(actionText) }}</text>
 				<text class="iconfont iconarrow-right line-height-100"></text>
 			</view>
 		</view>

@@ -247,14 +247,15 @@ async function getCategories() {
 	return { errCode: 0, errMsg: 'success', data: res.data }
 }
 
-async function addCategory({ name, sort, is_show }) {
-	const res = await db.collection('goods-category').add({ name, sort: sort || 0, is_show: is_show !== false, created_at: new Date() })
+async function addCategory({ name, name_en = '', sort, is_show }) {
+	const res = await db.collection('goods-category').add({ name, name_en, sort: sort || 0, is_show: is_show !== false, created_at: new Date() })
 	return { errCode: 0, errMsg: 'success', id: res.id }
 }
 
-async function updateCategory({ id, name, sort, is_show }) {
+async function updateCategory({ id, name, name_en, sort, is_show }) {
 	const updateData = {}
 	if (name !== undefined) updateData.name = name
+	if (name_en !== undefined) updateData.name_en = name_en
 	if (sort !== undefined) updateData.sort = sort
 	if (is_show !== undefined) updateData.is_show = is_show
 	await db.collection('goods-category').doc(id).update(updateData)
@@ -278,22 +279,24 @@ async function getAllGoods() {
 	}
 }
 
-async function addGoods({ category_id, name, price, original_price, description, image, stock }) {
+async function addGoods({ category_id, name, name_en = '', price, original_price, description, description_en = '', image, stock }) {
 	const res = await db.collection('goods').add({
-		category_id, name, price, original_price: original_price || '',
-		description: description || '', image: image || '',
-		is_sell: true, stock: stock || 9999, sales: 0, created_at: new Date()
+		category_id, name, name_en, price, original_price: original_price || '',
+		description: description || '', description_en, image: image || '',
+		is_sell: true, stock: stock == null ? 9999 : stock, sales: 0, created_at: new Date()
 	})
 	return { errCode: 0, errMsg: 'success', id: res.id }
 }
 
-async function updateGoods({ id, category_id, name, price, original_price, description, image, is_sell, stock }) {
+async function updateGoods({ id, category_id, name, name_en, price, original_price, description, description_en, image, is_sell, stock }) {
 	const updateData = {}
 	if (category_id !== undefined) updateData.category_id = category_id
 	if (name !== undefined) updateData.name = name
+	if (name_en !== undefined) updateData.name_en = name_en
 	if (price !== undefined) updateData.price = price
 	if (original_price !== undefined) updateData.original_price = original_price
 	if (description !== undefined) updateData.description = description
+	if (description_en !== undefined) updateData.description_en = description_en
 	if (image !== undefined) updateData.image = image
 	if (is_sell !== undefined) updateData.is_sell = is_sell
 	if (stock !== undefined) updateData.stock = stock
@@ -419,14 +422,15 @@ async function getBanners() {
 	return { errCode: 0, errMsg: 'success', data: dedupeBanners(res.data) }
 }
 
-async function addBanner({ title, image, link, sort, is_show }) {
-	const res = await db.collection('banner').add({ title, image, link: link || '', sort: sort || 0, is_show: is_show !== false, created_at: new Date() })
+async function addBanner({ title, title_en = '', image, link, sort, is_show }) {
+	const res = await db.collection('banner').add({ title, title_en, image, link: link || '', sort: sort || 0, is_show: is_show !== false, created_at: new Date() })
 	return { errCode: 0, errMsg: 'success', id: res.id }
 }
 
-async function updateBanner({ id, title, image, link, sort, is_show }) {
+async function updateBanner({ id, title, title_en, image, link, sort, is_show }) {
 	const updateData = {}
 	if (title !== undefined) updateData.title = title
+	if (title_en !== undefined) updateData.title_en = title_en
 	if (image !== undefined) updateData.image = image
 	if (link !== undefined) updateData.link = link
 	if (sort !== undefined) updateData.sort = sort

@@ -3,10 +3,10 @@
 		<image :src="pkgData.image" class="hero-img"></image>
 		<view class="main">
 			<view class="header-row">
-				<view class="title">{{ pkgData.title }}</view>
-				<view class="record-link">购买记录</view>
+				<view class="title">{{ $t(pkgData.title) }}</view>
+				<view class="record-link">{{ $t("购买记录") }}</view>
 			</view>
-			<view class="coupon-count">共{{ couponNum }}张优惠券</view>
+			<view class="coupon-count">{{ $t("共") }}{{ $t(couponNum) }}{{ $t("张优惠券") }}</view>
 
 			<!-- Coupon List -->
 			<view class="coupon-list">
@@ -14,36 +14,36 @@
 					<view class="coupon-main">
 						<image :src="coupon.detail.image" class="coupon-img"></image>
 						<view class="coupon-info">
-							<view class="coupon-qty">x{{ coupon.couponNum }}</view>
-							<view class="coupon-title">{{ coupon.detail.couponTitle }}</view>
-							<view class="coupon-expire">{{ coupon.detail.expire }}</view>
+							<view class="coupon-qty">x{{ $t(coupon.couponNum) }}</view>
+							<view class="coupon-title">{{ $t(coupon.detail.couponTitle) }}</view>
+							<view class="coupon-expire">{{ $t(coupon.detail.expire) }}</view>
 						</view>
 					</view>
 					<view class="coupon-footer">
-						<view class="coupon-time">使用时段：{{ coupon.detail && coupon.detail.couponUseTime[0].useTimeStart }}-{{ coupon.detail && coupon.detail.couponUseTime[0].useTimeEnd }}</view>
-						<view class="coupon-link">查看详情</view>
+						<view class="coupon-time">{{ $t("使用时段：") }}{{ $t(coupon.detail && coupon.detail.couponUseTime[0].useTimeStart) }}-{{ $t(coupon.detail && coupon.detail.couponUseTime[0].useTimeEnd) }}</view>
+						<view class="coupon-link">{{ $t("查看详情") }}</view>
 					</view>
 				</view>
 			</view>
 
 			<!-- Purchase Notice -->
-			<view class="notice-title">购买须知</view>
-			<view class="notice-text">售卖时间：{{ pkgData.startAt.split(' ')[0] }}~{{ pkgData.endAt.split(' ')[0] }}</view>
-			<view class="notice-text" style="margin-bottom: 24rpx;">购买限制：无限制</view>
-			<view class="notice-desc">{{ pkgData.content }}</view>
+			<view class="notice-title">{{ $t("购买须知") }}</view>
+			<view class="notice-text">{{ $t("售卖时间：") }}{{ $t(pkgData.startAt.split(' ')[0]) }}~{{ $t(pkgData.endAt.split(' ')[0]) }}</view>
+			<view class="notice-text" style="margin-bottom: 24rpx;">{{ $t("购买限制：无限制") }}</view>
+			<view class="notice-desc">{{ $t($localized(pkgData, "content")) }}</view>
 		</view>
 
 		<!-- Pay Bar -->
 		<view class="pay-bar">
-			<button type="primary" class="pay-btn">￥{{ pkgData.amount }}购买</button>
+			<button type="primary" class="pay-btn">￥{{ $t(pkgData.amount) }}{{ $t("购买") }}</button>
 		</view>
 
 		<!-- Coupon Detail Modal -->
 		<modal custom :show="couponDetailModalShow" @cancel="closeCouponDetailModal">
 			<view class="modal-body">
-				<view class="modal-title">{{ coupon.detail.couponTitle }}</view>
-				<view class="modal-expire">{{ coupon.detail.expire }}</view>
-				<view class="modal-desc">{{ coupon.detail.desc }}</view>
+				<view class="modal-title">{{ $t(coupon.detail.couponTitle) }}</view>
+				<view class="modal-expire">{{ $t(coupon.detail.expire) }}</view>
+				<view class="modal-desc">{{ $t(coupon.detail.desc) }}</view>
 			</view>
 		</modal>
 	</view>

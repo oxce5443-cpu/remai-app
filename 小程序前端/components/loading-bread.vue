@@ -37,7 +37,7 @@
     <!-- 阴影 -->
     <view class="bread-shadow"></view>
     <!-- 文字 -->
-    <view class="bread-text">新鲜烘焙中...</view>
+    <view class="bread-text">{{ $t("新鲜烘焙中...") }}</view>
   </view>
 </template>
 

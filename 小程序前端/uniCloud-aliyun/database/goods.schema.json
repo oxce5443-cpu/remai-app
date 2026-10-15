@@ -43,6 +43,14 @@
       "bsonType": "double",
       "label": "售价（元）"
     },
+    "name_en": {
+      "bsonType": "string",
+      "label": "商品英文名称（可选）"
+    },
+    "description_en": {
+      "bsonType": "string",
+      "label": "商品英文描述（可选）"
+    },
     "original_price": {
       "bsonType": "double",
       "label": "原价（元）"

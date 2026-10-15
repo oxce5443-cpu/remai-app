@@ -3,14 +3,14 @@
 		<view class="main">
 			<view class="balance-card">
 				<view class="balance-info">
-					<view class="balance-label">账户余额（元）</view>
-					<view class="balance-amount">{{ balance }}</view>
-					<view class="balance-record" @tap="goToRecords">交易记录</view>
+					<view class="balance-label">{{ $t("账户余额（元）") }}</view>
+					<view class="balance-amount">{{ $t(balance) }}</view>
+					<view class="balance-record" @tap="goToRecords">{{ $t("交易记录") }}</view>
 				</view>
 				<image src="/static/images/balance.png" mode="widthFix" class="balance-img"></image>
 			</view>
 
-			<view class="section-title">储值套餐</view>
+			<view class="section-title">{{ $t("储值套餐") }}</view>
 
 			<async-state :status="status" @retry="loadPackages">
 				<template #default>
@@ -18,30 +18,30 @@
 						<view class="amount"
 							 :class="{'amount--selected': selectedIndex === index}"
 							 v-for="(item, index) in packages" :key="index" @tap="handleSelected(index)">
-							<view class="amount-value">{{ parseInt(item.amount) }}</view>
-							<view class="amount-unit">元</view>
+							<view class="amount-value">{{ $t(parseInt(item.amount)) }}</view>
+							<view class="amount-unit">{{ $t("元") }}</view>
 							<view class="amount-gift" v-if="item.giftAmount && Number(item.giftAmount) > 0">
-								赠{{ item.giftAmount }}元
+								{{ $t("赠") }}{{ $t(item.giftAmount) }}{{ $t("元") }}
 							</view>
 						</view>
 					</view>
 				</template>
 			</async-state>
 
-			<view class="section-title" v-if="selectedPackage">使用说明</view>
+			<view class="section-title" v-if="selectedPackage">{{ $t("使用说明") }}</view>
 			<view class="desc-text" v-if="selectedPackage">
-				{{ selectedPackage.name || '储值后余额可用于店内消费，不可提现' }}
+				{{ $t($localized(selectedPackage, "name") || '储值后余额可用于店内消费，不可提现') }}
 			</view>
 		</view>
 
 		<view class="bottom-bar">
 			<view class="protocol">
 				<image :src="agree ? '/static/images/icon/iconradio-button-on.png' : '/static/images/icon/iconradio-button-off.png'" class="radio-ico" mode="aspectFit" @tap="agree = !agree"></image>
-				<text class="protocol-text">我已阅读并同意</text>
-				<text class="protocol-link">《储值协议》</text>
+				<text class="protocol-text">{{ $t("我已阅读并同意") }}</text>
+				<text class="protocol-link">{{ $t("《储值协议》") }}</text>
 			</view>
 			<button type="primary" class="buy-btn" :disabled="!selectedPackage || !agree" @tap="handleRecharge">
-				立即充值
+				{{ $t("立即充值") }}
 			</button>
 		</view>
 	</view>

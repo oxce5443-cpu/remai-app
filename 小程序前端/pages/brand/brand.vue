@@ -7,7 +7,7 @@
 		<view class="brandbar">
 			<view class="brand-left">
 				<view class="brand-en">REMAI</view>
-				<view class="brand-cn">热麦</view>
+				<view class="brand-cn">{{ $t("热麦") }}</view>
 			</view>
 			<view class="brand-deco">
 				<view class="deco-dot"></view>
@@ -21,16 +21,16 @@
 		<view class="hero-copy">
 			<view class="hero-en-serif">GOOD FOOD · BETTER LIFE</view>
 			<view class="hero-zh">
-				<view class="zh-line">一口</view>
-				<view class="zh-line">治愈的</view>
-				<view class="zh-line">小确幸</view>
+				<view class="zh-line">{{ $t("一口") }}</view>
+				<view class="zh-line">{{ $t("治愈的") }}</view>
+				<view class="zh-line">{{ $t("小确幸") }}</view>
 			</view>
 			<view class="hero-en-sub">Freshly baked<br/>with love</view>
 		</view>
 
 		<!-- 进入点餐 CTA -->
 		<view class="cta" @tap="goMenu">
-			<text class="cta-text">进入点餐</text>
+			<text class="cta-text">{{ $t("进入点餐") }}</text>
 			<text class="cta-arrow">→</text>
 		</view>
 

@@ -3,33 +3,33 @@
 		<view class="main">
 			<!-- Store Info -->
 			<view class="store-card">
-				<view class="store-name">{{ storename }}</view>
+				<view class="store-name">{{ $t(storename) }}</view>
 				<view class="store-meta">
-					<text>{{ date }}</text>
-					<text>{{ typeCate == 1 ? '堂食' : '外卖' }}</text>
+					<text>{{ $t(date) }}</text>
+					<text>{{ $t(typeCate == 1 ? '堂食' : '外卖') }}</text>
 				</view>
 			</view>
 
 			<!-- Rating Form -->
 			<view class="rate-card">
-				<rate-form-item v-model="form.scoreService" label="服务" tips="能感受到良好的服务态度吗？"></rate-form-item>
-				<rate-form-item v-model="form.scoreOrder" label="点单" tips="点单有恰当的介绍，快速准确地下单吗？"></rate-form-item>
-				<rate-form-item v-model="form.scoreSpeed" label="速度" tips="出品的速度您认为可接受吗？"></rate-form-item>
-				<rate-form-item v-model="form.scoreProduct" label="产品" tips="您享用的蛋糕或糕点，如您所期待吗？"></rate-form-item>
-				<rate-form-item v-model="form.scoreEnviroment" label="环境" tips="门店环境和清洁卫生，您满意吗？"></rate-form-item>
+				<rate-form-item v-model="form.scoreService" :label="$t(&quot;服务&quot;)" :tips="$t(&quot;能感受到良好的服务态度吗？&quot;)"></rate-form-item>
+				<rate-form-item v-model="form.scoreOrder" :label="$t(&quot;点单&quot;)" :tips="$t(&quot;点单有恰当的介绍，快速准确地下单吗？&quot;)"></rate-form-item>
+				<rate-form-item v-model="form.scoreSpeed" :label="$t(&quot;速度&quot;)" :tips="$t(&quot;出品的速度您认为可接受吗？&quot;)"></rate-form-item>
+				<rate-form-item v-model="form.scoreProduct" :label="$t(&quot;产品&quot;)" :tips="$t(&quot;您享用的蛋糕或糕点，如您所期待吗？&quot;)"></rate-form-item>
+				<rate-form-item v-model="form.scoreEnviroment" :label="$t(&quot;环境&quot;)" :tips="$t(&quot;门店环境和清洁卫生，您满意吗？&quot;)"></rate-form-item>
 			</view>
 
 			<!-- Opinion -->
 			<view class="opinion-card">
-				<textarea v-model="form.opinion" placeholder="如果您有什么意见和建议，请告诉我们，我们会认真聆听"
+				<textarea v-model="form.opinion" :placeholder="$t(&quot;如果您有什么意见和建议，请告诉我们，我们会认真聆听&quot;)"
 					placeholder-class="opinion-placeholder"/>
-				<view class="opinion-count">{{ form.opinion.length }}/500</view>
+				<view class="opinion-count">{{ $t(form.opinion.length) }}/500</view>
 			</view>
 		</view>
 
 		<!-- Submit -->
 		<view class="btn-bar">
-			<button type="primary" @tap="submit">提交评论</button>
+			<button type="primary" @tap="submit">{{ $t("提交评论") }}</button>
 		</view>
 	</view>
 </template>

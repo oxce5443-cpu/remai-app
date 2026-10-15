@@ -1,8 +1,8 @@
 <template>
 	<view class="price-tag" :class="[`price-tag--${size}`]">
 		<text class="price-tag__symbol">￥</text>
-		<text class="price-tag__value">{{ displayPrice }}</text>
-		<text class="price-tag__original" v-if="originalPrice && originalPrice > price">￥{{ originalPrice }}</text>
+		<text class="price-tag__value">{{ $t(displayPrice) }}</text>
+		<text class="price-tag__original" v-if="originalPrice && originalPrice > price">￥{{ $t(originalPrice) }}</text>
 	</view>
 </template>
 

@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "Signed-out administrator can switch to English",
+    "Administrator locale persists after reload",
+    "Product form labels and optional English fields render in English (offline fixture)"
+  ],
+  "errors": [],
+  "limits": "Offline presentation only. All external requests blocked; invalid local token marker removed. No authentication, database write or deployment was exercised."
+}

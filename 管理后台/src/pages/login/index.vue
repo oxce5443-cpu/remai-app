@@ -4,11 +4,11 @@
 		<view class="brand-panel">
 			<view class="brand-inner">
 				<view class="brand-eyebrow">REMAI · BAKERY</view>
-				<view class="brand-name">热麦烘焙</view>
+				<view class="brand-name">{{ $t("热麦烘焙") }}</view>
 				<view class="brand-divider"></view>
 				<view class="brand-tagline">
-					<view class="tagline-line">每日现烤 · 匠心手作</view>
-					<view class="tagline-line">从烤箱到餐桌的温度</view>
+					<view class="tagline-line">{{ $t("每日现烤 · 匠心手作") }}</view>
+					<view class="tagline-line">{{ $t("从烤箱到餐桌的温度") }}</view>
 				</view>
 				<view class="brand-footer">
 					<view class="brand-version">OPS CONSOLE · v1.0</view>
@@ -19,26 +19,27 @@
 		<!-- 右侧表单区 -->
 		<view class="form-panel">
 			<view class="form-inner">
+    <LanguageSwitch />
 				<view class="form-heading">
-					<view class="form-title">商户后台登录</view>
+					<view class="form-title">{{ $t("商户后台登录") }}</view>
 					<view class="form-subtitle">SIGN IN TO OPERATIONS</view>
 				</view>
 
 				<view class="login-form">
 					<view class="field">
-						<view class="field-label">管理员账号</view>
-						<input class="field-input" type="text" v-model="form.username" placeholder="请输入账号" placeholder-class="field-placeholder" />
+						<view class="field-label">{{ $t("管理员账号") }}</view>
+						<input class="field-input" type="text" v-model="form.username" :placeholder="$t(&quot;请输入账号&quot;)" placeholder-class="field-placeholder" />
 					</view>
 					<view class="field">
-						<view class="field-label">登录密码</view>
-						<input class="field-input" type="password" v-model="form.password" password placeholder="请输入密码" placeholder-class="field-placeholder" />
+						<view class="field-label">{{ $t("登录密码") }}</view>
+						<input class="field-input" type="password" v-model="form.password" password :placeholder="$t(&quot;请输入密码&quot;)" placeholder-class="field-placeholder" />
 					</view>
 					<button class="login-btn" @click="handleLogin" :loading="loading">
-						<text class="btn-text">登 录</text>
+						<text class="btn-text">{{ $t("登 录") }}</text>
 					</button>
 				</view>
 
-				<view class="form-tip">账号与密码由 uniCloud 环境变量统一配置</view>
+				<view class="form-tip">{{ $t("账号与密码由 uniCloud 环境变量统一配置") }}</view>
 			</view>
 		</view>
 	</view>

@@ -2,16 +2,16 @@
 	<view class="page rm-page old-money">
 		<view class="exchange-box">
 			<view class="input-row">
-				<input type="text" placeholder="请输入兑换码" placeholder-class="input-placeholder" />
-				<button type="primary">兑换</button>
+				<input type="text" :placeholder="$t(&quot;请输入兑换码&quot;)" placeholder-class="input-placeholder" />
+				<button type="primary">{{ $t("兑换") }}</button>
 			</view>
-			<view class="exchange-rule">查看兑换规则</view>
+			<view class="exchange-rule">{{ $t("查看兑换规则") }}</view>
 		</view>
 
 		<view class="tabbar">
 			<view class="tab" :class="{active: activeTabIndex == index}"
 				v-for="(item, index) in tabs" :key="index" @tap="handleTab(index)">
-				<text>{{ item.title }}</text>
+				<text>{{ $t(item.title) }}</text>
 			</view>
 		</view>
 
@@ -21,31 +21,31 @@
 					<view class="coupon-detail">
 						<image :src="item.imageUrl" class="coupon-img"></image>
 						<view class="coupon-info">
-							<view class="coupon-title">{{ item.title }}</view>
-							<view class="coupon-expire">有效期至{{ item.endAt }}</view>
+							<view class="coupon-title">{{ $t(item.title) }}</view>
+							<view class="coupon-expire">{{ $t("有效期至") }}{{ $t(item.endAt) }}</view>
 						</view>
 					</view>
 					<view class="coupon-footer">
-						<text class="coupon-link">查看详情</text>
+						<text class="coupon-link">{{ $t("查看详情") }}</text>
 					</view>
 				</view>
 			</view>
 		</scroll-view>
 
 		<view class="bottom-bar">
-			<text class="bottom-item">历史卡券</text>
-			<text class="bottom-item" @tap="showTip1">赠送记录</text>
-			<text class="bottom-item" @tap="showTip2">第三方权益</text>
+			<text class="bottom-item">{{ $t("历史卡券") }}</text>
+			<text class="bottom-item" @tap="showTip1">{{ $t("赠送记录") }}</text>
+			<text class="bottom-item" @tap="showTip2">{{ $t("第三方权益") }}</text>
 		</view>
 
 		<modal custom :show="detailModalVisible" @cancel="closeDetailModal" width="90%">
 			<view class="modal-body">
-				<view class="modal-title">{{ coupon.title }}</view>
-				<view class="modal-period">有效期：{{ coupon.beginAt }}至{{ coupon.endAt }}</view>
+				<view class="modal-title">{{ $t(coupon.title) }}</view>
+				<view class="modal-period">{{ $t("有效期：") }}{{ $t(coupon.beginAt) }}{{ $t("至") }}{{ $t(coupon.endAt) }}</view>
 				<view class="modal-explain">
 					<jyf-parser ref="couponExplain"></jyf-parser>
 				</view>
-				<button type="primary" @tap="useCoupon" class="modal-btn">立即使用</button>
+				<button type="primary" @tap="useCoupon" class="modal-btn">{{ $t("立即使用") }}</button>
 			</view>
 		</modal>
 	</view>

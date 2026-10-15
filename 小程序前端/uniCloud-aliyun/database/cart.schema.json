@@ -34,6 +34,10 @@
       "bsonType": "string",
       "label": "商品名称快照"
     },
+    "goods_name_en": {
+      "bsonType": "string",
+      "label": "商品英文名称展示快照（可选）"
+    },
     "cate_id": {
       "bsonType": "string",
       "label": "分类ID"

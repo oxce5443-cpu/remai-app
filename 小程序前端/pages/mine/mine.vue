@@ -5,7 +5,7 @@
 
 		<!-- Nav -->
 		<view class="nav">
-			<view class="nav-title">小麦的朋友</view>
+			<view class="nav-title">{{ $t("小麦的朋友") }}</view>
 			<view class="nav-sub">REMAI MEMBER</view>
 		</view>
 
@@ -17,23 +17,22 @@
 			<view class="profile-main">
 				<view class="profile-name">{{ displayMember.nickname }}</view>
 				<view class="profile-sub" v-if="displayMember.mobile">ID:{{ displayMember.mobile }}</view>
-				<view class="profile-sub" v-else>{{ token ? '已登录热麦会员' : '登录后享受会员权益' }}</view>
+				<view class="profile-sub" v-else>{{ $t(token ? '已登录热麦会员' : '登录后享受会员权益') }}</view>
 			</view>
-			<view class="profile-badge">{{ displayMember.memberLevelName }}</view>
+			<view class="profile-badge">{{ $t(displayMember.memberLevelName) }}</view>
 		</view>
 
 		<!-- REMAIL MEMBER Card -->
 		<view class="member-card" @tap="ensureLogin">
 			<view class="member-card-top">
-				<text class="member-brand">REMAI会员</text>
+				<text class="member-brand">{{ $t("REMAI会员") }}</text>
 				<text class="member-vip">VIP</text>
 			</view>
 			<view class="member-card-mid">
-				<view class="member-level">{{ displayMember.memberLevelName }}</view>
-				<view class="member-dates">02/06</view>
+				<view class="member-level">{{ $t(displayMember.memberLevelName) }}</view>
 			</view>
 			<view class="member-card-bottom">
-				<text>会员权益</text>
+				<text>{{ $t("会员权益") }}</text>
 				<text class="member-card-arrow">→</text>
 			</view>
 		</view>
@@ -41,16 +40,16 @@
 		<!-- Data Row -->
 		<view class="data-row">
 			<view class="data-cell" @tap="coupons">
-				<text class="data-num">优惠券</text>
-				<text class="data-label">去查看</text>
+				<text class="data-num">{{ $t("优惠券") }}</text>
+				<text class="data-label">{{ $t("去查看") }}</text>
 			</view>
 			<view class="data-cell" @tap="integrals">
-				<text class="data-num">{{ displayMember.points }}</text>
-				<text class="data-label">积分</text>
+				<text class="data-num">{{ $t(displayMember.points) }}</text>
+				<text class="data-label">{{ $t("积分") }}</text>
 			</view>
 			<view class="data-cell" @tap="balance">
-				<text class="data-num">{{ displayMember.balance }}</text>
-				<text class="data-label">余额</text>
+				<text class="data-num">{{ $t(displayMember.balance) }}</text>
+				<text class="data-label">{{ $t("余额") }}</text>
 			</view>
 		</view>
 
@@ -58,36 +57,43 @@
 		<view class="menu-card">
 			<view class="menu-row" @tap="orders">
 				<image src="/static/images/mine/wddd.png" class="menu-icon-img" mode="aspectFit"></image>
-				<text class="menu-label">我的订单</text>
+				<text class="menu-label">{{ $t("我的订单") }}</text>
 				<text class="menu-arrow">→</text>
 			</view>
 			<view class="menu-row" @tap="coupons">
 				<image src="/static/images/icon/iconliwu.png" class="menu-icon-img" mode="aspectFit"></image>
-				<text class="menu-label">优惠券</text>
+				<text class="menu-label">{{ $t("优惠券") }}</text>
 				<text class="menu-arrow">→</text>
 			</view>
 			<view class="menu-row" @tap="integrals">
 				<image src="/static/images/mine/jfdh.png" class="menu-icon-img" mode="aspectFit"></image>
-				<text class="menu-label">积分商城</text>
+				<text class="menu-label">{{ $t("积分商城") }}</text>
 				<text class="menu-arrow">→</text>
 			</view>
 			<view class="menu-row" @tap="memberCode">
 				<image src="/static/images/mine/rhyl.png" class="menu-icon-img" mode="aspectFit"></image>
-				<text class="menu-label">会员权益</text>
+				<text class="menu-label">{{ $t("会员权益") }}</text>
 				<text class="menu-arrow">→</text>
 			</view>
 			<view class="menu-row" @tap="helpCenter">
 				<image src="/static/images/mine/lxkf.png" class="menu-icon-img" mode="aspectFit"></image>
-				<text class="menu-label">联系客服</text>
+				<text class="menu-label">{{ $t("联系客服") }}</text>
 				<text class="menu-arrow">→</text>
 			</view>
 			<view class="menu-row" style="border-bottom: none;" @tap="userinfo">
 				<image src="/static/images/icon/iconwode.png" class="menu-icon-img" mode="aspectFit"></image>
-				<text class="menu-label">设置</text>
+				<text class="menu-label">{{ $t("设置") }}</text>
 				<text class="menu-arrow">→</text>
 			</view>
 		</view>
 
+		<view class="language-setting" role="group" :aria-label="$t('语言')">
+			<text class="language-label">{{ $t('语言') }}</text>
+			<view class="language-options">
+				<button role="button" class="language-option" :class="{ 'is-active': locale === 'zh-CN' }" :aria-pressed="locale === 'zh-CN'" @tap="setLocale('zh-CN')">简体中文</button>
+				<button role="button" class="language-option" :class="{ 'is-active': locale === 'en' }" :aria-pressed="locale === 'en'" @tap="setLocale('en')">English</button>
+			</view>
+		</view>
 		<view class="safe-bottom"></view>
 	</view>
 </template>
@@ -97,6 +103,7 @@ import { computed } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
 import { useStore } from 'vuex'
 import { api } from '@/api'
+import { locale, setLocale, t } from '@/locale'
 
 const store = useStore()
 const member = computed(() => store.state.member || {})
@@ -106,11 +113,11 @@ const displayMember = computed(() => {
 	const mobile = member.value.mobile || member.value.username || ''
 	return {
 		avatar: member.value.avatar || '/static/images/mine/default.png',
-		nickname: member.value.nickname || '热麦会员',
+		nickname: member.value.nickname || t('热麦会员'),
 		mobile: mobile ? mobile.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2') : '',
 		points: Number(member.value.points) || 0,
 		balance: Number(member.value.balance) || 0,
-		memberLevelName: member.value.memberLevelName || '黑金会员'
+		memberLevelName: member.value.memberLevelName || '热麦会员'
 	}
 })
 
@@ -145,6 +152,12 @@ function userinfo() { navigateProtected('/pages/mine/userinfo') }
 </script>
 
 <style lang="scss" scoped>
+.language-setting { margin-top: 24rpx; padding: 28rpx; background: rgba(255,255,255,.72); border-radius: 24rpx; }
+.language-label { display: block; margin-bottom: 20rpx; font-size: 26rpx; color: $t-secondary; }
+.language-options { display: flex; gap: 16rpx; }
+.language-option { flex: 1; margin: 0; padding: 12rpx 16rpx; min-height: 88rpx; line-height: 56rpx; font-size: 26rpx; border-radius: 18rpx; color: $c-brown; background: transparent; border: 1px solid rgba(94,64,45,.18); }
+.language-option::after { border: none; }
+.language-option.is-active { color: #fff; background: $c-brown; }
 .page {
 	min-height: 100vh;
 	padding: 0 32rpx calc(env(safe-area-inset-bottom) + 48rpx);

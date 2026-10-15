@@ -5,7 +5,7 @@
 			@tap="handleReduce">
 			<text class="iconfont iconsami-select"></text>
 		</view>
-		<text class="quantity-stepper__value">{{ value }}</text>
+		<text class="quantity-stepper__value">{{ $t(value) }}</text>
 		<view class="quantity-stepper__btn quantity-stepper__btn--plus"
 			@tap="handleAdd">
 			<text class="iconfont iconadd-select"></text>

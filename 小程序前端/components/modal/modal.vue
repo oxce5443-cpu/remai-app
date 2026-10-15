@@ -5,21 +5,21 @@
 				<slot></slot>
 			</view>
 			<view v-else>
-				<view class="modal-title" v-if="title">{{title}}</view>
+				<view class="modal-title" v-if="title">{{$t(title)}}</view>
 				<view class="modal-content" :class="[title?'':'mtop']" :style="{color:color,fontSize:size+'rpx'}">
 					<slot></slot>
 				</view>
 				<view class="modalBtn-box" :class="[button.length!=2?'flex-column':'']">
 					<block v-for="(item,index) in button" :key="index">
-						<button class="modal-btn" 
+						<button class="modal-btn"
 								:class="[
 										''+(item.type || 'primary')+(item.plain?'-outline':''),
 										button.length!=2?'btn-width':'',
 										button.length>2?'mbtm':'',
 										shape=='circle'?'circle-btn':'',
-										'btn-' + (item.size || 'default'),										
+										'btn-' + (item.size || 'default'),
 									]"
-								:hover-class="''+(item.plain?'outline':(item.type || 'primary'))+'-hover'" :data-index="index" @tap="handleClick">{{item.text || "确定"}}</button>
+								:hover-class="''+(item.plain?'outline':(item.type || 'primary'))+'-hover'" :data-index="index" @tap="handleClick">{{$t(item.text || "确定")}}</button>
 					</block>
 				</view>
 			</view>

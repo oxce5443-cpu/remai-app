@@ -4,10 +4,10 @@
 		<view v-if="insert || show" class="uni-calendar__content" :class="{'uni-calendar--fixed':!insert,'uni-calendar--ani-show':aniMaskShow}">
 			<view v-if="!insert" class="uni-calendar__header uni-calendar--fixed-top">
 				<view class="uni-calendar__header-btn-box" @click="close">
-					<text class="uni-calendar__header-text uni-calendar--fixed-width">取消</text>
+					<text class="uni-calendar__header-text uni-calendar--fixed-width">{{ $t('取消') }}</text>
 				</view>
 				<view class="uni-calendar__header-btn-box" @click="confirm">
-					<text class="uni-calendar__header-text uni-calendar--fixed-width">确定</text>
+					<text class="uni-calendar__header-text uni-calendar--fixed-width">{{ $t('确定') }}</text>
 				</view>
 			</view>
 			<view class="uni-calendar__header">
@@ -21,7 +21,7 @@
 					</view>
 				</view>
 				<view class="uni-calendar__backtoday">
-					已连续签到<text class="text-color-primary d-inline-block" style="padding: 0 20rpx;">{{ continuous }}</text>天
+					{{ $t('连续签到{count}天', { count: continuous }) }}
 				</view>
 			</view>
 			<view class="uni-calendar__box">
@@ -30,25 +30,25 @@
 				</view>
 				<view class="uni-calendar__weeks">
 					<view class="uni-calendar__weeks-day">
-						<text class="uni-calendar__weeks-day-text">日</text>
+						<text class="uni-calendar__weeks-day-text">{{ $t('日') }}</text>
 					</view>
 					<view class="uni-calendar__weeks-day">
-						<text class="uni-calendar__weeks-day-text">一</text>
+						<text class="uni-calendar__weeks-day-text">{{ $t('一') }}</text>
 					</view>
 					<view class="uni-calendar__weeks-day">
-						<text class="uni-calendar__weeks-day-text">二</text>
+						<text class="uni-calendar__weeks-day-text">{{ $t('二') }}</text>
 					</view>
 					<view class="uni-calendar__weeks-day">
-						<text class="uni-calendar__weeks-day-text">三</text>
+						<text class="uni-calendar__weeks-day-text">{{ $t('三') }}</text>
 					</view>
 					<view class="uni-calendar__weeks-day">
-						<text class="uni-calendar__weeks-day-text">四</text>
+						<text class="uni-calendar__weeks-day-text">{{ $t('四') }}</text>
 					</view>
 					<view class="uni-calendar__weeks-day">
-						<text class="uni-calendar__weeks-day-text">五</text>
+						<text class="uni-calendar__weeks-day-text">{{ $t('五') }}</text>
 					</view>
 					<view class="uni-calendar__weeks-day">
-						<text class="uni-calendar__weeks-day-text">六</text>
+						<text class="uni-calendar__weeks-day-text">{{ $t('六') }}</text>
 					</view>
 				</view>
 				<view class="uni-calendar__weeks" v-for="(item,weekIndex) in weeks" :key="weekIndex">

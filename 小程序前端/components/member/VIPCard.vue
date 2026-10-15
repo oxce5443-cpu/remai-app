@@ -6,11 +6,11 @@
 					<image :src="member.avatar || '/static/images/mine/default.png'" mode="aspectFill"></image>
 				</view>
 				<view class="vip-card__user-info">
-					<view class="vip-card__nickname">{{ member.nickname || '热麦会员' }}</view>
+					<view class="vip-card__nickname">{{ member.nickname || $t('热麦会员') }}</view>
 					<view class="vip-card__level">
 						<view class="vip-card__level-badge">
 							<image src="/static/images/mine/level.png"></image>
-							<text>{{ member.memberLevel || 'VIP' }}</text>
+							<text>{{ $t(member.memberLevel || 'VIP') }}</text>
 						</view>
 					</view>
 				</view>
@@ -20,13 +20,13 @@
 					<view class="vip-card__progress-fill" :style="{width: growthPercent + '%'}"></view>
 				</view>
 				<view class="vip-card__progress-text">
-					成长值 {{ member.currentValue || 0 }}/{{ (member.currentValue || 0) + (member.needValue || 0) }}
+					{{ $t("成长值") }} {{ $t(member.currentValue || 0) }}/{{ $t((member.currentValue || 0) + (member.needValue || 0)) }}
 				</view>
 			</view>
 			<view class="vip-card__stats">
 				<view class="vip-card__stat" v-for="stat in stats" :key="stat.label" @tap="stat.action">
-					<view class="vip-card__stat-value">{{ stat.value }}</view>
-					<view class="vip-card__stat-label">{{ stat.label }}</view>
+					<view class="vip-card__stat-value">{{ $t(stat.value) }}</view>
+					<view class="vip-card__stat-label">{{ $t(stat.label) }}</view>
 				</view>
 			</view>
 		</view>

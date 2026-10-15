@@ -8,16 +8,16 @@
 					<image :src="member.avatar" class="avatar-img"></image>
 				</view>
 				<view class="nickname">{{ member.nickname }}</view>
-				<view class="rule-tag">签到规则</view>
+				<view class="rule-tag">{{ $t("签到规则") }}</view>
 			</view>
 		</view>
 
 		<view class="main">
 			<!-- Points Card -->
 			<view class="points-card">
-				<view class="points-title">当前积分</view>
-				<view class="points-value">{{ customPoints.totalPoints }}</view>
-				<button type="primary" class="checkin-btn" @tap="attendance">签到</button>
+				<view class="points-title">{{ $t("当前积分") }}</view>
+				<view class="points-value">{{ $t(customPoints.totalPoints) }}</view>
+				<button type="primary" class="checkin-btn" @tap="attendance">{{ $t("签到") }}</button>
 			</view>
 
 			<!-- Calendar -->
@@ -34,11 +34,11 @@
 					<image src="/static/images/attendance/cup.png" mode="widthFix"></image>
 				</view>
 				<view class="modal-content">
-					<view>赠送的1积分已发到您的账户中</view>
-					<view>连续签到1天可额外获得1积分</view>
+					<view>{{ $t("赠送的1积分已发到您的账户中") }}</view>
+					<view>{{ $t("连续签到1天可额外获得1积分") }}</view>
 				</view>
 				<view class="modal-footer">
-					<button type="primary" class="modal-btn" @tap="attendanceModalVisible=false">我知道了</button>
+					<button type="primary" class="modal-btn" @tap="attendanceModalVisible=false">{{ $t("我知道了") }}</button>
 				</view>
 			</view>
 		</modal>

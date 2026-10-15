@@ -2,8 +2,8 @@
 	<view class="page rm-page old-money">
 		<!-- Tab Bar -->
 		<view class="tabbar">
-			<view class="tab" :class="{'tab--active': !currentTab}" @tap="switchTab(0)">购买礼品卡</view>
-			<view class="tab" :class="{'tab--active': currentTab}" @tap="switchTab(1)">我的礼品卡</view>
+			<view class="tab" :class="{'tab--active': !currentTab}" @tap="switchTab(0)">{{ $t("购买礼品卡") }}</view>
+			<view class="tab" :class="{'tab--active': currentTab}" @tap="switchTab(1)">{{ $t("我的礼品卡") }}</view>
 		</view>
 
 		<swiper :duration="400" :disable-touch="true" class="swiper" :current="currentTab">
@@ -13,20 +13,20 @@
 					<image :src="giftCards.img" class="banner-img" mode="widthFix"/>
 					<view class="section">
 						<view class="category" v-for="(category, index) in giftCards.category_list" :key="index">
-							<view class="category-name">{{ category.name }}</view>
+							<view class="category-name">{{ $t($localized(category, "name")) }}</view>
 							<view class="theme-grid">
 								<view class="theme-card" v-for="(theme, key) in category.themesList" :key="key">
 									<image :src="theme.imageUrls" class="theme-img" mode="widthFix"/>
-									<view class="theme-name">{{ theme.activityName }}</view>
+									<view class="theme-name">{{ $t(theme.activityName) }}</view>
 								</view>
 							</view>
 						</view>
 					</view>
 				</scroll-view>
 				<view class="footer">
-					<text>购买须知</text>
+					<text>{{ $t("购买须知") }}</text>
 					<view class="footer-divider"></view>
-					<text>礼品卡章程</text>
+					<text>{{ $t("礼品卡章程") }}</text>
 				</view>
 			</swiper-item>
 
@@ -34,17 +34,17 @@
 			<swiper-item class="swiper-item" @touchmove.stop="handleSwiperItemChange">
 				<view class="sub-header">
 					<view class="sub-tabs">
-						<view class="sub-tab" :class="{'sub-tab--active': !giftCardType}" @tap="switchGiftCardType(0)">可使用(0)</view>
-						<view class="sub-tab" :class="{'sub-tab--active': giftCardType}" @tap="switchGiftCardType(1)">不可使用(0)</view>
+						<view class="sub-tab" :class="{'sub-tab--active': !giftCardType}" @tap="switchGiftCardType(0)">{{ $t("可使用(0)") }}</view>
+						<view class="sub-tab" :class="{'sub-tab--active': giftCardType}" @tap="switchGiftCardType(1)">{{ $t("不可使用(0)") }}</view>
 					</view>
-					<view class="exchange-link">兑换礼品卡</view>
+					<view class="exchange-link">{{ $t("兑换礼品卡") }}</view>
 				</view>
 				<swiper :duration="400" class="flex-fill" :current="giftCardType" @change="e => switchGiftCardType(e.detail.current)">
 					<swiper-item>
 						<template v-if="!myCards.length">
 							<view class="empty-state">
 								<image src="/static/images/giftcard-empty.png" class="empty-img" mode="widthFix"/>
-								<view class="empty-text">您暂时还没有礼品卡哦~</view>
+								<view class="empty-text">{{ $t("您暂时还没有礼品卡哦~") }}</view>
 							</view>
 						</template>
 					</swiper-item>
@@ -52,14 +52,14 @@
 						<template v-if="!myCards.length">
 							<view class="empty-state">
 								<image src="/static/images/giftcard-empty.png" class="empty-img" mode="widthFix"/>
-								<view class="empty-text">您暂时还没有礼品卡哦~</view>
+								<view class="empty-text">{{ $t("您暂时还没有礼品卡哦~") }}</view>
 							</view>
 						</template>
 					</swiper-item>
 				</swiper>
 				<view class="footer footer--double">
-					<button type="primary" plain>获取记录</button>
-					<button type="primary">赠送记录</button>
+					<button type="primary" plain>{{ $t("获取记录") }}</button>
+					<button type="primary">{{ $t("赠送记录") }}</button>
 				</view>
 			</swiper-item>
 		</swiper>

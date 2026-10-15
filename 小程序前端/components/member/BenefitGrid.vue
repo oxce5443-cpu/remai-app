@@ -6,7 +6,7 @@
 			<view class="benefit-grid__icon-wrap">
 				<image :src="item.icon" mode="aspectFit" class="benefit-grid__icon"></image>
 			</view>
-			<view class="benefit-grid__label">{{ item.text }}</view>
+			<view class="benefit-grid__label">{{ $t(item.text) }}</view>
 		</view>
 	</view>
 </template>

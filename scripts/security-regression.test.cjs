@@ -64,6 +64,64 @@ test('order: rejects invalid cutlery before writes', async () => {
   assert.equal(fn.touched(), 0)
 })
 module.exports = { load }
+test('cart cloud roundtrip: preserves optional English display snapshot without changing business fields', async () => {
+  let rows = []
+  const database = { collection() { return {
+    where(filter) { const query = { async remove() { rows = rows.filter(row => row.member_id !== filter.member_id) }, orderBy() { return query }, async get() { return { data: rows.filter(row => Object.entries(filter).every(([key, value]) => row[key] === value)) } } }; return query },
+    async add(data) { rows.push({ ...data, _id: 'cart-' + rows.length }); return { id: rows.at(-1)._id } },
+    doc(id) { return { async update(data) { Object.assign(rows.find(row => row._id === id), data) } } }
+  } } }
+  const fn = load('cart', { database })
+  const auth = { uniIdToken: 'customer' }
+  const item = { goods_id: 'bread', goods_name: '面包', goods_name_en: 'Bread', price: 18, number: 2 }
+  await fn.main({ ...auth, action: 'syncCart', items: [item] }, {})
+  let result = await fn.main({ ...auth, action: 'getCart' }, {})
+  assert.equal(result.data[0].goods_name_en, 'Bread')
+  assert.equal(result.data[0].goods_name, '面包')
+  assert.equal(result.data[0].price, 18)
+  assert.equal(result.data[0].number, 2)
+  await fn.main({ ...auth, action: 'clearCart' }, {})
+  await fn.main({ ...auth, action: 'addToCart', ...item }, {})
+  result = await fn.main({ ...auth, action: 'getCart' }, {})
+  assert.equal(result.data[0].goods_name_en, 'Bread')
+})
+test('cart store sync and reload: maps English display name at both API boundaries', async () => {
+  let submitted
+  const source = fs.readFileSync(path.join(root, '小程序前端/store/index.js'), 'utf8').replace(/^import .*$/gm, '').replace('export default store', 'globalThis.result = store')
+  const sandbox = { createStore: definition => definition, request: async () => ({}), api: {
+    async syncCart(data) { submitted = data },
+    async getCart() { return [{ goodsId: 'bread', goodsName: '面包', goodsNameEn: 'Bread', price: 18, number: 2 }] }
+  }, uni: { getStorageSync: () => '', $on() {} }, console }
+  vm.runInNewContext(source, sandbox)
+  const definition = sandbox.result
+  const state = { token: 'customer', cart: [{ id: 'bread', name: '面包', nameEn: 'Bread', price: 18, number: 2 }] }
+  await definition.actions.syncCart({ state })
+  assert.equal(submitted.items[0].goodsNameEn, 'Bread')
+  let restored
+  await definition.actions.loadCart({ state, commit(name, data) { restored = data } })
+  assert.equal(restored[0].nameEn, 'Bread')
+  assert.equal(restored[0].name, '面包')
+  assert.equal(restored[0].price, 18)
+  assert.equal(restored[0].number, 2)
+})
+test('menu contract: preserves authoritative price, sold-out stock, descriptions and optional translations', async () => {
+  const records = {
+    'goods-category': [{ _id: 'cat_signature', name: '面包', name_en: 'Bread', sort: 0, is_show: true }],
+    goods: [{ _id: 'bread', category_id: 'cat_signature', name: '牛角包', name_en: 'Croissant', description: '新鲜烘焙', description_en: 'Freshly baked', price: 18, original_price: 20, stock: 0, sales: 12, image: '/bread.png', is_sell: true }]
+  }
+  const database = { collection(name) { const query = { where() { return query }, orderBy() { return query }, async get() { return { data: records[name] } } }; return query } }
+  const result = await load('goods', { database }).main({ action: 'getMenuData' }, {})
+  const category = result.data[0]
+  const product = category.goods_list[0]
+  assert.equal(product.price, 18)
+  assert.equal(product.stock, 0)
+  assert.equal(product.content, '新鲜烘焙')
+  assert.equal(product.sales, 12)
+  assert.equal(product.original_price, 20)
+  assert.equal(category.name_en, 'Bread')
+  assert.equal(product.name_en, 'Croissant')
+  assert.equal(product.content_en, 'Freshly baked')
+})
 const crypto = require('node:crypto')
 const salt = crypto.randomBytes(32).toString('hex')
 const adminEnv = {
@@ -71,6 +129,35 @@ const adminEnv = {
   ADMIN_PASSWORD_HASH: crypto.scryptSync('test-password', salt, 64).toString('hex'),
   ADMIN_TOKEN_SECRET: crypto.randomBytes(32).toString('hex')
 }
+test('admin catalogue writes: retain optional English content and preserve explicit zero stock', async () => {
+  const saved = []
+  const database = { command: {}, collection(name) { return {
+    async add(data) { saved.push({ name, data }); return { id: 'new' } },
+    doc(id) { return { async update(data) { saved.push({ name, id, data }); return { updated: 1 } } } }
+  } } }
+  const fn = load('admin', { env: adminEnv, database })
+  const auth = await fn.main({ action: 'login', username: 'test-admin', password: 'test-password' })
+  for (const action of ['addGoods', 'updateGoods']) {
+    await fn.main({ action, admin_token: auth.data.token, id: 'bread', name: '面包', name_en: 'Bread', description_en: 'Baked today', stock: 0 })
+    const record = saved.at(-1)
+    assert.equal(record.data.name_en, 'Bread')
+    assert.equal(record.data.description_en, 'Baked today')
+    assert.equal(record.data.stock, 0)
+  }
+  for (const action of ['addCategory', 'updateCategory']) {
+    await fn.main({ action, admin_token: auth.data.token, id: 'category', name: '面包', name_en: 'Bread' })
+    assert.equal(saved.at(-1).data.name_en, 'Bread')
+  }
+  for (const action of ['addBanner', 'updateBanner']) {
+    await fn.main({ action, admin_token: auth.data.token, id: 'banner', title: '新鲜烘焙', title_en: 'Freshly baked' })
+    assert.equal(saved.at(-1).data.title_en, 'Freshly baked')
+  }
+  await fn.main({ action: 'updateGoods', admin_token: auth.data.token, id: 'bread', name: '原文' })
+  assert.equal(Object.hasOwn(saved.at(-1).data, 'name_en'), false)
+  await fn.main({ action: 'updateGoods', admin_token: auth.data.token, id: 'bread', name_en: '', description_en: '' })
+  assert.equal(saved.at(-1).data.name_en, '')
+  assert.equal(saved.at(-1).data.description_en, '')
+})
 test('admin login: scrypt password verification and signed 24h token', async () => {
   const fn = load('admin', { env: adminEnv })
   const bad = await fn.main({ action: 'login', username: 'test-admin', password: 'wrong' })
@@ -146,13 +233,13 @@ test('pay HTTP: verified non-success event acknowledges without payment mutation
 })
 test('order: stores explicit no-cutlery and cutlery count using server price', async () => {
   for (const cutlery_count of [0, 2]) {
-    const records = []
-    const db = { collection(name) { return { doc: () => ({ get: async () => ({ data: [{ name: 'Bread', price: 18, stock: 10, is_sell: true }] }) }), add: async data => { records.push({ name, data }); return { id: 'new-order' } } } } }
+    const db = creationDatabase()
     const fn = load('order', { database: db })
-    const result = await fn.main({ action: 'createOrder', type: 'takein', uniIdToken: 'customer', cutlery_count, goods_list: [{ goods_id: 'bread', num: 2, price: 0.01 }] }, {})
+    const result = await fn.main({ action: 'createOrder', type: 'takein', request_key: 'test_cutlery_request', uniIdToken: 'customer', cutlery_count, goods_list: [{ goods_id: 'g', num: 2, price: 0.01 }] }, {})
     assert.equal(result.errCode, 0)
-    assert.equal(records.find(r => r.name === 'orders').data.cutlery_count, cutlery_count)
-    assert.equal(records.find(r => r.name === 'orders').data.total_price, '36.00')
+    const order = db.inspect().orders[result.data.order_id]
+    assert.equal(order.cutlery_count, cutlery_count)
+    assert.equal(order.total_price, '36.00')
   }
 })
 test('schema: server-owned collections deny client writes and session reads', () => {
@@ -205,8 +292,9 @@ test('config center: requires environment signing key, has no built-in fallback'
   const secret = crypto.randomBytes(32).toString('hex')
   assert.equal(center({ UNI_ID_TOKEN_SECRET: secret }).config().tokenSecret, secret)
 })
-function transactionalDatabase({ failCollection = '' } = {}) {
+function transactionalDatabase({ failCollection = '', failWriteNumber = 1, initialState } = {}) {
   let version = 0
+  let selectedWrites = 0
   let state = {
     orders: { o: { _id: 'o', order_no: 'ORD-test', member_id: 'customer', status: 'pending', total_price: 36, inventory_deducted: false } },
     'order-goods': { l1: { _id: 'l1', order_id: 'o', goods_id: 'g', num: 1 }, l2: { _id: 'l2', order_id: 'o', goods_id: 'g', num: 1 } },
@@ -214,6 +302,7 @@ function transactionalDatabase({ failCollection = '' } = {}) {
     'uni-id-users': { customer: { _id: 'customer', points: 0, balance: 100 } },
     'points-log': {}, 'recharge-log': {}
   }
+  if (initialState) state = JSON.parse(JSON.stringify(initialState))
   const clone = value => JSON.parse(JSON.stringify(value))
   function collection(data, name, transactional) {
     return {
@@ -222,7 +311,7 @@ function transactionalDatabase({ failCollection = '' } = {}) {
         get: async () => ({ data: transactional ? clone(data[name][id] || null) : data[name][id] ? [clone(data[name][id])] : [] }),
         update: async patch => { if (name === failCollection) throw new Error('injected-write-failure'); Object.assign(data[name][id], clone(patch)); return { updated: 1 } }
       } },
-      add: async row => { if (name === failCollection) throw new Error('injected-write-failure'); if (data[name][row._id]) throw new Error('duplicate ID'); data[name][row._id] = clone(row); return { id: row._id } }
+      add: async row => { if (name === failCollection && ++selectedWrites === failWriteNumber) throw new Error('injected-write-failure'); const id = row._id || 'generated_' + Object.keys(data[name]).length; if (data[name][id]) throw new Error('duplicate ID'); data[name][id] = clone({ ...row, _id: id }); return { id } }
     }
   }
   return {
@@ -234,6 +323,133 @@ function transactionalDatabase({ failCollection = '' } = {}) {
     }
   }
 }
+function creationDatabase(options = {}) {
+  return transactionalDatabase({ ...options, initialState: {
+    orders: {}, 'order-goods': {}, goods: {
+      g: { _id: 'g', name: '面包', name_en: 'Bread', price: 18, stock: 10, is_sell: true },
+      h: { _id: 'h', name: '牛角包', price: 8, stock: 4, is_sell: true }
+    }
+  } })
+}
+const creationRequest = { action: 'createOrder', type: 'takein', request_key: 'checkout_request_12345', uniIdToken: 'customer', cutlery_count: 0, goods_list: [{ goods_id: 'g', num: 2 }, { goods_id: 'h', num: 1 }] }
+test('order cancellation: conditional update preserves payment winning after pending read', async () => {
+  const actual = { _id: 'cancel-order', member_id: 'customer', status: 'pending', inventory_deducted: false }
+  let writes = 0
+  const database = { collection(name) {
+    assert.equal(name, 'orders')
+    return {
+      doc() { return {
+        async get() { const snapshot = { ...actual }; actual.status = 'paid'; actual.inventory_deducted = true; return { data: [snapshot] } },
+        async update(patch) { writes++; Object.assign(actual, patch); return { updated: 1 } }
+      } },
+      where(filter) { return { async update(patch) { if (!Object.entries(filter).every(([key, value]) => actual[key] === value)) return { updated: 0 }; writes++; Object.assign(actual, patch); return { updated: 1 } } } }
+    }
+  } }
+  const result = await load('order', { database }).main({ action: 'cancelOrder', order_id: actual._id, uniIdToken: 'customer' }, {})
+  assert.equal(result.errCode, 'ORDER_STATE_CHANGED')
+  assert.equal(actual.status, 'paid')
+  assert.equal(actual.inventory_deducted, true)
+  assert.equal(writes, 0)
+})
+test('order cancellation: normal pending cancellation is owner scoped and does not mutate stock', async () => {
+  const order = { _id: 'cancel-order', member_id: 'customer', status: 'pending', inventory_deducted: false }
+  const database = { collection(name) { assert.equal(name, 'orders'); return {
+    doc() { return { async get() { return { data: [{ ...order }] } }, async update(patch) { Object.assign(order, patch); return { updated: 1 } } } },
+    where(filter) { return { async update(patch) { assert.equal(filter.member_id, 'customer'); assert.equal(filter.status, 'pending'); assert.equal(filter._id, order._id); Object.assign(order, patch); return { updated: 1 } } } }
+  } } }
+  const result = await load('order', { database }).main({ action: 'cancelOrder', order_id: order._id, uniIdToken: 'customer' }, {})
+  assert.equal(result.errCode, 0)
+  assert.equal(order.status, 'cancelled')
+})
+test('order cancellation: inconsistent previously settled pending record requires reconciliation', async () => {
+  let writes = 0
+  const database = { collection() { return { doc() { return {
+    async get() { return { data: [{ _id: 'legacy', member_id: 'customer', status: 'pending', inventory_deducted: true }] } },
+    async update() { writes++; return { updated: 1 } }
+  } }, where() { return { async get() { return { data: [] } }, async update() { writes++; return { updated: 1 } } } } } } }
+  const result = await load('order', { database }).main({ action: 'cancelOrder', order_id: 'legacy', uniIdToken: 'customer' }, {})
+  assert.equal(result.errCode, 'ORDER_RECONCILIATION_REQUIRED')
+  assert.equal(writes, 0)
+})
+test('order creation: commits complete lines once and replays same owner key', async () => {
+  const database = creationDatabase()
+  const fn = load('order', { database })
+  const first = await fn.main(creationRequest, {})
+  assert.equal(first.errCode, 0)
+  const second = await fn.main(creationRequest, {})
+  assert.equal(second.data.order_id, first.data.order_id)
+  const state = database.inspect()
+  assert.equal(Object.keys(state.orders).length, 1)
+  assert.equal(Object.keys(state['order-goods']).length, 2)
+  const order = state.orders[first.data.order_id]
+  assert.equal(order.creation_complete, true)
+  assert.equal(order.line_count, 2)
+  assert.equal(Number(order.total_price), 44)
+  assert.equal(order.cutlery_count, 0)
+  assert.equal(Object.values(state['order-goods'])[0].goods_name_en, 'Bread')
+  assert.equal(state.goods.g.stock, 10)
+})
+test('order creation: line write failure rolls back header and every line', async () => {
+  const database = creationDatabase({ failCollection: 'order-goods', failWriteNumber: 2 })
+  const before = database.inspect()
+  const result = await load('order', { database }).main(creationRequest, {})
+  assert.notEqual(result.errCode, 0)
+  assert.deepEqual(database.inspect(), before)
+})
+test('order creation: concurrent duplicate retries produce one complete order', async () => {
+  const database = creationDatabase()
+  const fn = load('order', { database })
+  const results = await Promise.all([fn.main(creationRequest, {}), fn.main(creationRequest, {})])
+  assert.ok(results.some(result => result.errCode === 0))
+  const replay = await fn.main(creationRequest, {})
+  assert.equal(replay.errCode, 0)
+  assert.equal(Object.keys(database.inspect().orders).length, 1)
+  assert.equal(Object.keys(database.inspect()['order-goods']).length, 2)
+})
+test('order creation: key reuse with changed payload conflicts; another owner has separate identity', async () => {
+  const database = creationDatabase()
+  const fn = load('order', { database })
+  const first = await fn.main(creationRequest, {})
+  const changed = await fn.main({ ...creationRequest, cutlery_count: 2 }, {})
+  assert.equal(changed.errCode, 'IDEMPOTENCY_CONFLICT')
+  const other = await load('order', { database, tokenPayload: { errCode: 0, uid: 'other' } }).main(creationRequest, {})
+  assert.equal(other.errCode, 0)
+  assert.notEqual(other.data.order_id, first.data.order_id)
+  assert.equal(Object.keys(database.inspect().orders).length, 2)
+})
+test('order creation: missing request key and unavailable transactions fail before writes', async () => {
+  const database = creationDatabase()
+  const fn = load('order', { database })
+  assert.equal((await fn.main({ ...creationRequest, request_key: '' }, {})).errCode, 'INVALID_REQUEST_KEY')
+  const noTransaction = load('order', { database: { collection() { throw new Error('must not write') } } })
+  assert.equal((await noTransaction.main(creationRequest, {})).errCode, 'TRANSACTION_UNAVAILABLE')
+  assert.equal(Object.keys(database.inspect().orders).length, 0)
+})
+test('order creation: replay validates line manifest and refuses corrupt records', async () => {
+  const database = creationDatabase()
+  const fn = load('order', { database })
+  const created = await fn.main(creationRequest, {})
+  const order = database.inspect().orders[created.data.order_id]
+  await database.collection('order-goods').doc(order.line_ids[0]).update({ num: 999 })
+  assert.equal((await fn.main(creationRequest, {})).errCode, 'ORDER_INCOMPLETE')
+  assert.equal(Object.keys(database.inspect().orders).length, 1)
+})
+test('order creation: replay after catalogue change returns original amount and checks owner', async () => {
+  const database = creationDatabase()
+  const fn = load('order', { database })
+  const created = await fn.main(creationRequest, {})
+  await database.collection('goods').doc('g').update({ price: 90, stock: 0 })
+  assert.equal((await fn.main(creationRequest, {})).data.order_id, created.data.order_id)
+  assert.equal(Number(database.inspect().orders[created.data.order_id].total_price), 44)
+  await database.collection('orders').doc(created.data.order_id).update({ member_id: 'unrelated-owner' })
+  assert.equal((await fn.main(creationRequest, {})).errCode, 'UNAUTHORIZED')
+})
+test('order creation: duplicate product lines cannot exceed combined stock', async () => {
+  const database = creationDatabase()
+  const result = await load('order', { database }).main({ ...creationRequest, goods_list: [{ goods_id: 'g', num: 6 }, { goods_id: 'g', num: 6 }] }, {})
+  assert.equal(result.errCode, 'STOCK_NOT_ENOUGH')
+  assert.equal(Object.keys(database.inspect().orders).length, 0)
+})
 const successfulPayment = { trade_state: 'SUCCESS', out_trade_no: 'ORD-test', transaction_id: 'tx-test', appid: payEnv.WX_APPID, mchid: payEnv.WXPAY_MCH_ID, amount: { total: 3600, currency: 'CNY' } }
 test('pay transaction: duplicate callback commits inventory/points/ledger only once', async () => {
   const database = transactionalDatabase()

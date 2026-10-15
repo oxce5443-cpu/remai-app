@@ -5,48 +5,48 @@
 			<view class="hero-content">
 				<view class="logo">
 						<view class="logo-icon">R</view>
-						<view class="logo-text">热麦</view>
+						<view class="logo-text">{{ $t("热麦") }}</view>
 						<view class="logo-sub">REMAI · BOULANGERIE</view>
 					</view>
 				<view class="hero-text">
-					<view class="hero-title">甜蜜时光，一口幸福</view>
-					<view class="hero-subtitle">在热麦遇见美好</view>
+					<view class="hero-title">{{ $t("甜蜜时光，一口幸福") }}</view>
+					<view class="hero-subtitle">{{ $t("在热麦遇见美好") }}</view>
 				</view>
 			</view>
 		</view>
 		<view class="main">
 			<!-- #ifdef H5 -->
 				<button type="primary" size="default" class="login-btn" v-if="env.env === 'dev'" :loading="loading" @tap="login">
-					开发环境登录
+					{{ $t("开发环境登录") }}
 				</button>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
 				<button type="primary" size="default" class="login-btn" :loading="loading" @tap="loginByWeixin">
 					<image src="/static/images/mine/wechat.png" class="wechat-icon"></image>
-					微信一键登录
+					{{ $t("微信一键登录") }}
 				</button>
 			<!-- #endif -->
-			<view class="member-tip">新用户登录即加入会员，享会员权益</view>
+			<view class="member-tip">{{ $t("新用户登录即加入会员，享会员权益") }}</view>
 			<view class="benefits">
 				<view class="benefit-item">
 					<image src="/static/images/mine/rhyl.png" class="benefit-icon"></image>
-					<text>入会有礼</text>
+					<text>{{ $t("入会有礼") }}</text>
 				</view>
 				<view class="benefit-item">
 					<image src="/static/images/mine/jfdh.png" class="benefit-icon"></image>
-					<text>积分兑换</text>
+					<text>{{ $t("积分兑换") }}</text>
 				</view>
 				<view class="benefit-item">
 					<image src="/static/images/mine/sjtq.png" class="benefit-icon"></image>
-					<text>升级特权</text>
+					<text>{{ $t("升级特权") }}</text>
 				</view>
 				<view class="benefit-item">
 					<image src="/static/images/mine/srtq.png" class="benefit-icon"></image>
-					<text>生日特权</text>
+					<text>{{ $t("生日特权") }}</text>
 				</view>
 			</view>
-			<view class="rights-link" @tap="goBrand">REMAI 品牌故事 <text class="rights-arrow">→</text></view>
-			<view class="rights-link rights-link--sub">会员权益说明</view>
+			<view class="rights-link" @tap="goBrand">{{ $t("REMAI 品牌故事") }} <text class="rights-arrow">→</text></view>
+			<view class="rights-link rights-link--sub">{{ $t("会员权益说明") }}</view>
 		</view>
 	</view>
 </template>
@@ -55,6 +55,7 @@
 	import { ref } from 'vue'
 	import { useStore } from 'vuex'
 	import { api, env } from '@/api'
+	import { t } from '@/locale'
 
 	const store = useStore()
 	const loading = ref(false)
@@ -72,7 +73,7 @@
 				return
 			}
 			uni.getUserProfile({
-				desc: '用于完善热麦烘焙会员资料',
+				desc: t('用于完善热麦烘焙会员资料'),
 				success: resolve,
 				fail: () => resolve({ userInfo: {} })
 			})

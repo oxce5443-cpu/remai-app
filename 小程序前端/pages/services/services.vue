@@ -3,21 +3,21 @@
 		<view class="cell" @tap="helpCenter">
 			<view class="cell-content">
 				<image src="/static/images/services/bzzx.png" class="cell-icon"></image>
-				<text>帮助中心</text>
+				<text>{{ $t("帮助中心") }}</text>
 			</view>
 			<image src="/static/images/navigator-1.png" class="cell-arrow"></image>
 		</view>
 		<view class="cell">
 			<view class="cell-content">
 				<text class="service-emoji">🏠</text>
-				<text>关于热麦</text>
+				<text>{{ $t("关于热麦") }}</text>
 			</view>
 			<image src="/static/images/navigator-1.png" class="cell-arrow"></image>
 		</view>
 		<view class="cell">
 			<view class="cell-content">
 				<image src="/static/images/services/wdzl.png" class="cell-icon"></image>
-				<text>热麦礼物</text>
+				<text>{{ $t("热麦礼物") }}</text>
 			</view>
 			<image src="/static/images/navigator-1.png" class="cell-arrow"></image>
 		</view>

@@ -3,7 +3,7 @@
 		:hover-class="`cta-button--${type}-hover`"
 		:disabled="disabled"
 		@tap="$emit('click')">
-		<slot>{{ text }}</slot>
+		<slot>{{ $t(text) }}</slot>
 	</button>
 </template>
 

@@ -1,70 +1,71 @@
 <template>
   <view class="order-container">
+    <LanguageSwitch />
     <el-card>
       <template #header>
         <div class="card-header">
-          <span>订单管理</span>
+          <span>{{ $t("订单管理") }}</span>
         </div>
       </template>
 
       <!-- 状态筛选 -->
       <view class="filter-tabs">
         <el-radio-group v-model="filterStatus" @change="handleFilterChange">
-          <el-radio-button label="all">全部</el-radio-button>
-          <el-radio-button label="pending">待支付</el-radio-button>
-          <el-radio-button label="paid">已支付</el-radio-button>
-          <el-radio-button label="processing">制作中</el-radio-button>
-          <el-radio-button label="completed">已完成</el-radio-button>
-          <el-radio-button label="cancelled">已取消</el-radio-button>
+          <el-radio-button label="all">{{ $t("全部") }}</el-radio-button>
+          <el-radio-button label="pending">{{ $t("待支付") }}</el-radio-button>
+          <el-radio-button label="paid">{{ $t("已支付") }}</el-radio-button>
+          <el-radio-button label="processing">{{ $t("制作中") }}</el-radio-button>
+          <el-radio-button label="completed">{{ $t("已完成") }}</el-radio-button>
+          <el-radio-button label="cancelled">{{ $t("已取消") }}</el-radio-button>
         </el-radio-group>
       </view>
 
       <el-table :data="filteredOrders" border stripe v-loading="loading">
-        <el-table-column prop="orderNo" label="订单号" width="180" />
-        <el-table-column label="订单类型" width="100">
+        <el-table-column prop="orderNo" :label="$t(&quot;订单号&quot;)" width="180" />
+        <el-table-column :label="$t(&quot;订单类型&quot;)" width="100">
           <template #default="{ row }">
-            {{ getOrderTypeText(row.type) }}
+            {{ $t(getOrderTypeText(row.type)) }}
           </template>
         </el-table-column>
-        <el-table-column label="订单状态" width="100">
+        <el-table-column :label="$t(&quot;订单状态&quot;)" width="100">
           <template #default="{ row }">
             <el-tag :type="getStatusTagType(row.status)">
-              {{ getOrderStatusText(row.status) }}
+              {{ $t(getOrderStatusText(row.status)) }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="总价" width="100">
+        <el-table-column :label="$t(&quot;总价&quot;)" width="100">
           <template #default="{ row }">
-            ¥{{ formatMoney(row.totalPrice) }}
+            ¥{{ $t(formatMoney(row.totalPrice)) }}
           </template>
         </el-table-column>
-        <el-table-column prop="personCount" label="人数" width="60" />
-        <el-table-column label="桌号" width="80">
+        <el-table-column prop="personCount" :label="$t(&quot;人数&quot;)" width="60" />
+        <el-table-column :label="$t(&quot;桌号&quot;)" width="80">
           <template #default="{ row }">
-            {{ row.tableNo ? row.tableNo + ' 号桌' : '—' }}
+            {{ $t(row.tableNo ? row.tableNo + ' 号桌' : '—') }}
           </template>
         </el-table-column>
-        <el-table-column label="下单时间" width="160">
+        <el-table-column :label="$t(&quot;下单时间&quot;)" width="160">
           <template #default="{ row }">
-            {{ formatDate(row.createTime) }}
+            {{ $t(formatDate(row.createTime)) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column :label="$t(&quot;操作&quot;)" width="200" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" size="small" @click="handleDetail(row)">详情</el-button>
+            <el-button type="info" size="small" @click="handleDetail(row)">{{ $t("详情") }}</el-button>
             <el-button
               v-if="row.status === 'paid'"
               type="success"
               size="small"
               @click="handleAccept(row)"
-            >接单</el-button>
-            <el-button v-if="row.status === 'processing'" type="success" size="small" @click="handleComplete(row)">完成</el-button>
+            >{{ $t("接单") }}</el-button>
+            <el-button v-if="row.status === 'processing'" type="success" size="small" @click="handleComplete(row)">{{ $t("完成") }}</el-button>
             <el-button
               v-if="row.status === 'pending'"
               type="danger"
               size="small"
               @click="handleCancel(row)"
-            >取消</el-button>
+            >{{ $t("取消") }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -84,43 +85,45 @@
     </el-card>
 
     <!-- 订单详情弹窗 -->
-    <el-dialog v-model="detailVisible" title="订单详情" width="600px">
+    <el-dialog v-model="detailVisible" :title="$t(&quot;订单详情&quot;)" width="600px">
       <el-descriptions :column="2" border v-if="currentOrder">
-        <el-descriptions-item label="订单号">{{ currentOrder.orderNo }}</el-descriptions-item>
-        <el-descriptions-item label="订单类型">{{ getOrderTypeText(currentOrder.type) }}</el-descriptions-item>
-        <el-descriptions-item label="订单状态">
+        <el-descriptions-item :label="$t(&quot;订单号&quot;)">{{ $t(currentOrder.orderNo) }}</el-descriptions-item>
+        <el-descriptions-item :label="$t(&quot;订单类型&quot;)">{{ $t(getOrderTypeText(currentOrder.type)) }}</el-descriptions-item>
+        <el-descriptions-item :label="$t(&quot;订单状态&quot;)">
           <el-tag :type="getStatusTagType(currentOrder.status)">
-            {{ getOrderStatusText(currentOrder.status) }}
+            {{ $t(getOrderStatusText(currentOrder.status)) }}
           </el-tag>
         </el-descriptions-item>
-        <el-descriptions-item label="下单时间">{{ formatDate(currentOrder.createTime) }}</el-descriptions-item>
-        <el-descriptions-item label="总价">¥{{ formatMoney(currentOrder.totalPrice) }}</el-descriptions-item>
-        <el-descriptions-item label="餐具">{{ currentOrder.cutleryCount == null ? '未记录' : currentOrder.cutleryCount === 0 ? '无需餐具' : currentOrder.cutleryCount + ' 份' }}</el-descriptions-item>
-        <el-descriptions-item label="人数">{{ currentOrder.personCount }}</el-descriptions-item>
-        <el-descriptions-item label="收货地址" :span="2">{{ currentOrder.address || '无' }}</el-descriptions-item>
-        <el-descriptions-item label="备注" :span="2">{{ currentOrder.remark || '无' }}</el-descriptions-item>
+        <el-descriptions-item :label="$t(&quot;下单时间&quot;)">{{ $t(formatDate(currentOrder.createTime)) }}</el-descriptions-item>
+        <el-descriptions-item :label="$t(&quot;总价&quot;)">¥{{ $t(formatMoney(currentOrder.totalPrice)) }}</el-descriptions-item>
+        <el-descriptions-item :label="$t(&quot;餐具&quot;)">{{ currentOrder.cutleryCount == null ? $t('未记录') : currentOrder.cutleryCount === 0 ? $t('无需餐具') : $t('{count}份餐具', { count: currentOrder.cutleryCount }) }}</el-descriptions-item>
+        <el-descriptions-item :label="$t(&quot;人数&quot;)">{{ $t(currentOrder.personCount) }}</el-descriptions-item>
+        <el-descriptions-item :label="$t(&quot;收货地址&quot;)" :span="2">{{ currentOrder.address || $t('无') }}</el-descriptions-item>
+        <el-descriptions-item :label="$t(&quot;备注&quot;)" :span="2">{{ currentOrder.remark || $t('无') }}</el-descriptions-item>
       </el-descriptions>
 
-      <el-divider>商品明细</el-divider>
+      <el-divider>{{ $t("商品明细") }}</el-divider>
       <el-table :data="currentOrder?.goodsList || []" border size="small">
-        <el-table-column prop="name" label="商品名称" />
-        <el-table-column prop="price" label="单价" width="100">
-          <template #default="{ row }">¥{{ formatMoney(row.price) }}</template>
+        <el-table-column prop="name" :label="$t(&quot;商品名称&quot;)" />
+        <el-table-column prop="price" :label="$t(&quot;单价&quot;)" width="100">
+          <template #default="{ row }">¥{{ $t(formatMoney(row.price)) }}</template>
         </el-table-column>
-        <el-table-column prop="count" label="数量" width="80" />
-        <el-table-column label="小计" width="100">
-          <template #default="{ row }">¥{{ formatMoney(row.price * row.count) }}</template>
+        <el-table-column prop="count" :label="$t(&quot;数量&quot;)" width="80" />
+        <el-table-column :label="$t(&quot;小计&quot;)" width="100">
+          <template #default="{ row }">¥{{ $t(formatMoney(row.price * row.count)) }}</template>
         </el-table-column>
       </el-table>
 
       <template #footer>
-        <el-button @click="detailVisible = false">关闭</el-button>
+        <el-button @click="detailVisible = false">{{ $t("关闭") }}</el-button>
       </template>
     </el-dialog>
   </view>
 </template>
 
 <script setup>
+import { t } from '@/locale'
+
 import { ref, computed, onMounted } from 'vue'
 import { adminRequest, formatDate, formatMoney, getOrderStatusText, getOrderTypeText } from '@/utils/api.js'
 
@@ -177,9 +180,9 @@ function handleDetail(row) {
 
 async function handleAccept(row) {
   try {
-    await ElMessageBox.confirm('确定接单吗？', '提示', { type: 'warning' })
+    await ElMessageBox.confirm(t('确定接单吗？'), t('提示'), { type: 'warning' })
     await adminRequest('updateOrderStatus', { order_id: row._id || row.id, status: 'processing' })
-    ElMessage.success('接单成功')
+    ElMessage.success(t('接单成功'))
     loadOrders()
   } catch (e) {
     if (e !== 'cancel') {
@@ -190,20 +193,20 @@ async function handleAccept(row) {
 
 async function handleComplete(row) {
   try {
-    await ElMessageBox.confirm('确认该订单已完成？', '提示', { type: 'warning' })
+    await ElMessageBox.confirm(t('确认该订单已完成？'), t('提示'), { type: 'warning' })
     await adminRequest('updateOrderStatus', { order_id: row._id || row.id, status: 'completed' })
-    ElMessage.success('订单已完成')
+    ElMessage.success(t('订单已完成'))
     loadOrders()
   } catch (error) {
-    if (error !== 'cancel' && error !== 'close') ElMessage.error(error.message || '操作失败')
+    if (error !== 'cancel' && error !== 'close') ElMessage.error(t(error.message || '操作失败'))
   }
 }
 
 async function handleCancel(row) {
   try {
-    await ElMessageBox.confirm('确定取消该订单吗？', '提示', { type: 'warning' })
+    await ElMessageBox.confirm(t('确定取消该订单吗？'), t('提示'), { type: 'warning' })
     await adminRequest('updateOrderStatus', { order_id: row._id || row.id, status: 'cancelled' })
-    ElMessage.success('订单已取消')
+    ElMessage.success(t('订单已取消'))
     loadOrders()
   } catch (e) {
     if (e !== 'cancel') {

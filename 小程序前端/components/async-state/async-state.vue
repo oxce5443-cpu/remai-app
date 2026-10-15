@@ -5,20 +5,20 @@
 			<view class="dot"></view>
 			<view class="dot"></view>
 		</view>
-		<text class="async-tip">{{ loadingText }}</text>
+		<text class="async-tip">{{ $t(loadingText) }}</text>
 	</view>
 
 	<view v-else-if="status === 'error'" class="async-state async-error">
 		<image class="async-img" src="/static/images/empty.png" mode="aspectFit"></image>
-		<text class="async-title">{{ errorTitle }}</text>
-		<text class="async-desc">{{ errorDesc }}</text>
-		<button v-if="retryable" class="async-retry rm-btn" @tap="onRetry">重新加载</button>
+		<text class="async-title">{{ $t(errorTitle) }}</text>
+		<text class="async-desc">{{ $t(errorDesc) }}</text>
+		<button v-if="retryable" class="async-retry rm-btn" @tap="onRetry">{{ $t("重新加载") }}</button>
 	</view>
 
 	<view v-else-if="status === 'empty'" class="async-state async-empty">
 		<image class="async-img" src="/static/images/empty.png" mode="aspectFit"></image>
-		<text class="async-title">{{ emptyTitle }}</text>
-		<text v-if="emptyDesc" class="async-desc">{{ emptyDesc }}</text>
+		<text class="async-title">{{ $t(emptyTitle) }}</text>
+		<text v-if="emptyDesc" class="async-desc">{{ $t(emptyDesc) }}</text>
 		<slot name="empty"></slot>
 	</view>
 

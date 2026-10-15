@@ -12,7 +12,7 @@ async function getCart(_, uid) {
 }
 
 // 添加商品到购物车
-async function addToCart({ goods_id, goods_name, cate_id, price, number, image, use_property, props_text, props }, uid) {
+async function addToCart({ goods_id, goods_name, goods_name_en, cate_id, price, number, image, use_property, props_text, props }, uid) {
 	if (!uid) return { errCode: 'UNAUTHORIZED', errMsg: '请先登录' }
 
 	const now = new Date()
@@ -31,6 +31,7 @@ async function addToCart({ goods_id, goods_name, cate_id, price, number, image, 
 		const item = existRes.data[0]
 		await db.collection('cart').doc(item._id).update({
 			number: item.number + num,
+			...(typeof goods_name_en === 'string' ? { goods_name_en } : {}),
 			updated_at: now
 		})
 		return { errCode: 0, errMsg: 'success', id: item._id }
@@ -40,6 +41,8 @@ async function addToCart({ goods_id, goods_name, cate_id, price, number, image, 
 			member_id: uid,
 			goods_id,
 			goods_name,
+			// Presentation snapshot only; checkout still uses server catalogue pricing.
+			goods_name_en: typeof goods_name_en === 'string' ? goods_name_en : '',
 			cate_id: cate_id || '',
 			price: price || '0',
 			number: num,
@@ -122,6 +125,7 @@ async function syncCart({ items }, uid) {
 			member_id: uid,
 			goods_id: it.goods_id,
 			goods_name: it.goods_name || '',
+			goods_name_en: typeof it.goods_name_en === 'string' ? it.goods_name_en : '',
 			cate_id: it.cate_id || '',
 			price: it.price || '0',
 			number: parseInt(it.number) || 1,

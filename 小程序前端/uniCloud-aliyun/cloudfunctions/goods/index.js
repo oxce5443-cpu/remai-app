@@ -50,8 +50,9 @@ async function getMenuData() {
 		const prefer = items.find(g => String(g.image || '').indexOf('remai-') > -1)
 		goods.push(prefer || items[0])
 	}
-	// 精简字段（原 .map 逻辑修正为独立语句）
+	// 保留计价与可售字段，最终对外结构由下方显式映射决定。
 	const goodsBrief = goods.map(g => ({
+		...g,
 		_id: g._id,
 		name: g.name,
 		image: g.image || '',
@@ -66,18 +67,21 @@ async function getMenuData() {
 	const result = cats.map(cat => ({
 		id: cat._id,
 		name: cat.name,
+		name_en: cat.name_en || '',
 		icon: cat.icon || '',
 		sort: cat.sort || 0,
 		goods_list: (goodsByCat.get(cat._id) || []).map(g => ({
 			id: g._id,
 			name: g.name,
+			name_en: g.name_en || '',
 			price: parseFloat(g.price),
 			original_price: g.original_price || '',
 			content: g.description || '',
+			content_en: g.description_en || '',
 			image: g.image || '',
 			images: g.image ? [g.image] : [],
 			sales: g.sales || 0,
-			stock: g.stock || 9999,
+			stock: g.stock == null ? 9999 : g.stock,
 			use_property: 0,
 			property: [],
 			specs: [],

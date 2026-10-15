@@ -1,5 +1,6 @@
 <script setup>
-import { nextTick, onMounted, ref } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
+import { locale, t, localized } from '@/locale'
 import { adminRequest, formatMoney, formatDate, getOrderStatusText } from '@/utils/api.js'
 import { goPage } from '@/utils/navigate.js'
 
@@ -24,6 +25,16 @@ let distributionChart = null
 
 onMounted(() => {
   fetchDashboard()
+})
+
+// Redraw labels only; changing display language never requests or mutates cloud data.
+watch(locale, async () => {
+  await nextTick()
+  if (echartsLib) {
+    renderTrendChart(echartsLib)
+    renderRankChart(echartsLib)
+    renderDistributionChart(echartsLib)
+  }
 })
 
 async function fetchDashboard() {
@@ -97,16 +108,16 @@ function renderTrendChart(echarts) {
   trendChart = trendChart || echarts.init(el)
   trendChart.setOption({
     tooltip: { trigger: 'axis' },
-    legend: { data: ['订单数', '营收'] },
+    legend: { data: [t('订单数'), t('营收')] },
     grid: { left: 36, right: 24, top: 44, bottom: 32 },
     xAxis: { type: 'category', data: trend.value.map((item) => item.stat_date) },
     yAxis: [
-      { type: 'value', name: '订单' },
-      { type: 'value', name: '营收' }
+      { type: 'value', name: t('订单') },
+      { type: 'value', name: t('营收') }
     ],
     series: [
-      { name: '订单数', type: 'line', smooth: true, data: trend.value.map((item) => item.order_count), lineStyle: { color: '#B8855B' }, itemStyle: { color: '#B8855B' } },
-      { name: '营收', type: 'bar', yAxisIndex: 1, data: trend.value.map((item) => Number(item.sales_amount || 0)), itemStyle: { color: '#D9B38C', borderRadius: [6, 6, 0, 0] } }
+      { name: t('订单数'), type: 'line', smooth: true, data: trend.value.map((item) => item.order_count), lineStyle: { color: '#B8855B' }, itemStyle: { color: '#B8855B' } },
+      { name: t('营收'), type: 'bar', yAxisIndex: 1, data: trend.value.map((item) => Number(item.sales_amount || 0)), itemStyle: { color: '#D9B38C', borderRadius: [6, 6, 0, 0] } }
     ]
   })
 }
@@ -119,7 +130,7 @@ function renderRankChart(echarts) {
     tooltip: { trigger: 'axis' },
     grid: { left: 96, right: 24, top: 24, bottom: 28 },
     xAxis: { type: 'value' },
-    yAxis: { type: 'category', data: goodsRank.value.map((item) => item.name).reverse() },
+    yAxis: { type: 'category', data: goodsRank.value.map((item) => localized(item, 'name')).reverse() },
     series: [
       { type: 'bar', data: goodsRank.value.map((item) => Number(item.sales || 0)).reverse(), itemStyle: { color: '#4A3427', borderRadius: [0, 8, 8, 0] } }
     ]
@@ -138,7 +149,7 @@ function renderDistributionChart(echarts) {
         type: 'pie',
         radius: ['42%', '70%'],
         center: ['50%', '44%'],
-        data: distribution.value.map((item) => ({ name: item.label, value: item.count })),
+        data: distribution.value.map((item) => ({ name: t(item.label), value: item.count })),
         color: ['#B8855B', '#D9B38C', '#E8C5C0', '#4A3427']
       }
     ]
@@ -170,67 +181,68 @@ function goToPage(url) {
 
 <template>
   <view class="dashboard">
+    <LanguageSwitch />
     <view class="hero-band">
       <view>
         <text class="eyebrow">REMAI BAKERY OPS</text>
-        <view class="title">热麦经营数据看板</view>
-        <view class="subtitle">订单、营收、会员与商品销量实时汇总</view>
+        <view class="title">{{ $t("热麦经营数据看板") }}</view>
+        <view class="subtitle">{{ $t("订单、营收、会员与商品销量实时汇总") }}</view>
       </view>
       <view class="hero-actions">
-        <button class="ghost-btn" @tap="exportCsv">导出CSV</button>
-        <button class="primary-btn" :loading="loading" @tap="fetchDashboard">刷新</button>
+        <button class="ghost-btn" @tap="exportCsv">{{ $t("导出CSV") }}</button>
+        <button class="primary-btn" :loading="loading" @tap="fetchDashboard">{{ $t("刷新") }}</button>
       </view>
     </view>
 
     <view class="stats-grid">
       <view class="stat-card">
-        <text class="stat-label">今日订单</text>
-        <text class="stat-value">{{ overview.today_order_count }}</text>
+        <text class="stat-label">{{ $t("今日订单") }}</text>
+        <text class="stat-value">{{ $t(overview.today_order_count) }}</text>
       </view>
       <view class="stat-card">
-        <text class="stat-label">今日营收</text>
-        <text class="stat-value">¥{{ formatMoney(overview.today_sales) }}</text>
+        <text class="stat-label">{{ $t("今日营收") }}</text>
+        <text class="stat-value">¥{{ $t(formatMoney(overview.today_sales)) }}</text>
       </view>
       <view class="stat-card">
-        <text class="stat-label">新增会员</text>
-        <text class="stat-value">{{ overview.today_new_users }}</text>
+        <text class="stat-label">{{ $t("新增会员") }}</text>
+        <text class="stat-value">{{ $t(overview.today_new_users) }}</text>
       </view>
       <view class="stat-card">
-        <text class="stat-label">客单价</text>
-        <text class="stat-value">¥{{ formatMoney(overview.avg_order_amount) }}</text>
+        <text class="stat-label">{{ $t("客单价") }}</text>
+        <text class="stat-value">¥{{ $t(formatMoney(overview.avg_order_amount)) }}</text>
       </view>
     </view>
 
     <view class="shortcut-grid">
-      <view class="shortcut-item" @tap="goToPage('/pages/goods/list')">商品管理</view>
-      <view class="shortcut-item" @tap="goToPage('/pages/order/list')">订单管理</view>
-      <view class="shortcut-item" @tap="goToPage('/pages/member/list')">会员管理</view>
-      <view class="shortcut-item" @tap="goToPage('/pages/coupon/list')">优惠券</view>
-      <view class="shortcut-item" @tap="goToPage('/pages/banner/list')">轮播图</view>
-      <view class="shortcut-item" @tap="goToPage('/pages/store/setting')">门店设置</view>
+      <view class="shortcut-item" @tap="goToPage('/pages/goods/list')">{{ $t("商品管理") }}</view>
+      <view class="shortcut-item" @tap="goToPage('/pages/order/list')">{{ $t("订单管理") }}</view>
+      <view class="shortcut-item" @tap="goToPage('/pages/member/list')">{{ $t("会员管理") }}</view>
+      <view class="shortcut-item" @tap="goToPage('/pages/coupon/list')">{{ $t("优惠券") }}</view>
+      <view class="shortcut-item" @tap="goToPage('/pages/banner/list')">{{ $t("轮播图") }}</view>
+      <view class="shortcut-item" @tap="goToPage('/pages/store/setting')">{{ $t("门店设置") }}</view>
     </view>
 
     <view class="panel">
       <view class="panel-header">
         <view>
-          <text class="panel-title">订单趋势</text>
-          <text class="panel-desc">订单数与营收变化</text>
+          <text class="panel-title">{{ $t("订单趋势") }}</text>
+          <text class="panel-desc">{{ $t("订单数与营收变化") }}</text>
         </view>
         <view class="range-tabs">
-          <text :class="{ active: rangeDays === 7 }" @tap="setRange(7)">7天</text>
-          <text :class="{ active: rangeDays === 30 }" @tap="setRange(30)">30天</text>
+          <text :class="{ active: rangeDays === 7 }" @tap="setRange(7)">{{ $t("7天") }}</text>
+          <text :class="{ active: rangeDays === 30 }" @tap="setRange(30)">{{ $t("30天") }}</text>
         </view>
       </view>
       <view id="trendChart" class="chart"></view>
-      <view v-if="!chartReady" class="chart-fallback">ECharts 加载后显示趋势图</view>
+      <view v-if="!chartReady" class="chart-fallback">{{ $t("ECharts 加载后显示趋势图") }}</view>
     </view>
 
     <view class="two-col">
       <view class="panel">
         <view class="panel-header">
           <view>
-            <text class="panel-title">商品销量 TOP10</text>
-            <text class="panel-desc">按商品累计销量排序</text>
+            <text class="panel-title">{{ $t("商品销量 TOP10") }}</text>
+            <text class="panel-desc">{{ $t("按商品累计销量排序") }}</text>
           </view>
         </view>
         <view id="rankChart" class="chart chart-small"></view>
@@ -238,8 +250,8 @@ function goToPage(url) {
       <view class="panel">
         <view class="panel-header">
           <view>
-            <text class="panel-title">消费分布</text>
-            <text class="panel-desc">近30天客单价区间</text>
+            <text class="panel-title">{{ $t("消费分布") }}</text>
+            <text class="panel-desc">{{ $t("近30天客单价区间") }}</text>
           </view>
         </view>
         <view id="distributionChart" class="chart chart-small"></view>
@@ -249,22 +261,22 @@ function goToPage(url) {
     <view class="panel">
       <view class="panel-header">
         <view>
-          <text class="panel-title">实时订单流</text>
-          <text class="panel-desc">最新10条订单</text>
+          <text class="panel-title">{{ $t("实时订单流") }}</text>
+          <text class="panel-desc">{{ $t("最新10条订单") }}</text>
         </view>
-        <text class="more-link" @tap="goToPage('/pages/order/list')">查看全部</text>
+        <text class="more-link" @tap="goToPage('/pages/order/list')">{{ $t("查看全部") }}</text>
       </view>
       <view class="order-stream" v-if="recentOrders.length">
         <view class="order-row" v-for="order in recentOrders" :key="order._id">
           <view>
-            <text class="order-no">{{ order.order_no || order.orderNo || '-' }}</text>
-            <text class="order-time">{{ formatDate(order.created_at || order.createDate) }}</text>
+            <text class="order-no">{{ $t(order.order_no || order.orderNo || '-') }}</text>
+            <text class="order-time">{{ $t(formatDate(order.created_at || order.createDate)) }}</text>
           </view>
-          <text class="order-status">{{ getOrderStatusText(order.status) }}</text>
-          <text class="order-amount">¥{{ formatMoney(order.total_price || order.totalPrice) }}</text>
+          <text class="order-status">{{ $t(getOrderStatusText(order.status)) }}</text>
+          <text class="order-amount">¥{{ $t(formatMoney(order.total_price || order.totalPrice)) }}</text>
         </view>
       </view>
-      <view v-else class="empty-tip">暂无订单数据</view>
+      <view v-else class="empty-tip">{{ $t("暂无订单数据") }}</view>
     </view>
   </view>
 </template>

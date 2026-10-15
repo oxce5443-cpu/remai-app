@@ -14,7 +14,7 @@
 		          backgroundColor: item.style && item.style.backgroundColor ? item.style.backgroundColor : '#C7C6CD',
 		          fontSize: item.style && item.style.fontSize ? item.style.fontSize : '16px'
 		        }"
-					 class="uni-swipe_button button-hock" @touchend="onClick(index,item)"><text class="uni-swipe_button-text" :style="{color: item.style && item.style.color ? item.style.color : '#FFFFFF',}">{{ item.text }}</text></view>
+					 class="uni-swipe_button button-hock" @touchend="onClick(index,item)"><text class="uni-swipe_button-text" :style="{color: item.style && item.style.color ? item.style.color : '#FFFFFF',}">{{ $t(item.text) }}</text></view>
 				</view>
 			</view>
 		</view>
@@ -26,7 +26,7 @@
 			<view ref="selector-button-hock" class="uni-swipe_button-group selector-query-hock move-hock" :style="{width:right+'px'}">
 				<view ref="button-hock" v-for="(item,index) in options" :key="index" :style="{
 		  backgroundColor: item.style && item.style.backgroundColor ? item.style.backgroundColor : '#C7C6CD',left: right+'px'}"
-				 class="uni-swipe_button " @click.stop="onClick(index,item)"><text class="uni-swipe_button-text" :style="{color: item.style && item.style.color ? item.style.color : '#FFFFFF',fontSize: item.style && item.style.fontSize ? item.style.fontSize : '16px'}">{{ item.text }}</text></view>
+				 class="uni-swipe_button " @click.stop="onClick(index,item)"><text class="uni-swipe_button-text" :style="{color: item.style && item.style.color ? item.style.color : '#FFFFFF',fontSize: item.style && item.style.fontSize ? item.style.fontSize : '16px'}">{{ $t(item.text) }}</text></view>
 			</view>
 			<view ref='selector-content-hock' class="uni-swipe_move-box selector-query-hock">
 				<view class="uni-swipe_box">
@@ -44,7 +44,7 @@
 		    backgroundColor: item.style && item.style.backgroundColor ? item.style.backgroundColor : '#C7C6CD',
 		    fontSize: item.style && item.style.fontSize ? item.style.fontSize : '16px'
 		  }"
-				 class="uni-swipe_button button-hock" @click.stop="onClick(index,item)"><text class="uni-swipe_button-text" :style="{color: item.style && item.style.color ? item.style.color : '#FFFFFF',}">{{ item.text }}</text></view>
+				 class="uni-swipe_button button-hock" @click.stop="onClick(index,item)"><text class="uni-swipe_button-text" :style="{color: item.style && item.style.color ? item.style.color : '#FFFFFF',}">{{ $t(item.text) }}</text></view>
 			</view>
 			<view ref='selector-content-hock' class="selector-query-hock" @touchstart="touchstart" @touchmove="touchmove"
 			 @touchend="touchend" :class="{'ani':uniShow}" :style="{transform:moveLeft}">
@@ -73,7 +73,7 @@
 				  backgroundColor: item.style && item.style.backgroundColor ? item.style.backgroundColor : '#C7C6CD',
 				  fontSize: item.style && item.style.fontSize ? item.style.fontSize : '16px'
 				}"
-				 class="uni-swipe_button button-hock" @click.stop="onClick(index,item)"><text class="uni-swipe_button-text" :style="{color: item.style && item.style.color ? item.style.color : '#FFFFFF',}">{{ item.text }}</text></view>
+				 class="uni-swipe_button button-hock" @click.stop="onClick(index,item)"><text class="uni-swipe_button-text" :style="{color: item.style && item.style.color ? item.style.color : '#FFFFFF',}">{{ $t(item.text) }}</text></view>
 			</view>
 		</view>
 		<!-- #endif -->

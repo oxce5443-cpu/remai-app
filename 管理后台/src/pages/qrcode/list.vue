@@ -1,58 +1,60 @@
 <template>
 	<view class="qrcode-list-container">
+    <LanguageSwitch />
 		<!-- 搜索栏 -->
 		<view class="search-bar">
-			<button class="add-btn" @click="openGenerateDialog">生成二维码</button>
+			<button class="add-btn" @click="openGenerateDialog">{{ $t("生成二维码") }}</button>
 		</view>
 
 		<!-- 表格 -->
 		<view class="table-container">
 			<el-table :data="tableData" border style="width: 100%">
-				<el-table-column prop="table_no" label="桌号" width="120" />
-				<el-table-column prop="qrcode" label="二维码" width="120">
+				<el-table-column prop="table_no" :label="$t(&quot;桌号&quot;)" width="120" />
+				<el-table-column prop="qrcode" :label="$t(&quot;二维码&quot;)" width="120">
 					<template #default="{ row }">
 						<image v-if="row.qrcode" :src="row.qrcode" class="qrcode-image" @click="previewImage(row.qrcode)" />
 						<span v-else>-</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="status" label="状态" width="100">
+				<el-table-column prop="status" :label="$t(&quot;状态&quot;)" width="100">
 					<template #default="{ row }">
 						<el-tag :type="row.status === 'active' ? 'success' : 'info'">
-							{{ row.status === 'active' ? '启用' : '禁用' }}
+							{{ $t(row.status === 'active' ? '启用' : '禁用') }}
 						</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column prop="createTime" label="创建时间" width="180">
+				<el-table-column prop="createTime" :label="$t(&quot;创建时间&quot;)" width="180">
 					<template #default="{ row }">
-						{{ formatDate(row.createTime) }}
+						{{ $t(formatDate(row.createTime)) }}
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="220" fixed="right">
+				<el-table-column :label="$t(&quot;操作&quot;)" width="220" fixed="right">
 					<template #default="{ row }">
-						<el-button v-if="row.status === 'active'" size="small" type="warning" @click="toggleStatus(row)">禁用</el-button>
-						<el-button v-else size="small" type="success" @click="toggleStatus(row)">启用</el-button>
-						<el-button size="small" type="danger" @click="handleDelete(row)">删除</el-button>
+						<el-button v-if="row.status === 'active'" size="small" type="warning" @click="toggleStatus(row)">{{ $t("禁用") }}</el-button>
+						<el-button v-else size="small" type="success" @click="toggleStatus(row)">{{ $t("启用") }}</el-button>
+						<el-button size="small" type="danger" @click="handleDelete(row)">{{ $t("删除") }}</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
 		</view>
 
 		<!-- 生成二维码弹窗 -->
-		<el-dialog v-model="generateDialogVisible" title="生成二维码" width="400px">
+		<el-dialog v-model="generateDialogVisible" :title="$t(&quot;生成二维码&quot;)" width="400px">
 			<el-form :model="generateForm" label-width="80px">
-				<el-form-item label="桌号">
-					<el-input v-model="generateForm.tableNo" placeholder="请输入桌号" />
+				<el-form-item :label="$t(&quot;桌号&quot;)">
+					<el-input v-model="generateForm.tableNo" :placeholder="$t(&quot;请输入桌号&quot;)" />
 				</el-form-item>
 			</el-form>
 			<template #footer>
-				<el-button @click="generateDialogVisible = false">取消</el-button>
-				<el-button type="primary" @click="handleGenerate" :loading="generateLoading">生成</el-button>
+				<el-button @click="generateDialogVisible = false">{{ $t("取消") }}</el-button>
+				<el-button type="primary" @click="handleGenerate" :loading="generateLoading">{{ $t("生成") }}</el-button>
 			</template>
 		</el-dialog>
 	</view>
 </template>
 
 <script setup>
+import { t } from '@/locale'
 import { ref, onMounted } from 'vue'
 import { adminRequest, formatDate } from '@/utils/api.js'
 
@@ -136,7 +138,7 @@ function previewImage(url) {
 async function handleDelete(row) {
 	uni.showModal({
 		title: '确认删除',
-		content: `确定要删除桌号"${row.table_no || row.tableNo || ''}"的二维码吗？`,
+		content: t('确定要删除桌号"{table}"的二维码吗？', { table: row.table_no || row.tableNo || '' }),
 		success: async (res) => {
 			if (res.confirm) {
 				try {

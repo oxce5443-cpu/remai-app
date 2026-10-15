@@ -2,26 +2,26 @@
 	<view class="order-card" @tap="$emit('click')">
 		<view class="order-card__header">
 			<view class="order-card__store">
-				<text class="order-card__store-name">{{ order.storeName || '热麦烘焙' }}</text>
-				<view class="order-card__status" :class="statusClass">{{ statusText }}</view>
+				<text class="order-card__store-name">{{ $t(order.storeName || '热麦烘焙') }}</text>
+				<view class="order-card__status" :class="statusClass">{{ $t(statusText) }}</view>
 			</view>
 		</view>
 		<view class="order-card__goods">
 			<image v-for="(item, i) in (order.goods || []).slice(0, 3)" :key="i"
 				:src="item.image" mode="aspectFill" class="order-card__goods-img"></image>
 			<view class="order-card__goods-count" v-if="(order.goods || []).length > 3">
-				+{{ order.goods.length - 3 }}
+				+{{ $t(order.goods.length - 3) }}
 			</view>
 		</view>
 		<view class="order-card__footer">
 			<view class="order-card__total">
-				<text class="order-card__total-label">共{{ order.goods ? order.goods.length : 0 }}件</text>
-				<text class="order-card__total-price">￥{{ order.total || 0 }}</text>
+				<text class="order-card__total-label">{{ $t("共") }}{{ $t(order.goods ? order.goods.length : 0) }}{{ $t("件") }}</text>
+				<text class="order-card__total-price">￥{{ $t(order.total || 0) }}</text>
 			</view>
 			<view class="order-card__actions" v-if="actions.length">
 				<view class="order-card__action-btn" v-for="(act, i) in actions" :key="i"
 					@tap.stop="$emit(act.event)">
-					{{ act.text }}
+					{{ $t(act.text) }}
 				</view>
 			</view>
 		</view>

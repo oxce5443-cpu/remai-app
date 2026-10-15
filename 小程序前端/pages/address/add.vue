@@ -2,31 +2,31 @@
 	<view class="page rm-page old-money">
 		<view class="form-card">
 			<view class="form-item">
-				<view class="label">收货人</view>
-				<input class="input" placeholder="请输入收货人" v-model="form.acceptName" placeholder-class="placeholder"/>
+				<view class="label">{{ $t("收货人") }}</view>
+				<input class="input" :placeholder="$t(&quot;请输入收货人&quot;)" v-model="form.acceptName" placeholder-class="placeholder"/>
 			</view>
 			<view class="form-item">
-				<view class="label">性别</view>
+				<view class="label">{{ $t("性别") }}</view>
 				<view class="radio-group">
-					<view class="radio" :class="{'radio--checked': !form.sex}" @tap="form.sex=0">先生</view>
-					<view class="radio" :class="{'radio--checked': form.sex}" @tap="form.sex=1">女士</view>
+					<view class="radio" :class="{'radio--checked': !form.sex}" @tap="form.sex=0">{{ $t("先生") }}</view>
+					<view class="radio" :class="{'radio--checked': form.sex}" @tap="form.sex=1">{{ $t("女士") }}</view>
 				</view>
 			</view>
 			<view class="form-item">
-				<view class="label">联系方式</view>
-				<input class="input" placeholder="请输入收货人联系方式" v-model="form.mobile" placeholder-class="placeholder"/>
+				<view class="label">{{ $t("联系方式") }}</view>
+				<input class="input" :placeholder="$t(&quot;请输入收货人联系方式&quot;)" v-model="form.mobile" placeholder-class="placeholder"/>
 			</view>
 			<view class="form-item">
-				<view class="label">收货地址</view>
-				<input class="input" placeholder="请选择收货地址" v-model="form.street" placeholder-class="placeholder"/>
+				<view class="label">{{ $t("收货地址") }}</view>
+				<input class="input" :placeholder="$t(&quot;请选择收货地址&quot;)" v-model="form.street" placeholder-class="placeholder"/>
 			</view>
 			<view class="form-item form-item--last">
-				<view class="label">门牌号</view>
-				<input class="input" placeholder="请输入收货人详细地址" v-model="form.doorNumber" placeholder-class="placeholder"/>
+				<view class="label">{{ $t("门牌号") }}</view>
+				<input class="input" :placeholder="$t(&quot;请输入收货人详细地址&quot;)" v-model="form.doorNumber" placeholder-class="placeholder"/>
 			</view>
 		</view>
 		<view class="btn-section">
-			<button type="primary" size="default" @tap="save">保存</button>
+			<button type="primary" size="default" @tap="save">{{ $t("保存") }}</button>
 		</view>
 	</view>
 </template>

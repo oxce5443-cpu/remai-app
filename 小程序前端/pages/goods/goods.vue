@@ -1,43 +1,43 @@
 <template>
 	<view class="page rm-page old-money">
+		<view v-if="loading || loadError" class="detail-state">
+			<text>{{ $t(loading ? '加载中...' : loadError) }}</text>
+			<button v-if="loadError" @tap="goBack">{{ $t('返回') }}</button>
+		</view>
+		<template v-else>
 		<view class="hero">
 			<image :src="product.image" mode="aspectFill"></image>
 			<view class="top-bar">
 				<view class="back" @tap="goBack">‹</view>
-				<view class="mini-actions"><text>•••</text><text>◎</text></view>
-			</view>
-			<view class="hero-tags">
-				<text>主厨推荐</text>
-				<text>今晨现烤</text>
 			</view>
 		</view>
 
 		<view class="sheet">
 			<view class="title-row">
 				<view>
-					<view class="product-name">{{ product.name }}</view>
-					<view class="product-subtitle">{{ product.subtitle }}</view>
+					<view class="product-name">{{ $t($localized(product, "name")) }}</view>
+					<view class="product-subtitle">{{ $t(product.subtitle) }}</view>
 				</view>
 			</view>
-			<view class="description">{{ product.description }}</view>
+			<view class="description">{{ $t($localized(product, "description")) }}</view>
 			<view class="buy-row">
-				<view class="price">¥{{ currentPrice }}</view>
+				<view class="price">¥{{ $t(currentPrice) }}</view>
 				<view class="qty">
 					<text @tap="decreaseQty">−</text>
-					<text>{{ quantity }}</text>
+					<text>{{ $t(quantity) }}</text>
 					<text @tap="increaseQty">＋</text>
 				</view>
 			</view>
 		</view>
 
-		<view class="section">
-			<view class="section-title">推荐</view>
+		<view class="section" v-if="recommendations.length">
+			<view class="section-title">{{ $t("推荐") }}</view>
 			<scroll-view scroll-x class="recommend-scroll" :show-scrollbar="false">
 				<view class="recommend-list">
 					<view class="recommend-card" v-for="item in recommendations" :key="item.name">
 						<image :src="item.image" mode="aspectFill"></image>
-						<view>{{ item.name }}</view>
-						<text>¥{{ item.price }}</text>
+						<view>{{ $t($localized(item, "name")) }}</view>
+						<text>¥{{ $t(item.price) }}</text>
 					</view>
 				</view>
 			</scroll-view>
@@ -45,63 +45,112 @@
 
 		<view class="bottom-bar">
 			<view>
-				<text class="bottom-label">Final price</text>
-				<view class="bottom-price">¥{{ totalPrice }}</view>
+				<text class="bottom-label">{{ $t('合计') }}</text>
+				<view class="bottom-price">¥{{ $t(totalPrice) }}</view>
 			</view>
-			<view class="cart-btn" @tap="addToCart">加入购物袋</view>
+			<button class="cart-btn" :disabled="!canPurchase" @tap="addToCart">{{ $t(canPurchase ? '加入购物袋' : '已售罄') }}</button>
 		</view>
+		</template>
 	</view>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
+import { api } from '@/api'
+import store from '@/store'
 
 const productId = ref('')
 const quantity = ref(1)
-const product = ref({
-	id: 1,
-	name: '草莓云朵枕头蛋糕',
-	subtitle: '法式风味与顶级食材',
-	description: 'A fragile sponge cake layered with premium French strawberry and cream. The cream steamed with premium French strawberry and cream...',
-	price: 58,
-	image: '/static/images/goods/default.png'
+const product = ref({ id: '', name: '', subtitle: '', description: '', image: '', stock: 0 })
+const recommendations = ref([])
+const loading = ref(true)
+const loadError = ref('')
+const loaded = ref(false)
+const canPurchase = computed(() => loaded.value && product.value.isSell !== false && Number(product.value.stock) > 0 && Number.isFinite(Number(product.value.price)))
+const currentPrice = computed(() => loaded.value ? Number(product.value.price) : '--')
+const totalPrice = computed(() => loaded.value ? (Number(product.value.price) * quantity.value).toFixed(2) : '--')
+
+onLoad(async (options = {}) => {
+	productId.value = String(options.id || options.goodsId || options.goods_id || '').trim()
+	loaded.value = false
+	loading.value = true
+	loadError.value = ''
+	try {
+		if (!productId.value) throw new Error('商品不存在')
+		const data = await api.getGoodsDetail({ id: productId.value })
+		const id = data && (data._id || data.id)
+		if (!id || String(id) !== productId.value || !Number.isFinite(Number(data.price)) || Number(data.price) < 0) throw new Error('商品不存在')
+		product.value = { ...data, id, image: typeof data.image === 'string' ? data.image : (data.image && data.image.url) || '', subtitle: data.subtitle || '' }
+		quantity.value = 1
+		loaded.value = true
+		if (!canPurchase.value) uni.showToast({ title: '商品已售罄或下架', icon: 'none' })
+	} catch (error) {
+		loadError.value = '商品加载失败，请返回重试'
+		uni.showToast({ title: loadError.value, icon: 'none' })
+	} finally {
+		loading.value = false
+	}
 })
-const recommendations = ref([
-	{ name: '草莓云朵', price: 58, image: '/static/images/goods/default.png' },
-	{ name: '经典可颂', price: 50, image: '/static/images/goods/default.png' },
-	{ name: '法棍面包', price: 42, image: '/static/images/goods/default.png' }
-])
-
-const currentPrice = computed(() => Number(product.value.price || 0))
-const totalPrice = computed(() => currentPrice.value * quantity.value)
-
-onLoad((options) => { productId.value = options.id || '' })
 
 function goBack() { uni.navigateBack() }
-function increaseQty() { quantity.value += 1 }
+function increaseQty() {
+	if (!canPurchase.value || quantity.value >= Number(product.value.stock)) return
+	quantity.value += 1
+}
 function decreaseQty() { if (quantity.value > 1) quantity.value -= 1 }
 
 function addToCart() {
-	const cart = uni.getStorageSync('cart') || []
+	if (!canPurchase.value) {
+		uni.showToast({ title: loading.value ? '加载中...' : (loadError.value || '商品已售罄或下架'), icon: 'none' })
+		return
+	}
+	if (Array.isArray(product.value.specs) && product.value.specs.length > 0) {
+		uni.showToast({ title: '此商品暂不支持在线选择规格，请联系门店', icon: 'none' })
+		return
+	}
+	const saved = uni.getStorageSync('cart')
+	const cart = Array.isArray(saved) ? saved.map(row => ({ ...row })) : []
+	const existingQuantity = cart.reduce((sum, row) => row.id === product.value.id ? sum + Number(row.number || 0) : sum, 0)
+	if (existingQuantity + quantity.value > Number(product.value.stock)) {
+		uni.showToast({ title: '商品库存不足', icon: 'none' })
+		return
+	}
 	const item = {
 		id: product.value.id,
-		cateId: 1,
+		cateId: product.value.categoryId || product.value.category_id || '',
 		name: product.value.name,
+		nameEn: product.value.nameEn || product.value.name_en || '',
 		price: currentPrice.value,
 		number: quantity.value,
 		image: product.value.image,
-		propsText: '主厨推荐'
+		useProperty: false,
+		propsText: '',
+		props: [],
+		specs: []
 	}
-	const index = cart.findIndex((cartItem) => cartItem.id === item.id)
+	const index = cart.findIndex((cartItem) => cartItem.id === item.id && !cartItem.propsText && !(cartItem.specs && cartItem.specs.length))
 	if (index > -1) cart[index].number += item.number
 	else cart.push(item)
-	uni.setStorageSync('cart', cart)
+	store.commit('SET_CART', cart)
+	store.dispatch('syncCart')
 	uni.showToast({ title: '已加入购物袋', icon: 'success' })
 }
 </script>
 
 <style lang="scss" scoped>
+.detail-state {
+	min-height: 60vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 32rpx;
+	padding: 40rpx;
+	font-size: 30rpx;
+}
+
+.cart-btn[disabled] { opacity: .45; }
 .page {
 	min-height: 100vh;
 	padding-bottom: 180rpx;

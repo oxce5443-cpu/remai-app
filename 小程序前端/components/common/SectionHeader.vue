@@ -1,11 +1,11 @@
 <template>
 	<view class="section-header" :class="{'section-header--with-more': showMore}">
 		<view class="section-header__left">
-			<view class="section-header__title" v-if="title">{{ title }}</view>
-			<view class="section-header__subtitle" v-if="subtitle">{{ subtitle }}</view>
+			<view class="section-header__title" v-if="title">{{ $t(title) }}</view>
+			<view class="section-header__subtitle" v-if="subtitle">{{ $t(subtitle) }}</view>
 		</view>
 		<view class="section-header__right" v-if="showMore" @tap="$emit('more')">
-			<text class="section-header__more-text">{{ moreText || '查看更多' }}</text>
+			<text class="section-header__more-text">{{ $t(moreText || '查看更多') }}</text>
 			<text class="iconfont iconarrow-right line-height-100"></text>
 		</view>
 	</view>

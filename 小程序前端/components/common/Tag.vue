@@ -1,6 +1,6 @@
 <template>
 	<view class="tag" :class="[`tag--${type}`, `tag--${size}`]">
-		{{ text }}
+		{{ $t(text) }}
 	</view>
 </template>
 

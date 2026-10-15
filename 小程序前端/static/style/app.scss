@@ -14,6 +14,9 @@ input {
 page {
 	background-color: $bg-color;
 	height: 100%;
+	font-family: $font-sans;
+	color: $t-primary;
+	line-height: 1.5;
 }
 
 .container {
@@ -571,33 +574,25 @@ uni-modal, uni-modal .uni-modal {
 	font-weight: 400;
 }
 
-/* ===== Old-money French bakery system ===== */
+/* Shared bakery surfaces: imagery and brand lettering carry the character. */
 .rm-page,
 .page,
 .container {
-	background:
-		radial-gradient(circle at 78% 8%, rgba(216, 183, 174, .24), transparent 30%),
-		$gradient-cream;
+	background: $bg-page;
 	color: $color-chocolate;
 }
 
 .page.old-money,
 .container.old-money {
 	min-height: 100vh;
-	background:
-		radial-gradient(circle at 78% 8%, rgba(216, 183, 174, .24), transparent 30%),
-		$gradient-cream !important;
+	background: $bg-page;
 	color: $color-chocolate;
 }
 
 .rm-serif,
 .brand-title,
 .hero-title,
-.section-title,
-.product-name,
-.vip-title,
-.final-amount,
-.queue-num {
+.vip-title {
 	font-family: Georgia, 'Times New Roman', 'Songti SC', serif;
 	letter-spacing: 0;
 	color: $color-chocolate;
@@ -623,19 +618,16 @@ uni-modal, uni-modal .uni-modal {
 .order-card,
 .benefit-card,
 .summary-section,
-.profile-row,
 .coupon-card,
 .package-card,
 .address-card,
 .invoice-card,
 .service-card,
-.cart-item,
-.good,
 .card-bakery {
-	background: rgba(255, 255, 255, .94);
-	border: 1rpx solid rgba(184, 133, 91, .10);
+	background: $c-ivory;
+	border: 1rpx solid $c-divider;
 	border-radius: $border-radius-xl;
-	box-shadow: 0 10rpx 34rpx rgba(74, 52, 39, .10);
+	box-shadow: $shadow-xs;
 }
 
 .old-money .main {
@@ -647,9 +639,9 @@ uni-modal, uni-modal .uni-modal {
 .old-money .header,
 .old-money .tabbar,
 .old-money .masthead {
-	background: rgba(255, 251, 246, .92) !important;
+	background: $c-ivory;
 	border-bottom: 1rpx solid rgba(184, 133, 91, .12);
-	box-shadow: 0 8rpx 24rpx rgba(74, 52, 39, .08);
+	box-shadow: none;
 	color: $color-chocolate;
 }
 
@@ -657,9 +649,9 @@ uni-modal, uni-modal .uni-modal {
 .old-money .tabbar .active,
 .old-money .tabbar .current,
 .old-money .switch-item.active {
-	background: $gradient-caramel !important;
-	color: #FFFFFF !important;
-	box-shadow: 0 6rpx 18rpx rgba(184, 133, 91, .20);
+	background: $c-brown;
+	color: #FFFFFF;
+	box-shadow: $shadow-xs;
 }
 
 .old-money input,
@@ -700,7 +692,7 @@ uni-modal, uni-modal .uni-modal {
 .season-card,
 .promo-bar {
 	border-radius: $border-radius-xl;
-	box-shadow: 0 8rpx 28rpx rgba(184, 133, 91, .12);
+	box-shadow: $shadow-xs;
 }
 
 .rm-btn,
@@ -710,14 +702,19 @@ uni-modal, uni-modal .uni-modal {
 .empty-btn,
 .modal-pay-btn,
 .detail-add-btn,
-.btn-bakery,
-button[type='primary'] {
-	background: $gradient-caramel !important;
-	color: #FFFFFF !important;
-	border: 0 !important;
-	border-radius: 999rpx !important;
-	box-shadow: 0 8rpx 22rpx rgba(184, 133, 91, .22);
+.btn-bakery {
+	background: $c-brown;
+	color: #FFFFFF;
+	border: 0;
+	border-radius: $r-full;
+	box-shadow: $shadow-btn;
 	font-weight: 500;
+	min-height: 88rpx;
+	white-space: normal;
+	line-height: 1.4;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .rm-btn:active,
@@ -725,7 +722,7 @@ button[type='primary'] {
 .pay-bar-btn:active,
 .action-btn:active,
 .detail-add-btn:active,
-button[type='primary']:active {
+button[type='primary']:not([disabled]):active {
 	transform: scale(.98);
 }
 
@@ -734,10 +731,9 @@ button[type='primary']:active {
 .pay-bar,
 .btn-bar,
 .final-section {
-	background: rgba(255, 251, 246, .96);
+	background: $c-ivory;
 	border-top: 1rpx solid rgba(184, 133, 91, .12);
-	box-shadow: 0 -10rpx 30rpx rgba(74, 52, 39, .10);
-	backdrop-filter: blur(18rpx);
+	box-shadow: 0 -2rpx 10rpx rgba(74, 52, 39, .04);
 }
 
 .rm-price,
@@ -752,7 +748,8 @@ button[type='primary']:active {
 .price,
 .feature-price {
 	color: #B55048 !important;
-	font-family: Georgia, 'Times New Roman', serif;
+	font-family: $font-sans;
+	font-variant-numeric: tabular-nums;
 	font-weight: 700;
 }
 
@@ -789,7 +786,6 @@ button[type='primary']:active {
 .story-pill,
 .good-badge,
 .item-badge,
-.prop-value,
 .contact-tag,
 .badge {
 	background: rgba(217, 179, 140, .30) !important;
@@ -805,3 +801,70 @@ button[type='primary']:active {
 .summary-item {
 	border-color: rgba(184, 133, 91, .14) !important;
 }
+
+/* Native-sized interactive areas; compact artwork remains inside the target. */
+.old-money .qty-btn,
+.old-money .qty-add,
+.old-money .brand-icon,
+.old-money .header-back,
+.old-money .detail-action-stepper .btn,
+.old-money .cart-popup-item-right .btn {
+	min-width: 44px;
+	min-height: 44px;
+	flex-shrink: 0;
+}
+
+.old-money .switch-item,
+.old-money .serve-item,
+.old-money .cate-tab,
+.old-money .prop-value,
+.old-money .pay-method,
+.old-money .state-btn {
+	min-height: 44px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Long translated labels must not displace prices or adjacent controls. */
+.old-money .header-title,
+.old-money .store-main,
+.old-money .profile-main,
+.old-money .cart-item-main,
+.old-money .good-info {
+	min-width: 0;
+}
+
+.old-money .store-name,
+.old-money .cart-item-name,
+.old-money .detail-name,
+.old-money .profile-name,
+.old-money .info-label {
+	overflow-wrap: break-word;
+}
+
+button[disabled],
+button[type='primary'][disabled] {
+	opacity: $opacity-disabled;
+	box-shadow: none;
+	transform: none;
+}
+
+/* #ifdef H5 */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+	outline: 2px solid $c-caramel;
+	outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.old-money,
+	.old-money * {
+		animation-duration: .01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: .01ms !important;
+	}
+}
+/* #endif */

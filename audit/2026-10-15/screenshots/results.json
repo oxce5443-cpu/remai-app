@@ -1,0 +1,15 @@
+{
+  "checks": [
+    "Signed-out language switch updates customer account UI",
+    "English preference survives reload",
+    "Checkout displays the same configured packaging fee used in its total (local fixture)",
+    "home: English route renders without horizontal page overflow",
+    "menu: English route renders without horizontal page overflow",
+    "pickup: English route renders without horizontal page overflow",
+    "checkout: English route renders without horizontal page overflow",
+    "login: English route renders without horizontal page overflow",
+    "Switching back restores Chinese"
+  ],
+  "errors": [],
+  "limits": "H5 preview only. Cloud failure states may render. No successful checkout, live merchant transaction or iOS device acceptance is implied."
+}

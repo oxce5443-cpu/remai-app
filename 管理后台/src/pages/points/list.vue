@@ -1,27 +1,28 @@
 <template>
 	<view class="points-list-container">
+    <LanguageSwitch />
 		<!-- 搜索栏 -->
 		<view class="search-bar">
-			<button class="add-btn" @click="openDialog('add')">新增商品</button>
+			<button class="add-btn" @click="openDialog('add')">{{ $t("新增商品") }}</button>
 		</view>
 
 		<!-- 表格 -->
 		<view class="table-container">
 			<el-table :data="tableData" border style="width: 100%">
-				<el-table-column prop="goods_name" label="商品名称" min-width="150" />
-				<el-table-column prop="points" label="所需积分" width="120" />
-				<el-table-column prop="stock" label="库存" width="100" />
-				<el-table-column prop="is_show" label="状态" width="100">
+				<el-table-column prop="goods_name" :label="$t(&quot;商品名称&quot;)" min-width="150" />
+				<el-table-column prop="points" :label="$t(&quot;所需积分&quot;)" width="120" />
+				<el-table-column prop="stock" :label="$t(&quot;库存&quot;)" width="100" />
+				<el-table-column prop="is_show" :label="$t(&quot;状态&quot;)" width="100">
 					<template #default="{ row }">
 						<el-tag :type="row.is_show ? 'success' : 'info'">
-							{{ row.is_show ? '上架' : '下架' }}
+							{{ $t(row.is_show ? '上架' : '下架') }}
 						</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="180" fixed="right">
+				<el-table-column :label="$t(&quot;操作&quot;)" width="180" fixed="right">
 					<template #default="{ row }">
-						<el-button size="small" @click="openDialog('edit', row)">编辑</el-button>
-						<el-button size="small" type="danger" @click="handleDelete(row)">删除</el-button>
+						<el-button size="small" @click="openDialog('edit', row)">{{ $t("编辑") }}</el-button>
+						<el-button size="small" type="danger" @click="handleDelete(row)">{{ $t("删除") }}</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -30,35 +31,36 @@
 		<!-- 新增/编辑弹窗 -->
 		<el-dialog v-model="dialogVisible" :title="dialogTitle" width="500px">
 			<el-form :model="form" label-width="100px">
-				<el-form-item label="商品名称">
-					<el-input v-model="form.goods_name" placeholder="请输入商品名称" />
+				<el-form-item :label="$t(&quot;商品名称&quot;)">
+					<el-input v-model="form.goods_name" :placeholder="$t(&quot;请输入商品名称&quot;)" />
 				</el-form-item>
-				<el-form-item label="所需积分">
+				<el-form-item :label="$t(&quot;所需积分&quot;)">
 					<el-input-number v-model="form.points" :min="0" :precision="0" />
 				</el-form-item>
-				<el-form-item label="库存">
+				<el-form-item :label="$t(&quot;库存&quot;)">
 					<el-input-number v-model="form.stock" :min="0" :precision="0" />
 				</el-form-item>
-				<el-form-item label="商品图片">
+				<el-form-item :label="$t(&quot;商品图片&quot;)">
 					<view class="upload-wrap">
 						<image v-if="form.image" :src="form.image" class="preview-img" />
-						<button v-if="!form.image" class="upload-btn" @click="chooseImage">选择图片</button>
-						<el-button v-else type="danger" size="small" @click="form.image = ''">删除</el-button>
+						<button v-if="!form.image" class="upload-btn" @click="chooseImage">{{ $t("选择图片") }}</button>
+						<el-button v-else type="danger" size="small" @click="form.image = ''">{{ $t("删除") }}</el-button>
 					</view>
 				</el-form-item>
-				<el-form-item label="状态">
+				<el-form-item :label="$t(&quot;状态&quot;)">
 					<el-switch v-model="form.is_show" />
 				</el-form-item>
 			</el-form>
 			<template #footer>
-				<el-button @click="dialogVisible = false">取消</el-button>
-				<el-button type="primary" @click="handleSubmit" :loading="submitLoading">确定</el-button>
+				<el-button @click="dialogVisible = false">{{ $t("取消") }}</el-button>
+				<el-button type="primary" @click="handleSubmit" :loading="submitLoading">{{ $t("确定") }}</el-button>
 			</template>
 		</el-dialog>
 	</view>
 </template>
 
 <script setup>
+import { t } from '@/locale'
 import { ref, onMounted, computed } from 'vue'
 import { adminRequest } from '@/utils/api.js'
 
@@ -159,7 +161,7 @@ async function handleSubmit() {
 async function handleDelete(row) {
 	uni.showModal({
 		title: '确认删除',
-		content: `确定要删除商品"${row.goods_name}"吗？`,
+		content: t('确定要删除商品"{name}"吗？', { name: row.goods_name }),
 		success: async (res) => {
 			if (res.confirm) {
 				try {

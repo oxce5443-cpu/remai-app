@@ -1,19 +1,19 @@
 <template>
 	<view class="page rm-page">
 		<!-- 顶部安全区 -->
-		<view class="safe-top"></view>
+		<view class="safe-top" :style="{ height: $safeTop + 'px' }"></view>
 
 		<!-- ═══ 品牌头：REMAI · 热麦 ｜ 门店 + 会员 ═══ -->
 		<view class="brandbar">
 			<view class="brand-left">
 				<view class="brand-en">REMAI</view>
-				<view class="brand-cn">热麦</view>
+				<view class="brand-cn">{{ $t("热麦") }}</view>
 			</view>
-			<view class="brand-right">
-				<view class="brand-icon" @tap="goMenu">
+			<view class="brand-right" :style="{ paddingTop: $menuButtonGap + 'px' }">
+				<view class="brand-icon" role="button" :aria-label="$t('点餐')" @tap="goMenu">
 					<image src="/static/images/icon/iconmap.png" class="brand-ico" mode="aspectFit"></image>
 				</view>
-				<view class="brand-icon" @tap="goMine">
+				<view class="brand-icon" role="button" :aria-label="$t('我的')" @tap="goMine">
 					<image src="/static/images/icon/iconwode.png" class="brand-ico" mode="aspectFit"></image>
 				</view>
 			</view>
@@ -22,11 +22,11 @@
 		<!-- ═══ Hero 运营大图：草莓季（图纸：浅米底 + 左文右图） ═══ -->
 		<view class="hero" @tap="goMenu">
 			<view class="hero-copy">
-				<view class="hero-season">草莓季</view>
-				<view class="hero-line">一口春天的味道</view>
+				<view class="hero-season">{{ $t("草莓季") }}</view>
+				<view class="hero-line">{{ $t("一口春天的味道") }}</view>
 				<view class="hero-en">STRAWBERRY SEASON</view>
 				<view class="hero-cta">
-					<text>探索本季新品</text>
+					<text>{{ $t("探索本季新品") }}</text>
 					<text class="hero-arrow">→</text>
 				</view>
 			</view>
@@ -37,77 +37,64 @@
 		<view class="quick-row">
 			<view class="quick-item" @tap="goMenu">
 				<view class="quick-circle"><image src="/static/images/icon/iconyinpinyinliao.png" class="quick-ico" mode="aspectFit"></image></view>
-				<text class="quick-label">点餐</text>
+				<text class="quick-label">{{ $t("点餐") }}</text>
 			</view>
 			<view class="quick-item" @tap="goTake">
 				<view class="quick-circle"><image src="/static/images/icon/iconqucan.png" class="quick-ico" mode="aspectFit"></image></view>
-				<text class="quick-label">取餐</text>
+				<text class="quick-label">{{ $t("取餐") }}</text>
 			</view>
 			<view class="quick-item" @tap="goMine">
 				<view class="quick-circle"><image src="/static/images/icon/iconcrown.png" class="quick-ico" mode="aspectFit"></image></view>
-				<text class="quick-label">会员</text>
+				<text class="quick-label">{{ $t("会员") }}</text>
 			</view>
 			<view class="quick-item" @tap="goCoupons">
 				<view class="quick-circle"><image src="/static/images/icon/iconcalendar.png" class="quick-ico" mode="aspectFit"></image></view>
-				<text class="quick-label">优惠券</text>
+				<text class="quick-label">{{ $t("优惠券") }}</text>
 			</view>
 		</view>
 
 		<!-- ═══ 今日推荐 ═══ -->
 		<view class="today-section">
 			<view class="section-head">
-				<view class="section-title">今日推荐</view>
-				<view class="section-more" @tap="goMenu">更多 <text class="more-arrow">›</text></view>
+				<view class="section-title">{{ $t("今日推荐") }}</view>
+				<view class="section-more" @tap="goMenu">{{ $t("更多") }} <text class="more-arrow">›</text></view>
 			</view>
 			<view class="today-card" v-if="featuredList.length" @tap="goMenu">
 				<view class="today-img-wrap">
 					<image :src="todayImg" mode="aspectFill" class="today-img" @error="onTodayImgError"></image>
-					<view v-if="featuredList[0].sales" class="today-sales">已售 {{ featuredList[0].sales }}</view>
+					<view v-if="featuredList[0].sales" class="today-sales">{{ $t("已售") }} {{ $t(featuredList[0].sales) }}</view>
 				</view>
 				<view class="today-info">
-					<view class="today-tag">{{ todayTag }}</view>
-					<view class="today-name">{{ featuredList[0].name }}</view>
-					<view class="today-desc">{{ featuredList[0].content || featuredList[0].description || '浓郁芝士 × 香嫩鸡肉' }}</view>
+					<view class="today-tag">{{ $t(todayTag) }}</view>
+					<view class="today-name">{{ $t($localized(featuredList[0], "name")) }}</view>
+					<view class="today-desc">{{ $t($localized(featuredList[0], "content") || $localized(featuredList[0], "description") || '浓郁芝士 × 香嫩鸡肉') }}</view>
 					<view class="today-bottom">
 						<view class="today-price-wrap">
-							<view class="today-price">¥{{ featuredList[0].price }}</view>
-							<view class="today-origin" v-if="featuredList[0].original_price > featuredList[0].price">¥{{ featuredList[0].original_price }}</view>
+							<view class="today-price">¥{{ $t(featuredList[0].price) }}</view>
+							<view class="today-origin" v-if="featuredList[0].original_price > featuredList[0].price">¥{{ $t(featuredList[0].original_price) }}</view>
 						</view>
 						<view class="today-add" @tap.stop="goMenu"><text>+</text></view>
 					</view>
 				</view>
 			</view>
 			<view class="today-card" v-else @tap="goMenu">
-				<view class="today-img-wrap">
-					<image src="/static/images/home/goods-chicken-cheese.jpg" mode="aspectFill" class="today-img"></image>
-					<view class="today-sales">已售 326</view>
-				</view>
 				<view class="today-info">
-					<view class="today-tag">招牌热麦</view>
-					<view class="today-name">芝士熏鸡热麦</view>
-					<view class="today-desc">浓郁芝士 × 香嫩鸡肉</view>
-					<view class="today-bottom">
-						<view class="today-price-wrap">
-							<view class="today-price">¥22</view>
-							<view class="today-origin">¥28</view>
-						</view>
-						<view class="today-add"><text>+</text></view>
-					</view>
+					<view class="today-name">{{ $t('菜单暂不可用') }}</view>
+					<view class="today-desc">{{ $t('进入菜单重试，商品与价格以门店实时信息为准') }}</view>
+					<view class="today-tag">{{ $t('去点餐') }} →</view>
 				</view>
 			</view>
 		</view>
 
 		<!-- ═══ 门店信息 ═══ -->
 		<view class="store-section">
-			<view class="section-title">门店信息</view>
+			<view class="section-title">{{ $t("门店信息") }}</view>
 			<view class="store-card">
 				<view class="store-name-row">
-					<view class="store-name">{{ store ? store.name : '热麦·万象城店' }}</view>
-					<view class="store-status"><view class="status-dot"></view>营业中</view>
+					<view class="store-name">{{ $t(store ? $localized(store, "name") : '门店信息暂不可用') }}</view>
 				</view>
-				<view class="store-meta" v-if="store && store.server_time">营业时间 {{ store.server_time }}</view>
-				<view class="store-meta" v-else>营业时间 08:00 - 22:00</view>
-				<view class="store-meta" v-if="store && store.address">地址 {{ store.address }}</view>
+				<view class="store-meta" v-if="store && (store.serverTime || store.server_time)">{{ $t("营业时间") }} {{ store.serverTime || store.server_time }}</view>
+				<view class="store-meta" v-if="store && store.address">{{ $t("地址") }} {{ $localized(store, 'address') }}</view>
 			</view>
 		</view>
 
@@ -115,7 +102,7 @@
 		<view class="brand-moment">
 			<image src="/static/images/home/goods-croissant.jpg" class="moment-img" mode="aspectFill"></image>
 			<view class="moment-copy">
-				<view class="moment-zh">每日少量出炉</view>
+				<view class="moment-zh">{{ $t("每日少量出炉") }}</view>
 				<view class="moment-en">Freshly baked, quietly good.</view>
 			</view>
 		</view>
@@ -291,8 +278,10 @@ function goCoupons() {
 }
 
 .brand-icon {
-	width: 68rpx;
-	height: 68rpx;
+	width: 84rpx;
+	height: 84rpx;
+	min-width: 44px;
+	min-height: 44px;
 	border-radius: 50%;
 	background: $c-ivory;
 	border: 1rpx solid rgba(74, 52, 39, .10);

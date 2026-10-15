@@ -3,8 +3,8 @@
 		<view class="main">
 			<view v-if="!addresses.length" class="empty-state">
 				<image src="/static/images/empty.png" class="empty-img"></image>
-				<view class="empty-title">暂无地址信息</view>
-				<view class="empty-desc">请点击底部按钮添加地址信息</view>
+				<view class="empty-title">{{ $t("暂无地址信息") }}</view>
+				<view class="empty-desc">{{ $t("请点击底部按钮添加地址信息") }}</view>
 			</view>
 			<template v-else>
 				<uni-swipe-action>
@@ -12,7 +12,7 @@
 						<view class="address-card" @tap="chooseAddress(address)">
 							<view class="address-info">
 								<view class="address-street">
-									<text v-if="address.isDefault" class="default-tag">默认</text>
+									<text v-if="address.isDefault" class="default-tag">{{ $t("默认") }}</text>
 									{{ address.province }}{{ address.city }}{{ address.area }}{{ address.street }}
 								</view>
 								<view class="address-contact">
@@ -26,7 +26,7 @@
 			</template>
 		</view>
 		<view class="btn-bar">
-			<button type="primary" size="default" @tap="add">新增地址</button>
+			<button type="primary" size="default" @tap="add">{{ $t("新增地址") }}</button>
 		</view>
 	</view>
 </template>

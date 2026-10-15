@@ -1,20 +1,20 @@
 <template>
 	<view class="page rm-page old-money">
 		<view class="masthead">
-			<view class="point-num">{{ pointNum }}</view>
-			<view class="rule-link">查看积分规则</view>
+			<view class="point-num">{{ $t(pointNum) }}</view>
+			<view class="rule-link">{{ $t("查看积分规则") }}</view>
 		</view>
 		<view class="list">
 			<view class="flow-item" v-for="(item, index) in pointsFlow" :key="index">
 				<view class="flow-left">
-					<view class="flow-reason">{{ item.reason }}</view>
-					<view class="flow-date">{{ item.createdAt }}</view>
+					<view class="flow-reason">{{ $t(item.reason) }}</view>
+					<view class="flow-date">{{ $t(item.createdAt) }}</view>
 				</view>
 				<view class="flow-right">
 					<view class="flow-change" :class="{ 'flow-change--plus': item.changeType == 1 }">
-						{{ item.changeType == 1 ? '+' : '-' }}{{ item.changeNum }}
+						{{ $t(item.changeType == 1 ? '+' : '-') }}{{ $t(item.changeNum) }}
 					</view>
-					<view class="flow-seller">{{ item.sellerName }}</view>
+					<view class="flow-seller">{{ $t(item.sellerName) }}</view>
 				</view>
 			</view>
 		</view>

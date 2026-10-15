@@ -9,13 +9,13 @@
 				<progress :percent="1/3 * 100" backgroundColor="#FFF8F0" activeColor="#A67B5B" stroke-width="24" border-radius="24"></progress>
 			</view>
 			<view class="invite-text">
-				<view>每邀3位新用户点亮，得蛋糕礼品券1张</view>
-				<view>新用户可得30元权益券包</view>
+				<view>{{ $t("每邀3位新用户点亮，得蛋糕礼品券1张") }}</view>
+				<view>{{ $t("新用户可得30元权益券包") }}</view>
 			</view>
 			<view class="invite-action" hover-class="invite-action--hover">
 				<image src="/static/images/activities/invite-bg.png" class="action-bg" mode="widthFix"></image>
 				<view class="action-btn">
-					<text>立即找好友助力</text>
+					<text>{{ $t("立即找好友助力") }}</text>
 					<image class="action-arrow" src="/static/images/activities/invite-arrow.png" mode="widthFix"></image>
 				</view>
 			</view>
@@ -26,11 +26,11 @@
 			<image src="/static/images/activities/award-badge.png" class="award-badge" mode="widthFix"></image>
 			<view class="award-item">
 				<view class="award-num">0</view>
-				<view class="award-label">已成功邀请(位)</view>
+				<view class="award-label">{{ $t("已成功邀请(位)") }}</view>
 			</view>
 			<view class="award-item">
 				<view class="award-num">0</view>
-				<view class="award-label">已获得奖励(次)</view>
+				<view class="award-label">{{ $t("已获得奖励(次)") }}</view>
 			</view>
 		</view>
 

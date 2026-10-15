@@ -1,35 +1,36 @@
 <template>
 	<view class="card-list-container">
+    <LanguageSwitch />
 		<!-- 搜索栏 -->
 		<view class="search-bar">
-			<button class="add-btn" @click="openDialog('add')">新增套餐</button>
+			<button class="add-btn" @click="openDialog('add')">{{ $t("新增套餐") }}</button>
 		</view>
 
 		<!-- 表格 -->
 		<view class="table-container">
 			<el-table :data="tableData" border style="width: 100%">
-				<el-table-column prop="name" label="套餐名称" min-width="150" />
-				<el-table-column prop="amount" label="充值金额" width="120">
+				<el-table-column prop="name" :label="$t(&quot;套餐名称&quot;)" min-width="150" />
+				<el-table-column prop="amount" :label="$t(&quot;充值金额&quot;)" width="120">
 					<template #default="{ row }">
-						¥{{ formatMoney(row.amount) }}
+						¥{{ $t(formatMoney(row.amount)) }}
 					</template>
 				</el-table-column>
-				<el-table-column prop="gift_amount" label="赠送金额" width="120">
+				<el-table-column prop="gift_amount" :label="$t(&quot;赠送金额&quot;)" width="120">
 					<template #default="{ row }">
-						¥{{ formatMoney(row.gift_amount) }}
+						¥{{ $t(formatMoney(row.gift_amount)) }}
 					</template>
 				</el-table-column>
-				<el-table-column prop="is_show" label="状态" width="100">
+				<el-table-column prop="is_show" :label="$t(&quot;状态&quot;)" width="100">
 					<template #default="{ row }">
 						<el-tag :type="row.is_show ? 'success' : 'info'">
-							{{ row.is_show ? '启用' : '禁用' }}
+							{{ $t(row.is_show ? '启用' : '禁用') }}
 						</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="180" fixed="right">
+				<el-table-column :label="$t(&quot;操作&quot;)" width="180" fixed="right">
 					<template #default="{ row }">
-						<el-button size="small" @click="openDialog('edit', row)">编辑</el-button>
-						<el-button size="small" type="danger" @click="handleDelete(row)">删除</el-button>
+						<el-button size="small" @click="openDialog('edit', row)">{{ $t("编辑") }}</el-button>
+						<el-button size="small" type="danger" @click="handleDelete(row)">{{ $t("删除") }}</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -38,28 +39,29 @@
 		<!-- 新增/编辑弹窗 -->
 		<el-dialog v-model="dialogVisible" :title="dialogTitle" width="500px">
 			<el-form :model="form" label-width="100px">
-				<el-form-item label="套餐名称">
-					<el-input v-model="form.name" placeholder="请输入套餐名称" />
+				<el-form-item :label="$t(&quot;套餐名称&quot;)">
+					<el-input v-model="form.name" :placeholder="$t(&quot;请输入套餐名称&quot;)" />
 				</el-form-item>
-				<el-form-item label="充值金额">
+				<el-form-item :label="$t(&quot;充值金额&quot;)">
 					<el-input-number v-model="form.amount" :min="0" :precision="2" />
 				</el-form-item>
-				<el-form-item label="赠送金额">
+				<el-form-item :label="$t(&quot;赠送金额&quot;)">
 					<el-input-number v-model="form.gift_amount" :min="0" :precision="2" />
 				</el-form-item>
-				<el-form-item label="状态">
+				<el-form-item :label="$t(&quot;状态&quot;)">
 					<el-switch v-model="form.is_show" />
 				</el-form-item>
 			</el-form>
 			<template #footer>
-				<el-button @click="dialogVisible = false">取消</el-button>
-				<el-button type="primary" @click="handleSubmit" :loading="submitLoading">确定</el-button>
+				<el-button @click="dialogVisible = false">{{ $t("取消") }}</el-button>
+				<el-button type="primary" @click="handleSubmit" :loading="submitLoading">{{ $t("确定") }}</el-button>
 			</template>
 		</el-dialog>
 	</view>
 </template>
 
 <script setup>
+import { t } from '@/locale'
 import { ref, onMounted, computed } from 'vue'
 import { adminRequest, formatMoney } from '@/utils/api.js'
 
@@ -144,7 +146,7 @@ async function handleSubmit() {
 async function handleDelete(row) {
 	uni.showModal({
 		title: '确认删除',
-		content: `确定要删除套餐"${row.name}"吗？`,
+		content: t('确定要删除套餐"{name}"吗？', { name: row.name }),
 		success: async (res) => {
 			if (res.confirm) {
 				try {

@@ -1,15 +1,16 @@
 <template>
   <view class="goods-container">
+    <LanguageSwitch />
     <el-card>
       <template #header>
         <div class="card-header">
-          <span>商品管理</span>
-          <el-button type="primary" @click="handleAdd">新增商品</el-button>
+          <span>{{ $t("商品管理") }}</span>
+          <el-button type="primary" @click="handleAdd">{{ $t("新增商品") }}</el-button>
         </div>
       </template>
 
       <el-table :data="goodsList" border stripe>
-        <el-table-column label="商品图片" width="100">
+        <el-table-column :label="$t(&quot;商品图片&quot;)" width="100">
           <template #default="{ row }">
             <el-image
               v-if="row.image"
@@ -18,28 +19,28 @@
               style="width: 60px; height: 60px"
               :preview-src-list="[row.image]"
             />
-            <view v-else class="no-image">无图</view>
+            <view v-else class="no-image">{{ $t("无图") }}</view>
           </template>
         </el-table-column>
-        <el-table-column prop="name" label="商品名称" min-width="150" />
-        <el-table-column prop="category_name" label="分类" width="120" />
-        <el-table-column prop="price" label="价格" width="100">
+        <el-table-column prop="name" :label="$t(&quot;商品名称&quot;)" min-width="150" />
+        <el-table-column prop="category_name" :label="$t(&quot;分类&quot;)" width="120" />
+        <el-table-column prop="price" :label="$t(&quot;价格&quot;)" width="100">
           <template #default="{ row }">
-            ¥{{ formatMoney(row.price) }}
+            ¥{{ $t(formatMoney(row.price)) }}
           </template>
         </el-table-column>
-        <el-table-column prop="stock" label="库存" width="80" />
-        <el-table-column label="上架状态" width="100">
+        <el-table-column prop="stock" :label="$t(&quot;库存&quot;)" width="80" />
+        <el-table-column :label="$t(&quot;上架状态&quot;)" width="100">
           <template #default="{ row }">
             <el-tag :type="row.is_sell ? 'success' : 'info'">
-              {{ row.is_sell ? '上架' : '下架' }}
+              {{ $t(row.is_sell ? '上架' : '下架') }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="180" fixed="right">
+        <el-table-column :label="$t(&quot;操作&quot;)" width="180" fixed="right">
           <template #default="{ row }">
-            <el-button type="primary" size="small" @click="handleEdit(row)">编辑</el-button>
-            <el-button type="danger" size="small" @click="handleDelete(row)">删除</el-button>
+            <el-button type="primary" size="small" @click="handleEdit(row)">{{ $t("编辑") }}</el-button>
+            <el-button type="danger" size="small" @click="handleDelete(row)">{{ $t("删除") }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -48,15 +49,24 @@
     <!-- 新增/编辑弹窗 -->
     <el-dialog
       v-model="dialogVisible"
-      :title="isEdit ? '编辑商品' : '新增商品'"
+      :title="$t(isEdit ? '编辑商品' : '新增商品')"
       width="600px"
     >
       <el-form :model="form" :rules="rules" ref="formRef" label-width="80px">
-        <el-form-item label="商品名称" prop="name">
-          <el-input v-model="form.name" placeholder="请输入商品名称" />
+        <el-form-item :label="$t(&quot;商品名称&quot;)" prop="name">
+          <el-input v-model="form.name" :placeholder="$t(&quot;请输入商品名称&quot;)" />
         </el-form-item>
-        <el-form-item label="商品分类" prop="category_id">
-          <el-select v-model="form.category_id" placeholder="请选择分类">
+        <el-form-item :label="$t(&quot;英文名称&quot;)">
+          <el-input v-model="form.name_en" :placeholder="$t(&quot;可选；英文界面未填写时显示原名称&quot;)" />
+        </el-form-item>
+        <el-form-item :label="$t(&quot;商品描述&quot;)">
+          <el-input v-model="form.description" type="textarea" :placeholder="$t(&quot;请输入商品描述&quot;)" />
+        </el-form-item>
+        <el-form-item :label="$t(&quot;英文描述&quot;)">
+          <el-input v-model="form.description_en" type="textarea" placeholder="Optional English description" />
+        </el-form-item>
+        <el-form-item :label="$t(&quot;商品分类&quot;)" prop="category_id">
+          <el-select v-model="form.category_id" :placeholder="$t(&quot;请选择分类&quot;)">
             <el-option
               v-for="item in categoryOptions"
               :key="item._id"
@@ -65,19 +75,19 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="价格" prop="price">
+        <el-form-item :label="$t(&quot;价格&quot;)" prop="price">
           <el-input-number v-model="form.price" :min="0" :precision="2" />
         </el-form-item>
-        <el-form-item label="库存" prop="stock">
+        <el-form-item :label="$t(&quot;库存&quot;)" prop="stock">
           <el-input-number v-model="form.stock" :min="0" :precision="0" />
         </el-form-item>
-        <el-form-item label="上架状态">
+        <el-form-item :label="$t(&quot;上架状态&quot;)">
           <el-radio-group v-model="form.is_sell">
-            <el-radio :label="true">上架</el-radio>
-            <el-radio :label="false">下架</el-radio>
+            <el-radio :label="true">{{ $t("上架") }}</el-radio>
+            <el-radio :label="false">{{ $t("下架") }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="商品图片">
+        <el-form-item :label="$t(&quot;商品图片&quot;)">
           <view class="image-upload">
             <el-image
               v-if="form.image"
@@ -85,21 +95,24 @@
               fit="cover"
               style="width: 100px; height: 100px"
             />
-            <el-button v-if="!form.image" @click="chooseImage">选择图片</el-button>
-            <el-button v-else type="danger" size="small" @click="form.image = ''">移除</el-button>
+            <el-button v-if="!form.image" @click="chooseImage">{{ $t("选择图片") }}</el-button>
+            <el-button v-else type="danger" size="small" @click="form.image = ''">{{ $t("移除") }}</el-button>
           </view>
         </el-form-item>
       </el-form>
       <template #footer>
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="submitForm">确定</el-button>
+        <el-button @click="dialogVisible = false">{{ $t("取消") }}</el-button>
+        <el-button type="primary" @click="submitForm">{{ $t("确定") }}</el-button>
       </template>
     </el-dialog>
   </view>
 </template>
 
 <script setup>
+import { t } from '@/locale'
+
 import { ref, reactive, onMounted } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { adminRequest, formatMoney } from '@/utils/api.js'
 
 const goodsList = ref([])
@@ -111,6 +124,9 @@ const formRef = ref(null)
 const form = reactive({
   id: '',
   name: '',
+  name_en: '',
+  description: '',
+  description_en: '',
   category_id: '',
   price: 0,
   stock: 0,
@@ -119,10 +135,10 @@ const form = reactive({
 })
 
 const rules = {
-  name: [{ required: true, message: '请输入商品名称', trigger: 'blur' }],
-  category_id: [{ required: true, message: '请选择分类', trigger: 'change' }],
-  price: [{ required: true, message: '请输入价格', trigger: 'blur' }],
-  stock: [{ required: true, message: '请输入库存', trigger: 'blur' }]
+  name: [{ required: true, get message() { return t("请输入商品名称") }, trigger: 'blur' }],
+  category_id: [{ required: true, get message() { return t("请选择分类") }, trigger: 'change' }],
+  price: [{ required: true, get message() { return t("请输入价格") }, trigger: 'blur' }],
+  stock: [{ required: true, get message() { return t("请输入库存") }, trigger: 'blur' }]
 }
 
 onMounted(async () => {
@@ -157,6 +173,9 @@ function handleAdd() {
   Object.assign(form, {
     id: '',
     name: '',
+    name_en: '',
+    description: '',
+    description_en: '',
     category_id: '',
     price: 0,
     stock: 0,
@@ -171,6 +190,9 @@ function handleEdit(row) {
   Object.assign(form, {
     id: row._id || row.id,
     name: row.name,
+    name_en: row.name_en || '',
+    description: row.description || '',
+    description_en: row.description_en || '',
     category_id: row.category_id,
     price: row.price,
     stock: row.stock,
@@ -182,11 +204,11 @@ function handleEdit(row) {
 
 async function handleDelete(row) {
   try {
-    await ElMessageBox.confirm('确定要删除该商品吗？', '提示', {
+    await ElMessageBox.confirm(t('确定要删除该商品吗？'), t('提示'), {
       type: 'warning'
     })
     await adminRequest('deleteGoods', { id: row._id || row.id })
-    ElMessage.success('删除成功')
+    ElMessage.success(t('删除成功'))
     loadGoods()
   } catch (e) {
     if (e !== 'cancel') {
@@ -218,10 +240,10 @@ async function submitForm() {
     await formRef.value.validate()
     if (isEdit.value) {
       await adminRequest('updateGoods', { ...form })
-      ElMessage.success('更新成功')
+      ElMessage.success(t('更新成功'))
     } else {
       await adminRequest('addGoods', { ...form })
-      ElMessage.success('新增成功')
+      ElMessage.success(t('新增成功'))
     }
     dialogVisible.value = false
     await loadCategories()

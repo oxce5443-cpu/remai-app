@@ -107,7 +107,7 @@ const store = createStore({
 			try {
 				const remote = await api.getCart()
 				const rows = (remote && remote.goodsList) || (Array.isArray(remote) ? remote : [])
-				const cart = rows.map(item => ({ ...item, id: item.goodsId, name: item.goodsName, number: item.number }))
+				const cart = rows.map(item => ({ ...item, id: item.goodsId, name: item.goodsName, nameEn: item.goodsNameEn || '', number: item.number }))
 				commit('SET_CART', cart)
 				return cart
 			} catch (e) {
@@ -119,7 +119,7 @@ const store = createStore({
 		async syncCart({ commit, state }) {
 			if (!state.token) return
 			try {
-				await api.syncCart({ items: state.cart.map(item => ({ ...item, goodsId: item.id || item.goodsId, goodsName: item.name || item.goodsName })) })
+				await api.syncCart({ items: state.cart.map(item => ({ ...item, goodsId: item.id || item.goodsId, goodsName: item.name || item.goodsName, goodsNameEn: item.nameEn || item.name_en || item.goodsNameEn || '' })) })
 			} catch (e) {
 				// 云端同步失败不阻断本地购物车
 				console.warn('[cart] sync failed, keep local:', e.message)

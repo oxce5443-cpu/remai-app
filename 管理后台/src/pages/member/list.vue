@@ -1,10 +1,11 @@
 <template>
 	<view class="member-container">
+    <LanguageSwitch />
 		<!-- 搜索区域 -->
 		<view class="search-box">
 			<el-input
 				v-model="searchPhone"
-				placeholder="请输入手机号搜索"
+				:placeholder="$t(&quot;请输入手机号搜索&quot;)"
 				clearable
 				style="width: 300px"
 				@keyup.enter="handleSearch"
@@ -13,62 +14,62 @@
 					<el-icon><Search /></el-icon>
 				</template>
 			</el-input>
-			<el-button type="primary" @click="handleSearch">搜索</el-button>
-			<el-button @click="handleReset">重置</el-button>
+			<el-button type="primary" @click="handleSearch">{{ $t("搜索") }}</el-button>
+			<el-button @click="handleReset">{{ $t("重置") }}</el-button>
 		</view>
 
 		<!-- 运营工具栏 -->
 		<view class="ops-toolbar">
 			<view class="ops-item" @tap="goToPage('/pages/coupon/list')">
 				<uni-icons type="ticket" size="32" color="#ADB838"></uni-icons>
-				<text class="ops-label">优惠券</text>
+				<text class="ops-label">{{ $t("优惠券") }}</text>
 			</view>
 			<view class="ops-item" @tap="goToPage('/pages/card/list')">
 				<uni-icons type="card" size="32" color="#ADB838"></uni-icons>
-				<text class="ops-label">储值卡</text>
+				<text class="ops-label">{{ $t("储值卡") }}</text>
 			</view>
 			<view class="ops-item" @tap="goToPage('/pages/points/list')">
 				<uni-icons type="gift" size="32" color="#ADB838"></uni-icons>
-				<text class="ops-label">积分商城</text>
+				<text class="ops-label">{{ $t("积分商城") }}</text>
 			</view>
 			<view class="ops-item" @tap="goToPage('/pages/banner/list')">
 				<uni-icons type="image" size="32" color="#ADB838"></uni-icons>
-				<text class="ops-label">轮播图</text>
+				<text class="ops-label">{{ $t("轮播图") }}</text>
 			</view>
 			<view class="ops-item" @tap="goToPage('/pages/qrcode/list')">
 				<uni-icons type="scan" size="32" color="#ADB838"></uni-icons>
-				<text class="ops-label">二维码</text>
+				<text class="ops-label">{{ $t("二维码") }}</text>
 			</view>
 			<view class="ops-item" @tap="goToPage('/pages/store/setting')">
 				<uni-icons type="location" size="32" color="#ADB838"></uni-icons>
-				<text class="ops-label">门店设置</text>
+				<text class="ops-label">{{ $t("门店设置") }}</text>
 			</view>
 		</view>
 
 		<!-- 会员表格 -->
 		<view class="table-box">
 			<el-table :data="memberList" v-loading="loading" stripe>
-				<el-table-column prop="nickname" label="昵称" min-width="120" />
-				<el-table-column prop="phone" label="手机号" min-width="120" />
-				<el-table-column prop="points" label="积分" min-width="100" sortable>
+				<el-table-column prop="nickname" :label="$t(&quot;昵称&quot;)" min-width="120" />
+				<el-table-column prop="phone" :label="$t(&quot;手机号&quot;)" min-width="120" />
+				<el-table-column prop="points" :label="$t(&quot;积分&quot;)" min-width="100" sortable>
 					<template #default="{ row }">
-						{{ row.points || 0 }}
+						{{ $t(row.points || 0) }}
 					</template>
 				</el-table-column>
-				<el-table-column prop="balance" label="余额" min-width="100" sortable>
+				<el-table-column prop="balance" :label="$t(&quot;余额&quot;)" min-width="100" sortable>
 					<template #default="{ row }">
-						¥{{ formatMoney(row.balance) }}
+						¥{{ $t(formatMoney(row.balance)) }}
 					</template>
 				</el-table-column>
-				<el-table-column prop="createTime" label="注册时间" min-width="160">
+				<el-table-column prop="createTime" :label="$t(&quot;注册时间&quot;)" min-width="160">
 					<template #default="{ row }">
-						{{ formatDate(row.createTime) }}
+						{{ $t(formatDate(row.createTime)) }}
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" fixed="right" width="200">
+				<el-table-column :label="$t(&quot;操作&quot;)" fixed="right" width="200">
 					<template #default="{ row }">
-						<el-button link type="primary" @click="handleAdjustPoints(row)">调整积分</el-button>
-						<el-button link type="success" @click="handleAdjustBalance(row)">调整余额</el-button>
+						<el-button link type="primary" @click="handleAdjustPoints(row)">{{ $t("调整积分") }}</el-button>
+						<el-button link type="success" @click="handleAdjustBalance(row)">{{ $t("调整余额") }}</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -88,15 +89,15 @@
 		</view>
 
 		<!-- 调整积分对话框 -->
-		<el-dialog v-model="pointsDialogVisible" title="调整积分" width="400px">
+		<el-dialog v-model="pointsDialogVisible" :title="$t(&quot;调整积分&quot;)" width="400px">
 			<el-form :model="pointsForm" label-width="80px">
-				<el-form-item label="会员">
+				<el-form-item :label="$t(&quot;会员&quot;)">
 					<el-input v-model="pointsForm.nickname" disabled />
 				</el-form-item>
-				<el-form-item label="当前积分">
+				<el-form-item :label="$t(&quot;当前积分&quot;)">
 					<el-input :value="pointsForm.currentPoints" disabled />
 				</el-form-item>
-				<el-form-item label="调整积分">
+				<el-form-item :label="$t(&quot;调整积分&quot;)">
 					<el-input-number
 						v-model="pointsForm.adjustValue"
 						:min="-999999"
@@ -104,26 +105,26 @@
 						controls-position="right"
 					/>
 				</el-form-item>
-				<el-form-item label="备注">
-					<el-input v-model="pointsForm.remark" placeholder="请输入备注" />
+				<el-form-item :label="$t(&quot;备注&quot;)">
+					<el-input v-model="pointsForm.remark" :placeholder="$t(&quot;请输入备注&quot;)" />
 				</el-form-item>
 			</el-form>
 			<template #footer>
-				<el-button @click="pointsDialogVisible = false">取消</el-button>
-				<el-button type="primary" @click="confirmAdjustPoints" :loading="submitting">确认</el-button>
+				<el-button @click="pointsDialogVisible = false">{{ $t("取消") }}</el-button>
+				<el-button type="primary" @click="confirmAdjustPoints" :loading="submitting">{{ $t("确认") }}</el-button>
 			</template>
 		</el-dialog>
 
 		<!-- 调整余额对话框 -->
-		<el-dialog v-model="balanceDialogVisible" title="调整余额" width="400px">
+		<el-dialog v-model="balanceDialogVisible" :title="$t(&quot;调整余额&quot;)" width="400px">
 			<el-form :model="balanceForm" label-width="80px">
-				<el-form-item label="会员">
+				<el-form-item :label="$t(&quot;会员&quot;)">
 					<el-input v-model="balanceForm.nickname" disabled />
 				</el-form-item>
-				<el-form-item label="当前余额">
+				<el-form-item :label="$t(&quot;当前余额&quot;)">
 					<el-input :value="'¥' + formatMoney(balanceForm.currentBalance)" disabled />
 				</el-form-item>
-				<el-form-item label="调整金额">
+				<el-form-item :label="$t(&quot;调整金额&quot;)">
 					<el-input-number
 						v-model="balanceForm.adjustValue"
 						:min="-999999"
@@ -132,19 +133,21 @@
 						controls-position="right"
 					/>
 				</el-form-item>
-				<el-form-item label="备注">
-					<el-input v-model="balanceForm.remark" placeholder="请输入备注" />
+				<el-form-item :label="$t(&quot;备注&quot;)">
+					<el-input v-model="balanceForm.remark" :placeholder="$t(&quot;请输入备注&quot;)" />
 				</el-form-item>
 			</el-form>
 			<template #footer>
-				<el-button @click="balanceDialogVisible = false">取消</el-button>
-				<el-button type="primary" @click="confirmAdjustBalance" :loading="submitting">确认</el-button>
+				<el-button @click="balanceDialogVisible = false">{{ $t("取消") }}</el-button>
+				<el-button type="primary" @click="confirmAdjustBalance" :loading="submitting">{{ $t("确认") }}</el-button>
 			</template>
 		</el-dialog>
 	</view>
 </template>
 
 <script setup>
+import { t } from '@/locale'
+
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Search } from '@element-plus/icons-vue'
@@ -197,7 +200,7 @@ async function fetchMembers() {
 		memberList.value = Array.isArray(res) ? res : []
 		pagination.total = memberList.value.length
 	} catch (e) {
-		ElMessage.error(e.message || '获取会员列表失败')
+		ElMessage.error(t(e.message || '获取会员列表失败'))
 	} finally {
 		loading.value = false
 	}
@@ -246,11 +249,11 @@ async function confirmAdjustPoints() {
 			points,
 			reason: pointsForm.remark
 		})
-		ElMessage.success('积分调整成功')
+		ElMessage.success(t('积分调整成功'))
 		pointsDialogVisible.value = false
 		fetchMembers()
 	} catch (e) {
-		ElMessage.error(e.message || '积分调整失败')
+		ElMessage.error(t(e.message || '积分调整失败'))
 	} finally {
 		submitting.value = false
 	}
@@ -275,11 +278,11 @@ async function confirmAdjustBalance() {
 			amount,
 			type: Number(balanceForm.adjustValue) >= 0 ? 'increase' : 'decrease'
 		})
-		ElMessage.success('余额调整成功')
+		ElMessage.success(t('余额调整成功'))
 		balanceDialogVisible.value = false
 		fetchMembers()
 	} catch (e) {
-		ElMessage.error(e.message || '余额调整失败')
+		ElMessage.error(t(e.message || '余额调整失败'))
 	} finally {
 		submitting.value = false
 	}

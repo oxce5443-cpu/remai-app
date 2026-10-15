@@ -30,6 +30,10 @@
       "bsonType": "string",
       "label": "分类图标URL"
     },
+    "name_en": {
+      "bsonType": "string",
+      "label": "分类英文名称（可选）"
+    },
     "sort": {
       "bsonType": "int",
       "label": "排序（越小越靠前）"

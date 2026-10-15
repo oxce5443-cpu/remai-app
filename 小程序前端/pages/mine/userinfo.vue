@@ -3,35 +3,35 @@
 		<!-- Form Card -->
 		<view class="form-card">
 			<view class="form-item">
-				<view class="label">昵称</view>
+				<view class="label">{{ $t("昵称") }}</view>
 				<view class="input-wrap">
-					<input type="text" placeholder="请填写昵称" placeholder-class="placeholder" v-model="member.nickname">
+					<input type="text" :placeholder="$t(&quot;请填写昵称&quot;)" placeholder-class="placeholder" v-model="member.nickname">
 				</view>
 			</view>
 			<view class="form-item">
-				<view class="label">手机号码</view>
+				<view class="label">{{ $t("手机号码") }}</view>
 				<view class="input-wrap">
 					<input type="text" v-model="member.mobilePhone" disabled>
 				</view>
 			</view>
 			<view class="form-item">
-				<view class="label">性别</view>
+				<view class="label">{{ $t("性别") }}</view>
 				<view class="radio-group">
-					<view class="radio" :class="{'radio--checked': member.gender == '1'}" @tap="member.gender=1">先生</view>
-					<view class="radio" :class="{'radio--checked': member.gender == '2'}" @tap="member.gender=2">女士</view>
+					<view class="radio" :class="{'radio--checked': member.gender == '1'}" @tap="member.gender=1">{{ $t("先生") }}</view>
+					<view class="radio" :class="{'radio--checked': member.gender == '2'}" @tap="member.gender=2">{{ $t("女士") }}</view>
 				</view>
 			</view>
 			<view class="form-item">
-				<view class="label">生日</view>
+				<view class="label">{{ $t("生日") }}</view>
 				<view class="input-wrap">
 					<picker mode="date" :value="date" :start="startDate" :end="endDate" v-if="!member.birthday" @change="handleDateChange">
-						<view class="picker-text">生日当天有惊喜</view>
+						<view class="picker-text">{{ $t("生日当天有惊喜") }}</view>
 					</picker>
 					<input type="text" v-else :value="member.birthday" disabled>
 				</view>
 			</view>
 			<view class="form-item form-item--last">
-				<view class="label">入会时间</view>
+				<view class="label">{{ $t("入会时间") }}</view>
 				<view class="input-wrap">
 					<input type="text" v-model="member.openingCardDate" disabled>
 				</view>
@@ -40,7 +40,7 @@
 
 		<!-- Save Button -->
 		<view class="btn-section">
-			<button type="primary" class="save-btn" @tap="save">保存</button>
+			<button type="primary" class="save-btn" @tap="save">{{ $t("保存") }}</button>
 		</view>
 	</view>
 </template>

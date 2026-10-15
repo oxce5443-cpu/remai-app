@@ -42,6 +42,27 @@
       "bsonType": "string",
       "label": "订单编号"
     },
+    "request_fingerprint": {
+      "bsonType": "string",
+      "label": "幂等请求业务内容摘要"
+    },
+    "creation_complete": {
+      "bsonType": "bool",
+      "label": "订单与全部明细已原子创建"
+    },
+    "line_count": {
+      "bsonType": "int",
+      "label": "预期明细行数"
+    },
+    "line_ids": {
+      "bsonType": "array",
+      "items": { "bsonType": "string" },
+      "label": "确定性明细ID清单"
+    },
+    "lines_hash": {
+      "bsonType": "string",
+      "label": "创建时明细计价摘要"
+    },
     "member_id": {
       "bsonType": "string",
       "label": "会员ID",

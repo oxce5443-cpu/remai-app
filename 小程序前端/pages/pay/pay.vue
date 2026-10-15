@@ -1,15 +1,5 @@
 <template>
 	<view class="page rm-page old-money">
-		<!-- 顶部安全区 -->
-		<view class="safe-top"></view>
-
-		<!-- Header -->
-		<view class="header">
-			<view class="header-back" @tap="goBack">‹</view>
-			<view class="header-title">确认订单</view>
-			<view class="header-side"></view>
-		</view>
-
 		<view class="page-scroll">
 			<!-- Store Card -->
 			<view class="section-card">
@@ -17,12 +7,12 @@
 					<view class="store-row" @tap="goMenu">
 						<view class="store-pin">⌖</view>
 						<view class="store-main">
-							<view class="store-name">{{ store.name }}</view>
-							<view class="store-meta" v-if="store.address">{{ store.address }}</view>
-							<view class="store-meta" v-else>堂食 · 立即用餐</view>
-							<view class="store-meta" v-if="store.state.tableNo">桌号 {{ store.state.tableNo }} 号桌</view>
+							<view class="store-name">{{ $localized(storeInfo, "name") }}</view>
+							<view class="store-meta" v-if="storeInfo.address">{{ $localized(storeInfo, 'address') }}</view>
+							<view class="store-meta" v-else>{{ $t("堂食 · 立即用餐") }}</view>
+							<view class="store-meta" v-if="store.state.tableNo">{{ $t("桌号") }} {{ $t(store.state.tableNo) }} {{ $t("号桌") }}</view>
 						</view>
-						<text class="store-switch">切换门店 →</text>
+						<text class="store-switch">{{ $t("切换门店 →") }}</text>
 					</view>
 				</template>
 				<template v-else>
@@ -32,119 +22,119 @@
 							<view class="store-name">{{ address.street }}</view>
 							<view class="store-meta">
 								<text>{{ address.acceptName }}</text>
-								<text>{{ !address.sex ? '先生' : '女士' }}</text>
+								<text>{{ $t(!address.sex ? '先生' : '女士') }}</text>
 								<text>{{ address.mobile }}</text>
 							</view>
 						</view>
-						<text class="store-switch">切换地址 →</text>
+						<text class="store-switch">{{ $t("切换地址 →") }}</text>
 					</view>
 				</template>
 
 				<!-- 取餐方式 -->
 				<view class="serve-row">
-					<text class="serve-label">取餐方式</text>
+					<text class="serve-label">{{ $t("取餐方式") }}</text>
 					<view class="serve-switch">
-						<view class="serve-item" :class="{active: orderType == 'takein'}" @tap="switchType('takein')">堂食</view>
-						<view class="serve-item" :class="{active: orderType == 'takeout'}" @tap="switchType('takeout')">外带</view>
+						<view class="serve-item" :class="{active: orderType == 'takein'}" @tap="switchType('takein')">{{ $t("堂食") }}</view>
+						<view class="serve-item" :class="{active: orderType == 'takeout'}" @tap="switchType('takeout')">{{ $t("外带") }}</view>
 					</view>
 				</view>
 
 				<template v-if="orderType == 'takein'">
-					<view class="serve-row" v-if="store.name">
-						<text class="serve-label">用餐信息</text>
-						<text class="serve-value">立即用餐</text>
+					<view class="serve-row" v-if="storeInfo.name">
+						<text class="serve-label">{{ $t("用餐信息") }}</text>
+						<text class="serve-value">{{ $t("立即用餐") }}</text>
 					</view>
 				</template>
 			</view>
 
 			<!-- Cart Items -->
 			<view class="section-card">
-				<view class="section-title">商品明细</view>
+				<view class="section-title">{{ $t("商品明细") }}</view>
 				<view class="cart-item" v-for="(item, index) in cart" :key="index">
 					<view class="cart-item-img-wrap">
 						<image v-if="item.image" :src="item.image" mode="aspectFill" class="cart-item-img"></image>
 						<view v-else class="cart-item-img cart-item-img--ph"><text>🍞</text></view>
 					</view>
 					<view class="cart-item-main">
-						<view class="cart-item-name">{{ item.name }}</view>
-						<view class="cart-item-props" v-if="item.propsText">{{ item.propsText }}</view>
+						<view class="cart-item-name">{{ $t($localized(item, "name")) }}</view>
+						<view class="cart-item-props" v-if="item.propsText">{{ $t(item.propsText) }}</view>
 						<view class="cart-item-line">
-							<text class="cart-item-qty">×{{ item.number }}</text>
-							<text class="cart-item-price">¥{{ item.price }}</text>
+							<text class="cart-item-qty">×{{ $t(item.number) }}</text>
+							<text class="cart-item-price">¥{{ $t(item.price) }}</text>
 						</view>
 					</view>
 				</view>
-				<view class="fee-row" v-if="orderType == 'takeout' && store.packingFee > 0">
-					<text>包装费</text>
-					<text>￥{{ Number(store.packingFee) }}</text>
+				<view class="fee-row" v-if="orderType == 'takeout' && storeInfo.packingFee > 0">
+					<text>{{ $t("包装费") }}</text>
+					<text>￥{{ $t(Number(storeInfo.packingFee)) }}</text>
 				</view>
-				<view class="fee-row" v-if="orderType == 'takeout' && store.deliveryCost > 0">
-					<text>配送费</text>
-					<text>￥{{ Number(store.deliveryCost) }}</text>
+				<view class="fee-row" v-if="orderType == 'takeout' && storeInfo.deliveryCost > 0">
+					<text>{{ $t("配送费") }}</text>
+					<text>￥{{ $t(Number(storeInfo.deliveryCost)) }}</text>
 				</view>
 			</view>
 
 			<!-- Coupons & Gift Cards -->
 			<view class="section-card">
 				<view class="info-row" @click="goToPackages">
-					<text class="info-label">热麦券</text>
-					<text class="info-hint">超值购买优惠券大礼包 →</text>
+					<text class="info-label">{{ $t("热麦券") }}</text>
+					<text class="info-hint">{{ $t("超值购买优惠券大礼包 →") }}</text>
 				</view>
 				<view class="info-row" style="border-bottom: none;">
-					<text class="info-label">礼品卡</text>
-					<text class="info-hint">暂无可使用礼品卡</text>
+					<text class="info-label">{{ $t("礼品卡") }}</text>
+					<text class="info-hint">{{ $t("暂无可使用礼品卡") }}</text>
 				</view>
 			</view>
 
 			<!-- Amount Breakdown -->
 			<view class="section-card">
-				<view class="section-title">金额明细</view>
+				<view class="section-title">{{ $t("金额明细") }}</view>
 				<view class="fee-row">
-					<text>商品金额</text>
-					<text>￥{{ total.toFixed(2) }}</text>
+					<text>{{ $t("商品金额") }}</text>
+					<text>￥{{ $t(total.toFixed(2)) }}</text>
 				</view>
-				<view class="fee-row" v-if="orderType == 'takeout' && store.packingFee > 0">
-					<text>包装费</text>
-					<text>￥{{ Number(store.packingFee).toFixed(2) }}</text>
+				<view class="fee-row" v-if="orderType == 'takeout' && storeInfo.packingFee > 0">
+					<text>{{ $t("包装费") }}</text>
+					<text>￥{{ $t(Number(storeInfo.packingFee).toFixed(2)) }}</text>
 				</view>
-				<view class="fee-row" v-if="orderType == 'takeout' && store.deliveryCost > 0">
-					<text>配送费</text>
-					<text>￥{{ Number(store.deliveryCost).toFixed(2) }}</text>
+				<view class="fee-row" v-if="orderType == 'takeout' && storeInfo.deliveryCost > 0">
+					<text>{{ $t("配送费") }}</text>
+					<text>￥{{ $t(Number(storeInfo.deliveryCost).toFixed(2)) }}</text>
 				</view>
 				<view class="fee-row fee-row--total">
-					<text>合计</text>
-					<text class="total-amount">￥{{ amount }}</text>
+					<text>{{ $t("合计") }}</text>
+					<text class="total-amount">￥{{ $t(amount) }}</text>
 				</view>
 			</view>
 
 			<!-- 支付方式 -->
 			<view class="section-card">
 				<view class="info-row">
-					<text class="info-label">支付方式</text>
+					<text class="info-label">{{ $t("支付方式") }}</text>
 					<view class="pay-method-row">
 						<view class="pay-method" :class="{active: form.payMethod == 'wechat'}" @tap="selectPayMethod('wechat')">
 							<text class="pm-dot"></text>
-							<text>微信支付</text>
+							<text>{{ $t("微信支付") }}</text>
 						</view>
 						<view class="pay-method" :class="{active: form.payMethod == 'balance', dim: !balanceEnough}" @tap="selectPayMethod('balance')">
 							<text class="pm-dot"></text>
-							<text>余额（￥{{ Number(member.balance || 0) }}）</text>
+							<text>{{ $t("余额（￥") }}{{ $t(Number(member.balance || 0)) }}）</text>
 						</view>
 					</view>
 				</view>
 			</view>
 
 			<view class="section-card">
-				<picker :range="cutleryOptions" :value="form.cutleryCount" :disabled="!!existingOrder" @change="chooseCutlery">
-					<view class="info-row"><text class="info-label">餐具</text><text class="info-hint">{{ cutleryOptions[form.cutleryCount] || '无需餐具' }} →</text></view>
+			<picker :range="localizedCutleryOptions" :value="form.cutleryCount" :disabled="!!existingOrder" @change="chooseCutlery">
+					<view class="info-row"><text class="info-label">{{ $t("餐具") }}</text><text class="info-hint">{{ $t(cutleryOptions[form.cutleryCount] || '无需餐具') }} →</text></view>
 				</picker>
 			</view>
 
 			<!-- Remark -->
 			<view class="section-card" @click="goToRemark">
 				<view class="info-row" style="border-bottom: none;">
-					<text class="info-label">备注</text>
-					<text class="remark-value">{{ form.remark || '点击填写备注' }}</text>
+					<text class="info-label">{{ $t("备注") }}</text>
+					<text class="remark-value">{{ form.remark || $t('点击填写备注') }}</text>
 					<text class="remark-arrow">→</text>
 				</view>
 			</view>
@@ -155,10 +145,10 @@
 		<!-- Pay Bar -->
 		<view class="pay-bar">
 			<view class="pay-bar-left">
-				<text class="pay-bar-label">合计</text>
-				<text class="pay-bar-amount">¥{{ amount }}</text>
+				<text class="pay-bar-label">{{ $t("合计") }}</text>
+				<text class="pay-bar-amount">¥{{ $t(amount) }}</text>
 			</view>
-			<view class="pay-bar-btn" @tap="submit">提交订单</view>
+			<view class="pay-bar-btn" @tap="submit">{{ $t("提交订单") }}</view>
 		</view>
 
 		<!-- Address Confirm Modal -->
@@ -167,16 +157,16 @@
 				<view class="modal-close" @tap="ensureAddressModalVisible=false">
 					<image src="/static/images/pay/close.png" style="width: 40rpx; height: 40rpx;"></image>
 				</view>
-				<view class="modal-title">请再次确认下单地址</view>
+				<view class="modal-title">{{ $t("请再次确认下单地址") }}</view>
 				<view class="modal-addr-name">
-					<text>{{ address.acceptName }} {{ address.sex ? '女士' : '先生' }}</text>
+					<text>{{ address.acceptName }} {{ $t(address.sex ? '女士' : '先生') }}</text>
 					<text>{{ address.mobile }}</text>
 				</view>
 				<view class="modal-addr-detail">
 					<text>{{ address.street + (address.doorNumber || '') }}</text>
-					<button type="primary" size="mini" plain class="modal-change-btn">修改地址</button>
+					<button type="primary" size="mini" plain class="modal-change-btn">{{ $t("修改地址") }}</button>
 				</view>
-				<button type="primary" class="modal-pay-btn" @tap="pay">确认并付款</button>
+				<button type="primary" class="modal-pay-btn" @tap="pay">{{ $t("确认并付款") }}</button>
 			</view>
 		</modal>
 	</view>
@@ -187,6 +177,8 @@ import { ref, computed } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { useStore } from 'vuex'
 import { api, env } from '@/api'
+import { t } from '@/locale'
+import { getCheckoutIntent, rememberCheckoutOrder, clearCheckoutIntent } from '@/common/checkout-intent'
 import modal from '@/components/modal/modal.vue'
 
 const store = useStore()
@@ -194,6 +186,7 @@ const store = useStore()
 const cart = ref([])
 const form = ref({ remark: '', payMethod: 'wechat', cutleryCount: Number(uni.getStorageSync('remai_cutlery_count')) || 0 })
 const cutleryOptions = ['无需餐具', '1 份', '2 份', '3 份', '4 份', '5 份']
+const localizedCutleryOptions = computed(() => cutleryOptions.map(option => t(option)))
 function chooseCutlery(e) {
 	form.value.cutleryCount = Number(e.detail.value)
 	uni.setStorageSync('remai_cutlery_count', form.value.cutleryCount)
@@ -201,6 +194,7 @@ function chooseCutlery(e) {
 const ensureAddressModalVisible = ref(false)
 const paying = ref(false)
 const currentOrderId = ref('')
+const checkoutKey = ref('')
 const existingOrder = ref(null)
 const member = ref({ balance: 0, points: 0 })
 
@@ -232,14 +226,18 @@ onLoad((option) => {
 async function loadExistingOrder(orderId) {
 	try {
 		const order = await api.getOrderDetail({ orderId })
-		existingOrder.value = order
-		cart.value = (order.goodsList || []).map(item => ({ id: item.goodsId, name: item.goodsName, number: item.num, price: item.price, image: item.image, propsText: item.property }))
-		form.value.cutleryCount = order.cutleryCount || 0
-		form.value.remark = order.remark || ''
+		applyExistingOrder(order)
 	} catch (error) {
 		cart.value = []
 		uni.showToast({ title: error.message || '订单加载失败', icon: 'none' })
 	}
+}
+
+function applyExistingOrder(order) {
+	existingOrder.value = order
+	cart.value = (order.goodsList || []).map(item => ({ id: item.goodsId, name: item.goodsName, nameEn: item.goodsNameEn || '', number: item.num, price: item.price, image: item.image, propsText: item.property }))
+	form.value.cutleryCount = order.cutleryCount || 0
+	form.value.remark = order.remark || ''
 }
 
 async function loadMemberInfo() {
@@ -306,7 +304,13 @@ async function createOrder() {
 		cutleryCount: form.value.cutleryCount,
 		goodsList
 	}
-	return await api.createOrder(orderData)
+	const intent = getCheckoutIntent(orderData)
+	checkoutKey.value = intent.key
+	const result = await api.createOrder({ ...orderData, requestKey: intent.key })
+	const id = result && (result.orderId || result._id)
+	if (!id) throw new Error('订单加载失败')
+	rememberCheckoutOrder(intent.key, id)
+	return result
 }
 
 async function wechatPay(orderId) {
@@ -358,9 +362,28 @@ async function pay() {
 		if (!currentOrderId.value) {
 			const order = await createOrder()
 			currentOrderId.value = order.orderId || order._id
-		} else {
-			const order = await api.getOrderDetail({ orderId: currentOrderId.value })
-			if (order.status !== 'pending') throw new Error('订单已处理，请刷新订单状态')
+			if (order.status && order.status !== 'pending') {
+				clearCheckoutIntent({ requestKey: checkoutKey.value })
+				uni.navigateTo({ url: `/pages/orders/detail?id=${currentOrderId.value}` })
+				throw new Error('订单已处理，请刷新订单状态')
+			}
+		}
+
+		// Confirm what the server will actually charge, including resumed/replayed orders.
+		const displayedAmount = Number(amount.value)
+		const pendingOrder = await api.getOrderDetail({ orderId: currentOrderId.value })
+		if (!pendingOrder || pendingOrder.status !== 'pending') throw new Error('订单已处理，请刷新订单状态')
+		const serverAmount = Number(pendingOrder.totalPrice)
+		if (!Number.isFinite(serverAmount) || serverAmount < 0) throw new Error('订单金额无效')
+		applyExistingOrder(pendingOrder)
+		if (Math.round(displayedAmount * 100) !== Math.round(serverAmount * 100)) {
+			uni.hideLoading()
+			const confirmation = await uni.showModal({
+				title: '订单金额已更新',
+				content: t('门店确认金额为 ¥{amount}，请核对后继续。', { amount: amount.value })
+			})
+			if (!confirmation.confirm) return
+			uni.showLoading({ title: '正在下单...', mask: true })
 		}
 
 		let paid = false
@@ -395,6 +418,7 @@ async function pay() {
 
 		const orderDetail = await api.getOrderDetail({ orderId: currentOrderId.value })
 		if (orderDetail) store.commit('SET_ORDER', orderDetail)
+		clearCheckoutIntent({ requestKey: checkoutKey.value, orderId: currentOrderId.value })
 
 		store.commit('REMOVE_CART')
 		await store.dispatch('syncCart')

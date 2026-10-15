@@ -6,21 +6,21 @@
 				<image :src="pointGood.img[0]" class="goods-img" mode="widthFix"></image>
 				<view class="goods-body">
 					<view class="goods-price-row">
-						<view class="goods-points">{{ pointGood.pointsPrice }}<text class="goods-unit">积分</text></view>
+						<view class="goods-points">{{ $t(pointGood.pointsPrice) }}<text class="goods-unit">{{ $t("积分") }}</text></view>
 						<template v-if="pointGood.amount > 0">
 							<text class="goods-plus">+</text>
-							<view class="goods-points">{{ pointGood.amount }}<text class="goods-unit">元</text></view>
+							<view class="goods-points">{{ $t(pointGood.amount) }}<text class="goods-unit">{{ $t("元") }}</text></view>
 						</template>
 					</view>
 					<view class="goods-footer">
-						<view class="goods-name">{{ pointGood.goodsName }}</view>
-						<view class="goods-stock">剩余<text class="stock-num">{{ pointGood.goodsStock }}</text>件</view>
+						<view class="goods-name">{{ $t(pointGood.goodsName) }}</view>
+						<view class="goods-stock">{{ $t("剩余") }}<text class="stock-num">{{ $t(pointGood.goodsStock) }}</text>{{ $t("件") }}</view>
 					</view>
 				</view>
 			</view>
 
 			<view class="desc-card" v-if="pointGood.goodsType == 2">
-				<view class="desc-title">商品详情</view>
+				<view class="desc-title">{{ $t("商品详情") }}</view>
 				<view class="desc-content">
 					<jyf-parser ref="desc"></jyf-parser>
 				</view>
@@ -32,24 +32,24 @@
 					<view class="coupon-card">
 						<image src="/static/images/integrals/ticket.png" class="coupon-img"></image>
 						<view class="coupon-info">
-							<view class="coupon-name">{{ pointGood.goodsName }}</view>
-							<view class="coupon-expire">有效期：领券当日开始90天内有效</view>
+							<view class="coupon-name">{{ $t(pointGood.goodsName) }}</view>
+							<view class="coupon-expire">{{ $t("有效期：领券当日开始90天内有效") }}</view>
 						</view>
 					</view>
 				</view>
 				<view class="points-row">
-					<view class="points-price">{{ pointGood.pointsPrice }}<text class="points-unit">积分</text></view>
-					<view class="points-stock">剩余<text class="stock-num">{{ pointGood.goodsStock }}</text>件</view>
+					<view class="points-price">{{ $t(pointGood.pointsPrice) }}<text class="points-unit">{{ $t("积分") }}</text></view>
+					<view class="points-stock">{{ $t("剩余") }}<text class="stock-num">{{ $t(pointGood.goodsStock) }}</text>{{ $t("件") }}</view>
 				</view>
 				<view class="desc-card">
-					<view class="desc-title">兑换须知</view>
+					<view class="desc-title">{{ $t("兑换须知") }}</view>
 					<view class="desc-content">
 						<jyf-parser ref="desc"></jyf-parser>
 					</view>
-					<view class="desc-title" style="margin-top: 24rpx;">使用须知</view>
+					<view class="desc-title" style="margin-top: 24rpx;">{{ $t("使用须知") }}</view>
 					<view class="tip-row" v-for="(item, index) in useTips" :key="index">
-						<text>{{ item.title }}：</text>
-						<text class="tip-value">{{ item.value }}</text>
+						<text>{{ $t(item.title) }}：</text>
+						<text class="tip-value">{{ $t(item.value) }}</text>
 					</view>
 				</view>
 			</template>
@@ -58,7 +58,7 @@
 		<!-- Bottom Button -->
 		<view class="btn-bar">
 			<button type="primary" :disabled="customPoints.totalPoints < pointGood.pointsPrice">
-				{{ customPoints.totalPoints < pointGood.pointsPrice ? '积分不足' : '立即兑换' }}
+				{{ $t(customPoints.totalPoints < pointGood.pointsPrice ? '积分不足' : '立即兑换') }}
 			</button>
 		</view>
 	</view>

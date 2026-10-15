@@ -3,28 +3,28 @@
 		<view class="cell">
 			<view class="cell-content">
 				<image src="/static/images/services/djsm.png" class="cell-icon"></image>
-				<text>等级说明</text>
+				<text>{{ $t("等级说明") }}</text>
 			</view>
 			<image src="/static/images/navigator-1.png" class="cell-arrow"></image>
 		</view>
 		<view class="cell">
 			<view class="cell-content">
 				<image src="/static/images/services/hyxy.png" class="cell-icon"></image>
-				<text>会员协议</text>
+				<text>{{ $t("会员协议") }}</text>
 			</view>
 			<image src="/static/images/navigator-1.png" class="cell-arrow"></image>
 		</view>
 		<view class="cell">
 			<view class="cell-content">
 				<image src="/static/images/services/ystk.png" class="cell-icon"></image>
-				<text>隐私条款</text>
+				<text>{{ $t("隐私条款") }}</text>
 			</view>
 			<image src="/static/images/navigator-1.png" class="cell-arrow"></image>
 		</view>
 		<view class="cell">
 			<view class="cell-content">
 				<image src="/static/images/services/cjwt.png" class="cell-icon"></image>
-				<text>常见问题</text>
+				<text>{{ $t("常见问题") }}</text>
 			</view>
 			<image src="/static/images/navigator-1.png" class="cell-arrow"></image>
 		</view>

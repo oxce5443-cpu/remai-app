@@ -3,26 +3,26 @@
 		<view class="main">
 			<!-- Status Header -->
 			<view class="status-header" :class="'status--' + order.status">
-				<view class="status-title">{{ getStatusText(order.status) }}</view>
-				<view class="status-desc" v-if="order.status === 'pending'">请尽快完成支付</view>
-				<view class="status-desc" v-else-if="order.status === 'paid'">商家正在制作中，请耐心等待</view>
-				<view class="status-desc" v-else-if="order.status === 'processing'">餐品已制作完成，请到店取餐</view>
-				<view class="status-desc" v-else-if="order.status === 'completed'">订单已完成，感谢您的光临</view>
-				<view class="status-desc" v-else-if="order.status === 'cancelled'">订单已取消</view>
+				<view class="status-title">{{ $t(getStatusText(order.status)) }}</view>
+				<view class="status-desc" v-if="order.status === 'pending'">{{ $t("请尽快完成支付") }}</view>
+				<view class="status-desc" v-else-if="order.status === 'paid'">{{ $t("商家正在制作中，请耐心等待") }}</view>
+				<view class="status-desc" v-else-if="order.status === 'processing'">{{ $t("餐品已制作完成，请到店取餐") }}</view>
+				<view class="status-desc" v-else-if="order.status === 'completed'">{{ $t("订单已完成，感谢您的光临") }}</view>
+				<view class="status-desc" v-else-if="order.status === 'cancelled'">{{ $t("订单已取消") }}</view>
 			</view>
 
 			<!-- Goods List -->
 			<view class="card card--goods">
-				<view class="card-title">商品清单</view>
+				<view class="card-title">{{ $t("商品清单") }}</view>
 				<view class="goods-item" v-for="(good, index) in order.goodsList" :key="index">
 					<image :src="good.image || '/static/images/goods/default.png'" class="goods-image" mode="aspectFill"></image>
 					<view class="goods-left">
-						<view class="goods-name">{{ good.goodsName }}</view>
-						<view class="goods-props" v-if="good.property">{{ good.property }}</view>
+						<view class="goods-name">{{ $t(good.goodsName) }}</view>
+						<view class="goods-props" v-if="good.property">{{ $t(good.property) }}</view>
 					</view>
 					<view class="goods-right">
-						<text class="goods-price">¥{{ good.price }}</text>
-						<text class="goods-qty">x{{ good.num }}</text>
+						<text class="goods-price">¥{{ $t(good.price) }}</text>
+						<text class="goods-qty">x{{ $t(good.num) }}</text>
 					</view>
 				</view>
 			</view>
@@ -30,49 +30,49 @@
 			<!-- Payment -->
 			<view class="card">
 				<view class="info-row">
-					<text>商品金额</text>
-					<text class="info-value">¥{{ order.totalPrice }}</text>
+					<text>{{ $t("商品金额") }}</text>
+					<text class="info-value">¥{{ $t(order.totalPrice) }}</text>
 				</view>
 				<view class="info-row" v-if="order.packingFee && Number(order.packingFee) > 0">
-					<text>打包费</text>
-					<text class="info-value">¥{{ order.packingFee }}</text>
+					<text>{{ $t("打包费") }}</text>
+					<text class="info-value">¥{{ $t(order.packingFee) }}</text>
 				</view>
 				<view class="info-row" v-if="order.deliveryFee && Number(order.deliveryFee) > 0">
-					<text>配送费</text>
-					<text class="info-value">¥{{ order.deliveryFee }}</text>
+					<text>{{ $t("配送费") }}</text>
+					<text class="info-value">¥{{ $t(order.deliveryFee) }}</text>
 				</view>
 				<view class="info-row info-row--total">
-					<text>实付金额</text>
-					<text class="info-value info-value--total">¥{{ order.totalPrice }}</text>
+					<text>{{ $t("实付金额") }}</text>
+					<text class="info-value info-value--total">¥{{ $t(order.totalPrice) }}</text>
 				</view>
 			</view>
 
 			<!-- Order Info -->
 			<view class="card">
-				<view class="card-title">订单信息</view>
-				<view class="info-row"><text>餐具</text><text class="info-value">{{ order.cutleryCount == null ? '未记录' : order.cutleryCount === 0 ? '无需餐具' : order.cutleryCount + ' 份' }}</text></view>
+				<view class="card-title">{{ $t("订单信息") }}</view>
+				<view class="info-row"><text>{{ $t("餐具") }}</text><text class="info-value">{{ order.cutleryCount == null ? $t('未记录') : order.cutleryCount === 0 ? $t('无需餐具') : $t('{count}份餐具', { count: order.cutleryCount }) }}</text></view>
 				<view class="info-row">
-					<text>订单号</text>
-					<text class="info-value">{{ order.orderNo }}</text>
+					<text>{{ $t("订单号") }}</text>
+					<text class="info-value">{{ $t(order.orderNo) }}</text>
 				</view>
 				<view class="info-row">
-					<text>下单时间</text>
-					<text class="info-value">{{ formatDate(order.createdAt) }}</text>
+					<text>{{ $t("下单时间") }}</text>
+					<text class="info-value">{{ $t(formatDate(order.createdAt)) }}</text>
 				</view>
 				<view class="info-row" v-if="order.payTime">
-					<text>支付时间</text>
-					<text class="info-value">{{ formatDate(order.payTime) }}</text>
+					<text>{{ $t("支付时间") }}</text>
+					<text class="info-value">{{ $t(formatDate(order.payTime)) }}</text>
 				</view>
 				<view class="info-row">
-					<text>用餐方式</text>
-					<text class="info-value">{{ order.type === 'takein' ? '到店自取' : '外卖配送' }}</text>
+					<text>{{ $t("用餐方式") }}</text>
+					<text class="info-value">{{ $t(order.type === 'takein' ? '到店自取' : '外卖配送') }}</text>
 				</view>
 				<view class="info-row" v-if="order.payMode">
-					<text>支付方式</text>
-					<text class="info-value">{{ order.payMode === 'wechat' ? '微信支付' : '余额支付' }}</text>
+					<text>{{ $t("支付方式") }}</text>
+					<text class="info-value">{{ $t(order.payMode === 'wechat' ? '微信支付' : '余额支付') }}</text>
 				</view>
 				<view class="info-row" v-if="order.remark" style="border-bottom: none;">
-					<text>备注</text>
+					<text>{{ $t("备注") }}</text>
 					<text class="info-value">{{ order.remark }}</text>
 				</view>
 			</view>
@@ -83,25 +83,26 @@
 		<!-- Bottom Buttons -->
 		<view class="btn-bar" v-if="order.status === 'pending'">
 			<view class="btn-item">
-				<button type="primary" plain @tap="cancelOrder">取消订单</button>
+				<button type="primary" plain @tap="cancelOrder">{{ $t("取消订单") }}</button>
 			</view>
 			<view class="btn-item">
-				<button type="primary" @tap="goToPay">去支付</button>
+				<button type="primary" @tap="goToPay">{{ $t("去支付") }}</button>
 			</view>
 		</view>
 
 		<view class="btn-bar" v-else-if="order.status === 'completed'">
 			<view class="btn-item">
-				<button type="primary" plain @tap="goToReview">去评价</button>
+				<button type="primary" plain @tap="goToReview">{{ $t("去评价") }}</button>
 			</view>
 			<view class="btn-item">
-				<button type="primary" @tap="orderAgain">再来一单</button>
+				<button type="primary" @tap="orderAgain">{{ $t("再来一单") }}</button>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script setup>
+import { clearCheckoutIntent } from '@/common/checkout-intent'
 import { ref } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { api } from '@/api'
@@ -153,6 +154,7 @@ async function cancelOrder() {
 	try {
 		uni.showLoading({ title: '取消中...' })
 		await api.cancelOrder({ orderId: orderId.value, reason: '用户取消' })
+		clearCheckoutIntent({ orderId: orderId.value })
 		uni.showToast({ title: '已取消', icon: 'success' })
 		loadOrderDetail()
 	} catch (e) {

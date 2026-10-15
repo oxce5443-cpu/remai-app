@@ -3,21 +3,21 @@
 		<!-- Invoice Type & Content -->
 		<view class="card">
 			<view class="info-row">
-				<view class="label">发票类型</view>
+				<view class="label">{{ $t("发票类型") }}</view>
 				<view class="info-main">
-					<view class="info-title">电子普通发票</view>
-					<view class="info-sub">电子发票与纸质普通发票具备同等法律效益，可支持报销入账</view>
+					<view class="info-title">{{ $t("电子普通发票") }}</view>
+					<view class="info-sub">{{ $t("电子发票与纸质普通发票具备同等法律效益，可支持报销入账") }}</view>
 				</view>
 			</view>
 			<view class="info-row">
-				<view class="label">发票内容</view>
-				<view class="info-main">食品</view>
+				<view class="label">{{ $t("发票内容") }}</view>
+				<view class="info-main">{{ $t("食品") }}</view>
 			</view>
 			<view class="info-row info-row--last">
-				<view class="label">发票抬头</view>
+				<view class="label">{{ $t("发票抬头") }}</view>
 				<view class="radio-group">
-					<view class="radio" :class="{'radio--checked': !form.taitou}" @tap="form.taitou=0">个人</view>
-					<view class="radio" :class="{'radio--checked': form.taitou}" @tap="form.taitou=1">公司</view>
+					<view class="radio" :class="{'radio--checked': !form.taitou}" @tap="form.taitou=0">{{ $t("个人") }}</view>
+					<view class="radio" :class="{'radio--checked': form.taitou}" @tap="form.taitou=1">{{ $t("公司") }}</view>
 				</view>
 			</view>
 		</view>
@@ -25,24 +25,24 @@
 		<!-- Form -->
 		<view class="card">
 			<view class="form-row">
-				<view class="label">姓名</view>
+				<view class="label">{{ $t("姓名") }}</view>
 				<view class="form-input">
-					<input type="text" v-model="form.username" placeholder="请输入姓名" placeholder-class="placeholder"/>
-					<text class="required">必填</text>
+					<input type="text" v-model="form.username" :placeholder="$t(&quot;请输入姓名&quot;)" placeholder-class="placeholder"/>
+					<text class="required">{{ $t("必填") }}</text>
 				</view>
 			</view>
 			<view class="form-row">
-				<view class="label">邮箱地址</view>
+				<view class="label">{{ $t("邮箱地址") }}</view>
 				<view class="form-input">
-					<input type="text" v-model="form.email" placeholder="请输入邮箱地址" placeholder-class="placeholder"/>
-					<text class="required">必填</text>
+					<input type="text" v-model="form.email" :placeholder="$t(&quot;请输入邮箱地址&quot;)" placeholder-class="placeholder"/>
+					<text class="required">{{ $t("必填") }}</text>
 				</view>
 			</view>
 			<view class="form-row form-row--last">
-				<view class="label">手机号</view>
+				<view class="label">{{ $t("手机号") }}</view>
 				<view class="form-input">
-					<input type="text" v-model="form.telphone" placeholder="请输入手机号码" placeholder-class="placeholder"/>
-					<text class="required">必填</text>
+					<input type="text" v-model="form.telphone" :placeholder="$t(&quot;请输入手机号码&quot;)" placeholder-class="placeholder"/>
+					<text class="required">{{ $t("必填") }}</text>
 				</view>
 			</view>
 		</view>
@@ -50,10 +50,10 @@
 		<!-- Buttons -->
 		<view class="btn-bar">
 			<view class="btn-item">
-				<button type="primary" plain>导入发票抬头</button>
+				<button type="primary" plain>{{ $t("导入发票抬头") }}</button>
 			</view>
 			<view class="btn-item">
-				<button type="primary">提交</button>
+				<button type="primary">{{ $t("提交") }}</button>
 			</view>
 		</view>
 	</view>

@@ -1,47 +1,48 @@
 <template>
 	<view class="coupon-container">
+    <LanguageSwitch />
 		<!-- 操作栏 -->
 		<view class="action-bar">
-			<el-button type="primary" @click="handleAdd">新增优惠券</el-button>
+			<el-button type="primary" @click="handleAdd">{{ $t("新增优惠券") }}</el-button>
 		</view>
 
 		<!-- 优惠券表格 -->
 		<view class="table-box">
 			<el-table :data="couponList" v-loading="loading" stripe>
-				<el-table-column prop="title" label="名称" min-width="120" />
-				<el-table-column prop="type" label="类型" min-width="100">
+				<el-table-column prop="title" :label="$t(&quot;名称&quot;)" min-width="120" />
+				<el-table-column prop="type" :label="$t(&quot;类型&quot;)" min-width="100">
 					<template #default="{ row }">
-						<el-tag v-if="row.type === 'discount'" type="primary">满减券</el-tag>
-						<el-tag v-else-if="row.type === 'cash'" type="success">代金券</el-tag>
-						<el-tag v-else-if="row.type === 'gift'" type="warning">礼品券</el-tag>
-						<el-tag v-else>{{ row.type }}</el-tag>
+						<el-tag v-if="row.type === 'discount'" type="primary">{{ $t("满减券") }}</el-tag>
+						<el-tag v-else-if="row.type === 'cash'" type="success">{{ $t("代金券") }}</el-tag>
+						<el-tag v-else-if="row.type === 'gift'" type="warning">{{ $t("礼品券") }}</el-tag>
+						<el-tag v-else>{{ $t(row.type) }}</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column prop="value" label="面值" min-width="100">
+				<el-table-column prop="value" :label="$t(&quot;面值&quot;)" min-width="100">
 					<template #default="{ row }">
-						<template v-if="row.type === 'cash'">¥{{ formatMoney(row.value) }}</template>
-						<template v-else>{{ row.value }}{{ row.type === 'discount' ? '折' : '' }}</template>
+						<template v-if="row.type === 'cash'">¥{{ $t(formatMoney(row.value)) }}</template>
+						<template v-else>{{ $t(row.value) }}{{ $t(row.type === 'discount' ? '折' : '') }}</template>
 					</template>
 				</el-table-column>
-				<el-table-column prop="min_price" label="门槛价" min-width="100">
+				<el-table-column prop="min_price" :label="$t(&quot;门槛价&quot;)" min-width="100">
 					<template #default="{ row }">
-						{{ Number(row.min_price || 0) > 0 ? '满' + formatMoney(row.min_price) : '无门槛' }}
+						{{ $t(Number(row.min_price || 0) > 0 ? '满' + formatMoney(row.min_price) : '无门槛') }}
 					</template>
 				</el-table-column>
-				<el-table-column prop="start_time" label="有效期" min-width="200">
+				<el-table-column prop="start_time" :label="$t(&quot;有效期&quot;)" min-width="200">
 					<template #default="{ row }">
-						{{ formatDate(row.start_time) }} ~ {{ formatDate(row.end_time) }}
+						{{ $t(formatDate(row.start_time)) }} ~ {{ $t(formatDate(row.end_time)) }}
 					</template>
 				</el-table-column>
-				<el-table-column prop="remain_count" label="剩余数量" min-width="100">
+				<el-table-column prop="remain_count" :label="$t(&quot;剩余数量&quot;)" min-width="100">
 					<template #default="{ row }">
-						{{ row.remain_count }}/{{ row.total_count }}
+						{{ $t(row.remain_count) }}/{{ $t(row.total_count) }}
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" fixed="right" width="180">
+				<el-table-column :label="$t(&quot;操作&quot;)" fixed="right" width="180">
 					<template #default="{ row }">
-						<el-button link type="primary" @click="handleEdit(row)">编辑</el-button>
-						<el-button link type="danger" @click="handleDelete(row)">删除</el-button>
+						<el-button link type="primary" @click="handleEdit(row)">{{ $t("编辑") }}</el-button>
+						<el-button link type="danger" @click="handleDelete(row)">{{ $t("删除") }}</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -63,21 +64,21 @@
 		<!-- 新增/编辑对话框 -->
 		<el-dialog
 			v-model="dialogVisible"
-			:title="isEdit ? '编辑优惠券' : '新增优惠券'"
+			:title="$t(isEdit ? '编辑优惠券' : '新增优惠券')"
 			width="500px"
 		>
 			<el-form :model="couponForm" :rules="rules" ref="formRef" label-width="100px">
-				<el-form-item label="名称" prop="title">
-					<el-input v-model="couponForm.title" placeholder="请输入优惠券名称" />
+				<el-form-item :label="$t(&quot;名称&quot;)" prop="title">
+					<el-input v-model="couponForm.title" :placeholder="$t(&quot;请输入优惠券名称&quot;)" />
 				</el-form-item>
-				<el-form-item label="类型" prop="type">
-					<el-select v-model="couponForm.type" placeholder="请选择类型" style="width: 100%">
-						<el-option label="满减券" value="discount" />
-						<el-option label="代金券" value="cash" />
-						<el-option label="礼品券" value="gift" />
+				<el-form-item :label="$t(&quot;类型&quot;)" prop="type">
+					<el-select v-model="couponForm.type" :placeholder="$t(&quot;请选择类型&quot;)" style="width: 100%">
+						<el-option :label="$t(&quot;满减券&quot;)" value="discount" />
+						<el-option :label="$t(&quot;代金券&quot;)" value="cash" />
+						<el-option :label="$t(&quot;礼品券&quot;)" value="gift" />
 					</el-select>
 				</el-form-item>
-				<el-form-item label="面值" prop="value">
+				<el-form-item :label="$t(&quot;面值&quot;)" prop="value">
 					<el-input-number
 						v-model="couponForm.value"
 						:min="0"
@@ -86,7 +87,7 @@
 						style="width: 100%"
 					/>
 				</el-form-item>
-				<el-form-item label="门槛价" prop="min_price">
+				<el-form-item :label="$t(&quot;门槛价&quot;)" prop="min_price">
 					<el-input-number
 						v-model="couponForm.min_price"
 						:min="0"
@@ -95,23 +96,23 @@
 						style="width: 100%"
 					/>
 				</el-form-item>
-				<el-form-item label="开始时间" prop="start_time">
+				<el-form-item :label="$t(&quot;开始时间&quot;)" prop="start_time">
 					<el-date-picker
 						v-model="couponForm.start_time"
 						type="datetime"
-						placeholder="选择开始时间"
+						:placeholder="$t(&quot;选择开始时间&quot;)"
 						style="width: 100%"
 					/>
 				</el-form-item>
-				<el-form-item label="结束时间" prop="end_time">
+				<el-form-item :label="$t(&quot;结束时间&quot;)" prop="end_time">
 					<el-date-picker
 						v-model="couponForm.end_time"
 						type="datetime"
-						placeholder="选择结束时间"
+						:placeholder="$t(&quot;选择结束时间&quot;)"
 						style="width: 100%"
 					/>
 				</el-form-item>
-				<el-form-item label="发放数量" prop="total_count">
+				<el-form-item :label="$t(&quot;发放数量&quot;)" prop="total_count">
 					<el-input-number
 						v-model="couponForm.total_count"
 						:min="1"
@@ -119,19 +120,21 @@
 						style="width: 100%"
 					/>
 				</el-form-item>
-				<el-form-item label="描述">
-					<el-input v-model="couponForm.description" type="textarea" placeholder="请输入描述" />
+				<el-form-item :label="$t(&quot;描述&quot;)">
+					<el-input v-model="couponForm.description" type="textarea" :placeholder="$t(&quot;请输入描述&quot;)" />
 				</el-form-item>
 			</el-form>
 			<template #footer>
-				<el-button @click="dialogVisible = false">取消</el-button>
-				<el-button type="primary" @click="confirmSubmit" :loading="submitting">确认</el-button>
+				<el-button @click="dialogVisible = false">{{ $t("取消") }}</el-button>
+				<el-button type="primary" @click="confirmSubmit" :loading="submitting">{{ $t("确认") }}</el-button>
 			</template>
 		</el-dialog>
 	</view>
 </template>
 
 <script setup>
+import { t } from '@/locale'
+
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { adminRequest, formatDate, formatMoney } from '@/utils/api.js'
@@ -168,12 +171,12 @@ const couponForm = reactive({
 
 // 表单验证规则
 const rules = {
-	title: [{ required: true, message: '请输入优惠券名称', trigger: 'blur' }],
-	type: [{ required: true, message: '请选择类型', trigger: 'change' }],
-	value: [{ required: true, message: '请输入面值', trigger: 'blur' }],
-	start_time: [{ required: true, message: '请选择开始时间', trigger: 'change' }],
-	end_time: [{ required: true, message: '请选择结束时间', trigger: 'change' }],
-	total_count: [{ required: true, message: '请输入发放数量', trigger: 'blur' }]
+	title: [{ required: true, get message() { return t("请输入优惠券名称") }, trigger: 'blur' }],
+	type: [{ required: true, get message() { return t("请选择类型") }, trigger: 'change' }],
+	value: [{ required: true, get message() { return t("请输入面值") }, trigger: 'blur' }],
+	start_time: [{ required: true, get message() { return t("请选择开始时间") }, trigger: 'change' }],
+	end_time: [{ required: true, get message() { return t("请选择结束时间") }, trigger: 'change' }],
+	total_count: [{ required: true, get message() { return t("请输入发放数量") }, trigger: 'blur' }]
 }
 
 // 获取优惠券列表
@@ -187,7 +190,7 @@ async function fetchCoupons() {
 		couponList.value = Array.isArray(res) ? res : []
 		pagination.total = couponList.value.length
 	} catch (e) {
-		ElMessage.error(e.message || '获取优惠券列表失败')
+		ElMessage.error(t(e.message || '获取优惠券列表失败'))
 	} finally {
 		loading.value = false
 	}
@@ -228,15 +231,15 @@ function handleEdit(row) {
 // 删除
 async function handleDelete(row) {
 	try {
-		await ElMessageBox.confirm('确定要删除该优惠券吗？', '提示', {
+		await ElMessageBox.confirm(t('确定要删除该优惠券吗？'), t('提示'), {
 			type: 'warning'
 		})
 		await adminRequest('deleteCoupon', { id: row._id || row.id })
-		ElMessage.success('删除成功')
+		ElMessage.success(t('删除成功'))
 		fetchCoupons()
 	} catch (e) {
 		if (e !== 'cancel') {
-			ElMessage.error(e.message || '删除失败')
+			ElMessage.error(t(e.message || '删除失败'))
 		}
 	}
 }
@@ -267,11 +270,11 @@ async function confirmSubmit() {
 			}
 
 			await adminRequest(action, data)
-			ElMessage.success(isEdit.value ? '编辑成功' : '新增成功')
+			ElMessage.success(t(isEdit.value ? '编辑成功' : '新增成功'))
 			dialogVisible.value = false
 			fetchCoupons()
 		} catch (e) {
-			ElMessage.error(e.message || '操作失败')
+			ElMessage.error(t(e.message || '操作失败'))
 		} finally {
 			submitting.value = false
 		}

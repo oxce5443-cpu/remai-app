@@ -5,7 +5,7 @@
 
 		<!-- Header -->
 		<view class="header">
-			<view class="header-cn">取餐</view>
+			<view class="header-cn">{{ $t("取餐") }}</view>
 		</view>
 
 		<!-- Empty State -->
@@ -13,10 +13,10 @@
 			<view class="empty-bread">
 				<loading-bread :size="170" />
 			</view>
-			<view class="empty-title">还没有今天的热麦</view>
+			<view class="empty-title">{{ $t("还没有今天的热麦") }}</view>
 			<view class="empty-tips">Freshly baked, waiting for you.</view>
-			<button type="primary" class="empty-btn" size="default" @tap="menu">去点餐</button>
-			<view class="empty-link" @tap="orders">查看历史订单 →</view>
+			<button type="primary" class="empty-btn" size="default" @tap="menu">{{ $t("去点餐") }}</button>
+			<view class="empty-link" @tap="orders">{{ $t("查看历史订单 →") }}</view>
 		</view>
 
 		<!-- Active Order -->
@@ -26,15 +26,15 @@
 				<view class="bake-ring">
 					<loading-bread :size="130" />
 				</view>
-				<view class="bake-title">小麦正在为你烘焙中…</view>
-				<view class="bake-sub">新鲜出炉，马上就好</view>
+				<view class="bake-title">{{ $t("小麦正在为你烘焙中…") }}</view>
+				<view class="bake-sub">{{ $t("新鲜出炉，马上就好") }}</view>
 				<view class="bake-queue-no" v-if="order.typeCate == 1">
-					<text class="bake-queue-label">取餐号</text>
-					<text class="bake-queue-num">{{ order.sortNum }}</text>
+					<text class="bake-queue-label">{{ $t("取餐号") }}</text>
+					<text class="bake-queue-num">{{ $t(order.sortNum) }}</text>
 				</view>
 				<view class="bake-queue-no" v-else>
-					<text class="bake-queue-label">订单号</text>
-					<text class="bake-queue-num">{{ order.orderNo }}</text>
+					<text class="bake-queue-label">{{ $t("订单号") }}</text>
+					<text class="bake-queue-num">{{ $t(order.orderNo) }}</text>
 				</view>
 			</view>
 
@@ -42,33 +42,33 @@
 			<view class="steps-card">
 				<view class="step">
 					<view class="step-dot" :class="{active: order.status >= 1}"></view>
-					<view class="step-title">下单</view>
-					<view class="step-sub" :class="{active: order.status >= 1}">8-12 分钟</view>
+					<view class="step-title">{{ $t("下单") }}</view>
+					<view class="step-sub" :class="{active: order.status >= 1}">{{ $t("8-12 分钟") }}</view>
 				</view>
 				<view class="step-line" :class="{active: order.status >= 2}"></view>
 				<view class="step">
 					<view class="step-dot" :class="{active: order.status >= 2}"></view>
-					<view class="step-title">制作</view>
+					<view class="step-title">{{ $t("制作") }}</view>
 					<view class="step-sub" :class="{active: order.status >= 2}">
-						{{ order.status >= 2 ? '进行中' : '等待中' }}
+						{{ $t(order.status >= 2 ? '进行中' : '等待中') }}
 					</view>
 				</view>
 				<template v-if="order.typeCate == 2">
 					<view class="step-line" :class="{active: order.status >= 3}"></view>
 					<view class="step">
 						<view class="step-dot" :class="{active: order.status >= 3}"></view>
-						<view class="step-title">配送</view>
+						<view class="step-title">{{ $t("配送") }}</view>
 						<view class="step-sub" :class="{active: order.status >= 3}">
-							{{ order.status >= 3 ? '配送中' : '待配送' }}
+							{{ $t(order.status >= 3 ? '配送中' : '待配送') }}
 						</view>
 					</view>
 				</template>
 				<view class="step-line" :class="{active: order.status >= 4}"></view>
 				<view class="step">
 					<view class="step-dot" :class="{active: order.status >= 4}"></view>
-					<view class="step-title">{{ order.typeCate == 2 ? '送达' : '取餐' }}</view>
+					<view class="step-title">{{ $t(order.typeCate == 2 ? '送达' : '取餐') }}</view>
 					<view class="step-sub" :class="{active: order.status >= 4}">
-						{{ order.status >= 4 ? '已完成' : '待取餐' }}
+						{{ $t(order.status >= 4 ? '已完成' : '待取餐') }}
 					</view>
 				</view>
 			</view>
@@ -77,22 +77,22 @@
 			<view class="store-row">
 				<view class="store-pin">⌖</view>
 				<view class="store-main">
-					<view class="store-name">{{ order.store && order.store.name ? order.store.name : '热麦·万象城店' }}</view>
-					<view class="store-meta">营业时间 08:00 - 22:00</view>
+					<view class="store-name">{{ $t(order.store && $localized(order.store, "name") ? $localized(order.store, "name") : '热麦·万象城店') }}</view>
+					<view class="store-meta">{{ $t("营业时间 08:00 - 22:00") }}</view>
 				</view>
 			</view>
 
 			<!-- Order Summary（一行摘要，详情见订单详情） -->
 			<view class="order-summary">
-				<text>共 {{ totalCount }} 件</text>
+				<text>{{ $t("共") }} {{ $t(totalCount) }} {{ $t("件") }}</text>
 				<text class="summary-dot">·</text>
-				<text>实付 ¥{{ order.amount }}</text>
+				<text>{{ $t("实付 ¥") }}{{ $t(order.amount) }}</text>
 				<text class="summary-dot">·</text>
-				<text>{{ $util.formatDateTime(order.createdAt) }}</text>
+				<text>{{ $t($util.formatDateTime(order.createdAt)) }}</text>
 			</view>
 
 			<view class="detail-link" @tap="goDetail">
-				<text>查看订单详情</text>
+				<text>{{ $t("查看订单详情") }}</text>
 				<text class="detail-arrow">></text>
 			</view>
 

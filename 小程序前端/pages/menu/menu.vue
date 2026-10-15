@@ -6,62 +6,62 @@
 		<!-- 异步四态 -->
 		<view v-if="status === 'loading'" class="state-wrap">
 			<loading-bread :size="180" />
-			<view class="state-text">正在准备菜单…</view>
+			<view class="state-text">{{ $t("正在准备菜单…") }}</view>
 		</view>
 
 		<view v-else-if="status === 'error'" class="state-wrap">
 			<view class="state-emoji">🍞</view>
-			<view class="state-text">菜单加载失败</view>
-			<button class="state-btn" @tap="init">重新加载</button>
+			<view class="state-text">{{ $t("菜单加载失败") }}</view>
+			<button class="state-btn" @tap="init">{{ $t("重新加载") }}</button>
 		</view>
 
 		<view v-else-if="status === 'empty'" class="state-wrap">
 			<view class="state-emoji">🥐</view>
-			<view class="state-text">暂无商品</view>
+			<view class="state-text">{{ $t("暂无商品") }}</view>
 		</view>
 
 		<view v-else class="main">
 			<!-- Header -->
 			<view class="header">
 				<view class="header-title">
-					<view class="header-cn">点餐</view>
-					<view class="header-sub">今天想吃什么？</view>
+					<view class="header-cn">{{ $t("点餐") }}</view>
+					<view class="header-sub">{{ $t("今天想吃什么？") }}</view>
 				</view>
 				<view class="header-switch">
-					<view class="switch-item" :class="{active: orderType == 'takein'}" @tap="setOrderType('takein')">堂食</view>
-					<view class="switch-item" :class="{active: orderType == 'takeout'}" @tap="takout">外带</view>
+					<view class="switch-item" :class="{active: orderType == 'takein'}" @tap="setOrderType('takein')">{{ $t("堂食") }}</view>
+					<view class="switch-item" :class="{active: orderType == 'takeout'}" @tap="takout">{{ $t("外带") }}</view>
 				</view>
 			</view>
 
 			<!-- 门店行 -->
 			<view class="store-line" v-if="orderType == 'takein'">
-				<text class="store-name">{{ storeInfo.name || '热麦 · 万象城店' }}</text>
-				<text class="store-distance" v-if="storeInfo.distanceText">距您 {{ storeInfo.distanceText }}</text>
+				<text class="store-name">{{ $t($localized(storeInfo, "name") || '热麦 · 万象城店') }}</text>
+				<text class="store-distance" v-if="storeInfo.distanceText">{{ $t("距您") }} {{ $t(storeInfo.distanceText) }}</text>
 			</view>
 			<view class="store-line" v-else @tap="takout">
-				<text class="store-name">{{ address.street || '选择配送地址' }}</text>
-				<text class="store-distance">由{{ storeInfo.name || '热麦' }}配送</text>
+				<text class="store-name">{{ address.street || $t('选择配送地址') }}</text>
+				<text class="store-distance">{{ $t("由") }}{{ $t($localized(storeInfo, "name") || '热麦') }}{{ $t("配送") }}</text>
 			</view>
 
 			<!-- 券包入口 -->
 			<view class="promo-bar" @tap="goPackages">
-				<text class="promo-text">甜蜜超值券包限时活动，立即抢购</text>
+				<text class="promo-text">{{ $t("甜蜜超值券包限时活动，立即抢购") }}</text>
 				<text class="promo-arrow">→</text>
 			</view>
 
 			<!-- 搜索条 -->
 			<view class="search-bar">
 				<text class="search-icon">⌕</text>
-				<input class="search-input" placeholder="搜索你想吃的美食..." placeholder-class="search-placeholder" :value="keyword" @input="onSearch" />
+				<input class="search-input" :placeholder="$t(&quot;搜索你想吃的美食...&quot;)" placeholder-class="search-placeholder" :value="keyword" @input="onSearch" />
 			</view>
 
 			<!-- 精选美味（图纸板块） -->
 			<view class="feature-banner" @tap="switchCate('all')">
 				<view class="feature-copy">
-					<view class="feature-title">精选美味</view>
-					<view class="feature-desc">把自然的味道，做成日常的幸福</view>
+					<view class="feature-title">{{ $t("精选美味") }}</view>
+					<view class="feature-desc">{{ $t("把自然的味道，做成日常的幸福") }}</view>
 					<view class="feature-btn">
-						<text>查看全部</text>
+						<text>{{ $t("查看全部") }}</text>
 						<text class="feature-arrow">→</text>
 					</view>
 				</view>
@@ -78,14 +78,14 @@
 						class="cate-tab"
 						:class="{active: currentTab === 'all'}"
 						@tap="switchCate('all')"
-					>全部</view>
+					>{{ $t("全部") }}</view>
 					<view
 						class="cate-tab"
 						:class="{active: currentTab === item.id}"
 						v-for="item in hotCates"
 						:key="item.id"
 						@tap="switchCate(item.id)"
-					>{{ item.name }}</view>
+					>{{ $t($localized(item, "name")) }}</view>
 				</view>
 			</scroll-view>
 
@@ -100,7 +100,7 @@
 						:key="item.id"
 						@tap="switchCate(item.id)"
 					>
-						<text class="side-cate-text">{{ item.name }}</text>
+						<text class="side-cate-text">{{ $t($localized(item, "name")) }}</text>
 					</view>
 				</scroll-view>
 
@@ -108,23 +108,23 @@
 				<scroll-view class="goods-scroll" scroll-y>
 					<view class="goods-list">
 						<view class="good-card" v-for="(good, idx) in displayGoods" :key="good.id" @tap="showGoodDetailModal(good)">
-							<view class="good-tag" v-if="idx === 0">招牌</view>
+							<view class="good-tag" v-if="idx === 0">{{ $t("招牌") }}</view>
 							<view class="good-img-wrap">
 								<image v-if="good.image" :src="good.image" mode="aspectFill" class="good-img"></image>
-								<view v-else class="good-img good-img--ph"><text>{{ good.emoji || '🍞' }}</text></view>
+								<view v-else class="good-img good-img--ph"><text>{{ $t(good.emoji || '🍞') }}</text></view>
 							</view>
 							<view class="good-info">
-								<view class="good-name">{{ good.name }}</view>
-								<view class="good-desc">{{ good.content || good.description || '' }}</view>
+								<view class="good-name">{{ $t($localized(good, "name")) }}</view>
+								<view class="good-desc">{{ $t($localized(good, "content") || $localized(good, "description") || '') }}</view>
 								<view class="good-bottom">
 									<view class="good-price">
 										<text class="good-price-symbol">¥</text>
-										<text class="good-price-num">{{ good.price }}</text>
+										<text class="good-price-num">{{ $t(good.price) }}</text>
 									</view>
 									<view class="qty-control">
 										<template v-if="goodCartNum(good.id) > 0">
 											<view class="qty-btn" @tap.stop="handleReduceFromCart(good)">−</view>
-											<text class="qty-num">{{ goodCartNum(good.id) }}</text>
+											<text class="qty-num">{{ $t(goodCartNum(good.id)) }}</text>
 										</template>
 										<view class="qty-add" @tap.stop="handleAddToCart(good, 1)">＋</view>
 									</view>
@@ -132,7 +132,7 @@
 							</view>
 						</view>
 						<view class="list-end" v-if="displayGoods.length">
-							<text>— 每日少量出炉 · Freshly baked —</text>
+							<text>{{ $t("— 每日少量出炉 · Freshly baked —") }}</text>
 						</view>
 					</view>
 				</scroll-view>
@@ -142,14 +142,14 @@
 			<view class="cart-bar" v-if="cart.length > 0">
 				<view class="cart-icon-wrap" @tap="openCartPopup">
 					<image src="/static/images/menu/cart.png" class="cart-icon"></image>
-					<view class="cart-badge">{{ cartGoodsNumber }}</view>
+					<view class="cart-badge">{{ $t(cartGoodsNumber) }}</view>
 				</view>
 				<view class="cart-price">
 					<text class="cart-price-symbol">¥</text>
-					<text class="cart-price-num">{{ cartGoodsPrice.toFixed(2) }}</text>
+					<text class="cart-price-num">{{ $t(cartGoodsPrice.toFixed(2)) }}</text>
 				</view>
 				<button type="primary" class="pay-btn" @tap="toPay" :disabled="disabledPay">
-					{{ disabledPay ? `差${spread}元起送` : '去结算' }}
+					{{ disabledPay ? $t('差{amount}元起送', { amount: spread }) : $t('去结算') }}
 				</button>
 			</view>
 		</view>
@@ -159,7 +159,7 @@
 			<view class="detail-cover">
 				<image v-if="good.image" :src="good.image" class="detail-cover-img" mode="aspectFill"></image>
 				<view v-else class="detail-cover-img detail-cover-img--ph">
-					<text>{{ good.emoji || '🍞' }}</text>
+					<text>{{ $t(good.emoji || '🍞') }}</text>
 				</view>
 				<view class="detail-cover-actions">
 					<image src="/static/images/menu/close.png" @tap="closeGoodDetailModal"></image>
@@ -168,20 +168,20 @@
 			<scroll-view class="detail-body" scroll-y>
 				<view class="detail-wrapper">
 					<view class="detail-basic">
-						<view class="detail-name">{{ good.name }}</view>
-						<view class="detail-desc">{{ good.content }}</view>
+						<view class="detail-name">{{ $t($localized(good, "name")) }}</view>
+						<view class="detail-desc">{{ $t($localized(good, "content")) }}</view>
 					</view>
 					<view class="detail-props" v-if="good.useProperty">
-						<view class="detail-props-title">🎂 定制你的蛋糕</view>
+						<view class="detail-props-title">{{ $t("🎂 定制你的蛋糕") }}</view>
 						<view class="prop-group" v-for="(propItem, index) in good.property" :key="index">
 							<view class="prop-label">
-								<text class="prop-label-name">{{ propItem.name }}</text>
-								<text class="prop-label-desc" v-if="propItem.desc">({{ propItem.desc }})</text>
+								<text class="prop-label-name">{{ $t($localized(propItem, "name")) }}</text>
+								<text class="prop-label-desc" v-if="propItem.desc">({{ $t(propItem.desc) }})</text>
 							</view>
 							<view class="prop-values">
 								<view class="prop-value" v-for="(value, key) in propItem.values" :key="key"
 									:class="{'selected': value.isDefault}" @tap="changePropertyDefault(index, key)">
-									{{ value.value }}
+									{{ $t(value.value) }}
 								</view>
 							</view>
 						</view>
@@ -190,21 +190,21 @@
 			</scroll-view>
 			<view class="detail-action">
 				<view class="detail-action-left">
-					<view class="detail-action-price">￥{{ good.price }}</view>
-					<view class="detail-action-props" v-if="getGoodSelectedProps(good)">{{ getGoodSelectedProps(good) }}</view>
+					<view class="detail-action-price">￥{{ $t(good.price) }}</view>
+					<view class="detail-action-props" v-if="getGoodSelectedProps(good)">{{ $t(getGoodSelectedProps(good)) }}</view>
 				</view>
 				<view class="detail-action-stepper">
 					<button type="default" plain class="btn reduce-btn" size="mini" hover-class="none" @tap="handlePropertyReduce">
 						<image src="/static/images/icon/iconsami-select.png" class="step-ico" mode="aspectFit"></image>
 					</button>
-					<view class="stepper-num">{{ good.number }}</view>
+					<view class="stepper-num">{{ $t(good.number) }}</view>
 					<button type="primary" class="btn add-btn" size="mini" hover-class="none" @tap="handlePropertyAdd">
 						<image src="/static/images/icon/iconadd-select-w.png" class="step-ico" mode="aspectFit"></image>
 					</button>
 				</view>
 			</view>
 			<view class="detail-add-btn" @tap="handleAddToCartInModal">
-				<text>加入购物车</text>
+				<text>{{ $t("加入购物车") }}</text>
 			</view>
 		</modal>
 
@@ -212,24 +212,24 @@
 		<popup-layer direction="top" :show-pop="cartPopupVisible" class="cart-popup">
 			<template #content>
 				<view class="cart-popup-head">
-					<text class="cart-popup-title">购物车</text>
-					<text class="cart-popup-clear" @tap="handleCartClear">清空</text>
+					<text class="cart-popup-title">{{ $t("购物车") }}</text>
+					<text class="cart-popup-clear" @tap="handleCartClear">{{ $t("清空") }}</text>
 				</view>
 				<scroll-view class="cart-popup-list" scroll-y>
 					<view class="cart-popup-wrapper">
 						<view class="cart-popup-item" v-for="(item, index) in cart" :key="index">
 							<view class="cart-popup-item-left">
-								<view class="cart-item-name">{{ item.name }}</view>
-								<view class="cart-item-props" v-if="item.propsText">{{ item.propsText }}</view>
+								<view class="cart-item-name">{{ $t($localized(item, "name")) }}</view>
+								<view class="cart-item-props" v-if="item.propsText">{{ $t(item.propsText) }}</view>
 							</view>
 							<view class="cart-popup-item-center">
-								<text>¥{{ item.price }}</text>
+								<text>¥{{ $t(item.price) }}</text>
 							</view>
 							<view class="cart-popup-item-right">
 								<button type="default" plain size="mini" class="btn reduce-btn" hover-class="none" @tap="handleCartItemReduce(index)">
 									<image src="/static/images/icon/iconsami-select.png" class="step-ico" mode="aspectFit"></image>
 								</button>
-								<view class="stepper-num">{{ item.number }}</view>
+								<view class="stepper-num">{{ $t(item.number) }}</view>
 								<button type="primary" class="btn add-btn" size="mini" hover-class="none" @tap="handleCartItemAdd(index)">
 									<image src="/static/images/icon/iconadd-select-w.png" class="step-ico" mode="aspectFit"></image>
 								</button>
@@ -237,24 +237,24 @@
 						</view>
 						<view class="cart-popup-item" v-if="orderType == 'takeout' && storeInfo.packingFee">
 							<view class="cart-popup-item-left">
-								<view class="cart-item-name">包装费</view>
+								<view class="cart-item-name">{{ $t("包装费") }}</view>
 							</view>
 							<view class="cart-popup-item-center">
-								<text>￥{{ Number(storeInfo.packingFee) }}</text>
+								<text>￥{{ $t(Number(storeInfo.packingFee)) }}</text>
 							</view>
 							<view class="cart-popup-item-right invisible">
 								<view class="stepper-num">1</view>
 							</view>
 						</view>
-						<view class="cart-popup-tip">以确认订单金额为准</view>
+						<view class="cart-popup-tip">{{ $t("以确认订单金额为准") }}</view>
 					</view>
 				</scroll-view>
 				<view class="cart-popup-foot">
 					<view class="cart-popup-total">
-						<text class="total-label">合计</text>
-						<text class="total-amount">¥{{ cartGoodsPrice.toFixed(2) }}</text>
+						<text class="total-label">{{ $t("合计") }}</text>
+						<text class="total-amount">¥{{ $t(cartGoodsPrice.toFixed(2)) }}</text>
 					</view>
-					<view class="total-go" @tap="toPay">去结算</view>
+					<view class="total-go" @tap="toPay">{{ $t("去结算") }}</view>
 				</view>
 			</template>
 		</popup-layer>
@@ -313,7 +313,9 @@ const displayGoods = computed(() => {
 	}
 	const kw = keyword.value.trim()
 	if (kw) {
-		list = list.filter(g => (g.name || '').includes(kw) || (g.content || '').includes(kw))
+		const search = kw.toLocaleLowerCase()
+		list = list.filter(g => [g.name, g.nameEn, g.name_en, g.content, g.contentEn, g.content_en, g.description, g.descriptionEn, g.description_en]
+			.some(value => typeof value === 'string' && value.toLocaleLowerCase().includes(search)))
 	}
 	return list
 })
@@ -399,6 +401,7 @@ function handleAddToCart(goodData, num) {
 			id: goodData.id,
 			cateId: category.value.id || '',
 			name: goodData.name,
+			nameEn: goodData.nameEn || goodData.name_en || '',
 			price: goodData.price,
 			number: num,
 			image: goodData.image,

@@ -6,7 +6,7 @@
 				<image :src="member.avatar" class="avatar-img"></image>
 				<view class="level-tag">
 					<image src="/static/images/mine/level.png" mode="widthFix"></image>
-					<text>{{ member.memberLevel }}</text>
+					<text>{{ $t(member.memberLevel) }}</text>
 				</view>
 			</view>
 		</view>
@@ -18,20 +18,20 @@
 			<!-- Stats Grid -->
 			<view class="stats-grid">
 				<view class="stat-item" @tap="coupons">
-					<view class="stat-value">{{ member.couponNum }}</view>
-					<view class="stat-label">热麦券</view>
+					<view class="stat-value">{{ $t(member.couponNum) }}</view>
+					<view class="stat-label">{{ $t("热麦券") }}</view>
 				</view>
 				<view class="stat-item" @tap="integrals">
-					<view class="stat-value">{{ member.pointNum }}</view>
-					<view class="stat-label">积分</view>
+					<view class="stat-value">{{ $t(member.pointNum) }}</view>
+					<view class="stat-label">{{ $t("积分") }}</view>
 				</view>
 				<view class="stat-item" @tap="balance">
-					<view class="stat-value">{{ member.balance }}</view>
-					<view class="stat-label">余额</view>
+					<view class="stat-value">{{ $t(member.balance) }}</view>
+					<view class="stat-label">{{ $t("余额") }}</view>
 				</view>
 				<view class="stat-item">
-					<view class="stat-value">{{ member.giftBalance }}</view>
-					<view class="stat-label">礼品卡</view>
+					<view class="stat-value">{{ $t(member.giftBalance) }}</view>
+					<view class="stat-label">{{ $t("礼品卡") }}</view>
 				</view>
 			</view>
 
@@ -40,14 +40,14 @@
 				<canvas canvas-id="memberCode" style="width: 350rpx; height: 350rpx;"></canvas>
 			</view>
 
-			<view class="qrcode-tip">支付前出示可累计积分，会员码每30秒更新</view>
+			<view class="qrcode-tip">{{ $t("支付前出示可累计积分，会员码每30秒更新") }}</view>
 
 			<!-- WeChat Pay -->
 			<!-- #ifdef MP-WEIXIN -->
 			<view class="wepay-row">
 				<button type="primary" class="wepay-btn" hover-class="none">
 					<image src="/static/images/mine/wechat.png" class="wepay-icon"></image>
-					<text>使用微信支付</text>
+					<text>{{ $t("使用微信支付") }}</text>
 				</button>
 			</view>
 			<!-- #endif -->

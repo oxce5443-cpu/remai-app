@@ -6,22 +6,22 @@
 			<view class="header-overlay">
 				<view class="header-left" @tap="flow">
 					<image class="integral-icon" src="/static/images/integrals/integral.png"></image>
-					<view class="points-num">{{ customPoints.totalPoints }}</view>
-					<view class="points-label">积分</view>
+					<view class="points-num">{{ $t(customPoints.totalPoints) }}</view>
+					<view class="points-label">{{ $t("积分") }}</view>
 					<image src="/static/images/icon/iconarrow-right.png" class="arrow-icon" mode="aspectFit"></image>
 				</view>
-				<view class="header-right">兑换记录</view>
+				<view class="header-right">{{ $t("兑换记录") }}</view>
 			</view>
 		</view>
 
 		<view class="main">
 			<!-- Sign In Card -->
 			<view class="sign-card">
-				<view class="sign-title">连续签到赚积分</view>
+				<view class="sign-title">{{ $t("连续签到赚积分") }}</view>
 				<uni-steps :active="activeDay" :options="stepsOption"></uni-steps>
 				<view class="sign-actions">
-					<button type="primary" class="sign-btn" @tap="attendance">签到</button>
-					<view class="calendar-link">查看签到日历</view>
+					<button type="primary" class="sign-btn" @tap="attendance">{{ $t("签到") }}</button>
+					<view class="calendar-link">{{ $t("查看签到日历") }}</view>
 				</view>
 			</view>
 
@@ -33,7 +33,7 @@
 			<!-- Points Mall -->
 			<view class="mall-section" v-for="(items, cate) in pointsMall" :key="cate">
 				<view class="mall-header">
-					<view class="mall-title">{{ cate }}</view>
+					<view class="mall-title">{{ $t(cate) }}</view>
 					<image src="/static/images/navigator.png" class="mall-arrow"></image>
 				</view>
 				<view class="mall-grid">
@@ -41,15 +41,15 @@
 						<view class="mall-item" @tap="detail(cate, item.id)">
 							<image :src="item.img.length ? item.img[0] : '/static/images/integrals/ticket.png'" class="mall-img" mode="widthFix"></image>
 							<view class="mall-info">
-								<view class="mall-name">{{ item.goodsName }}</view>
+								<view class="mall-name">{{ $t(item.goodsName) }}</view>
 								<view class="mall-price-row">
-									<view class="mall-points">{{ item.pointsPrice }}<text class="mall-unit">积分</text></view>
+									<view class="mall-points">{{ $t(item.pointsPrice) }}<text class="mall-unit">{{ $t("积分") }}</text></view>
 									<template v-if="item.amount > 0">
 										<text class="mall-plus">+</text>
-										<view class="mall-points">{{ parseFloat(item.amount) }}<text class="mall-unit">元</text></view>
+										<view class="mall-points">{{ $t(parseFloat(item.amount)) }}<text class="mall-unit">{{ $t("元") }}</text></view>
 									</template>
 								</view>
-								<view class="mall-stock">剩余{{ item.goodsStock }}件</view>
+								<view class="mall-stock">{{ $t("剩余") }}{{ $t(item.goodsStock) }}{{ $t("件") }}</view>
 							</view>
 						</view>
 					</block>

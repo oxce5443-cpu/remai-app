@@ -6,16 +6,16 @@
 
 /* ═══════════ 品牌主色 ═══════════ */
 $c-brown:    #4A3427;   /* 深巧 — 标题/VIP */
-$c-caramel:  #B6855B;   /* 驼棕 — 主按钮/点缀（规格主色） */
+$c-caramel:  #865637;   /* 深焦糖 — 白字按钮与交互强调 */
 $c-toast:    #D4A76A;   /* 烤面包 — 渐变中段 */
 $c-wheat:    #D9B38C;   /* 小麦 — 浅按钮/背景 */
 $c-cream:    #F8F4EE;   /* 淡奶油 — 页面底色 */
 $c-ivory:    #FFFBF6;   /* 象牙白 — 卡片 */
 $c-blush:    #D8B7AE;   /* 干枯玫瑰 — 点缀 */
-$c-terra:    #C4876E;   /* 陶土 — 价格/强调 */
-$c-sage:     #8DA399;   /* 鼠尾草 — 成功 */
+$c-terra:    #9B4D36;   /* 陶土 — 价格/强调 */
+$c-sage:     #527563;   /* 鼠尾草 — 成功 */
 $c-divider:  #E8DDD2;   /* 暖沙 — 分割线 */
-$c-muted:    #B5A097;   /* 暖灰 — 弱化 */
+$c-muted:    #78695E;   /* 暖灰 — 辅助文字 */
 $c-ink:      #2A1E17;   /* 墨棕 — 最深文字 */
 
 /* ═══════════ 功能色 ═══════════ */
@@ -25,7 +25,7 @@ $c-vip-gold: #EAD0A2;
 /* ═══════════ 文字 ═══════════ */
 $t-primary:   #2A1E17;   /* 正文 */
 $t-secondary: #7A6A5C;   /* 辅助 */
-$t-tertiary:  #9B8573;   /* 弱化 */
+$t-tertiary:  #78695E;   /* 辅助标签，保留可读对比度 */
 $t-inverse:   #FFF8EF;   /* 深底白字 */
 
 /* ═══════════ 背景 ═══════════ */
@@ -45,7 +45,7 @@ $f-2xl:  44rpx;   /* 页面标题 */
 $f-3xl:  52rpx;   /* Hero */
 
 $font-serif: Georgia, 'Times New Roman', 'Songti SC', 'Noto Serif SC', serif;
-$font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif;
+$font-sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 
 /* ═══════════ 间距 ═══════════ */
 $s-xs:  6rpx;
@@ -68,10 +68,10 @@ $shadow-xs:  0 2rpx 8rpx  rgba(74,52,39,.04);
 $shadow-sm:  0 6rpx 20rpx rgba(74,52,39,.06);
 $shadow-md:  0 10rpx 30rpx rgba(74,52,39,.08);
 $shadow-lg:  0 16rpx 44rpx rgba(74,52,39,.10);
-$shadow-btn: 0 8rpx 24rpx rgba(184,149,91,.24);
+$shadow-btn: 0 3rpx 10rpx rgba(74,52,39,.10);
 
 /* ═══════════ 渐变 ═══════════ */
-$grad-caramel:   linear-gradient(135deg, $c-toast, $c-caramel);
+$grad-caramel:   linear-gradient(135deg, #94613F, #785035);
 $grad-hero:      linear-gradient(135deg, #201713 0%, $c-brown 44%, $c-caramel 100%);
 $grad-cream:     linear-gradient(180deg, #F8F5F0 0%, #F4EADF 52%, #EAD9C9 100%);
 $grad-card:      linear-gradient(135deg, $c-cream, #F2E7DA);
@@ -131,7 +131,7 @@ $spacing-row-lg:      30rpx;
 $spacing-col-sm:      8rpx;
 $spacing-col-base:    16rpx;
 $spacing-col-lg:      24rpx;
-$opacity-disabled:    0.3;
+$opacity-disabled:    0.55;
 $img-size-sm:         40rpx;
 $img-size-base:       52rpx;
 $img-size-lg:         80rpx;

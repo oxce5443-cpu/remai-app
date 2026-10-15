@@ -6,7 +6,7 @@
 		<!-- Header -->
 		<view class="header">
 			<view class="header-back" @tap="goBack">‹</view>
-			<view class="header-title">我的订单</view>
+			<view class="header-title">{{ $t("我的订单") }}</view>
 			<view class="header-side"></view>
 		</view>
 
@@ -16,27 +16,27 @@
 				class="tab-item"
 				:class="{ 'tab-item--active': currentTab === 'all' }"
 				@tap="switchTab('all')"
-			>全部</view>
+			>{{ $t("全部") }}</view>
 			<view
 				class="tab-item"
 				:class="{ 'tab-item--active': currentTab === 'pending' }"
 				@tap="switchTab('pending')"
-			>待付款</view>
+			>{{ $t("待付款") }}</view>
 			<view
 				class="tab-item"
 				:class="{ 'tab-item--active': currentTab === 'paid' }"
 				@tap="switchTab('paid')"
-			>制作中</view>
+			>{{ $t("制作中") }}</view>
 			<view
 				class="tab-item"
 				:class="{ 'tab-item--active': currentTab === 'processing' }"
 				@tap="switchTab('processing')"
-			>待取餐</view>
+			>{{ $t("待取餐") }}</view>
 			<view
 				class="tab-item"
 				:class="{ 'tab-item--active': currentTab === 'completed' }"
 				@tap="switchTab('completed')"
-			>已完成</view>
+			>{{ $t("已完成") }}</view>
 		</view>
 
 		<!-- Order List -->
@@ -49,11 +49,11 @@
 				>
 					<view class="order-head">
 						<view class="order-no">
-							<text class="order-no-label">订单号</text>
-							<text class="order-no-value">{{ order.orderNo }}</text>
+							<text class="order-no-label">{{ $t("订单号") }}</text>
+							<text class="order-no-value">{{ $t(order.orderNo) }}</text>
 						</view>
 						<view class="order-status" :class="'status--' + order.status">
-							{{ getStatusText(order.status) }}
+							{{ $t(getStatusText(order.status)) }}
 						</view>
 					</view>
 
@@ -72,38 +72,38 @@
 								<view v-if="!item.image" class="goods-image goods-image--ph"><text>🍞</text></view>
 							</view>
 							<view class="goods-info">
-								<view class="goods-name">{{ item.goodsName }}</view>
-								<view class="goods-spec" v-if="item.property">{{ item.property }}</view>
+								<view class="goods-name">{{ $t(item.goodsName) }}</view>
+								<view class="goods-spec" v-if="item.property">{{ $t(item.property) }}</view>
 							</view>
 							<view class="goods-right">
-								<view class="goods-price">¥{{ item.price }}</view>
-								<view class="goods-qty">×{{ item.num }}</view>
+								<view class="goods-price">¥{{ $t(item.price) }}</view>
+								<view class="goods-qty">×{{ $t(item.num) }}</view>
 							</view>
 						</view>
 					</view>
 
 					<view class="order-footer">
-						<view class="order-time">{{ formatDate(order.createdAt) }}</view>
+						<view class="order-time">{{ $t(formatDate(order.createdAt)) }}</view>
 						<view class="order-total">
-							共{{ getTotalQty(order) }}件，实付
-							<text class="total-amount">¥{{ order.totalPrice }}</text>
+							{{ $t("共") }}{{ $t(getTotalQty(order)) }}{{ $t("件，实付") }}
+							<text class="total-amount">¥{{ $t(order.totalPrice) }}</text>
 						</view>
 					</view>
 
 					<view class="order-actions" v-if="order.status === 'pending'">
 						<view class="action-btn action-btn--outline" @tap.stop="cancelOrder(order._id)">
-							取消订单
+							{{ $t("取消订单") }}
 						</view>
 						<view class="action-btn action-btn--primary" @tap.stop="goToPay(order._id)">
-							去支付
+							{{ $t("去支付") }}
 						</view>
 					</view>
 					<view class="order-actions order-actions--two" v-else>
 						<view class="action-btn action-btn--outline" @tap.stop="goAgain(order)">
-							再来一单
+							{{ $t("再来一单") }}
 						</view>
 						<view class="action-btn action-btn--primary" @tap.stop="goToDetail(order._id)">
-							查看详情
+							{{ $t("查看详情") }}
 						</view>
 					</view>
 				</view>
@@ -112,14 +112,14 @@
 			<!-- Empty State -->
 			<view class="empty-state" v-else-if="!loading">
 				<view class="empty-emoji">🧾</view>
-				<view class="empty-text">暂无订单</view>
-				<view class="empty-btn" @tap="goToMenu">去点餐</view>
+				<view class="empty-text">{{ $t("暂无订单") }}</view>
+				<view class="empty-btn" @tap="goToMenu">{{ $t("去点餐") }}</view>
 			</view>
 
 			<!-- Loading -->
 			<view class="loading" v-if="loading">
 				<view class="loading-dot"></view>
-				<view class="loading-text">加载中...</view>
+				<view class="loading-text">{{ $t("加载中...") }}</view>
 			</view>
 		</scroll-view>
 	</view>

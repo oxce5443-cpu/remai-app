@@ -5,17 +5,17 @@
 			<Tag v-if="product.tag" :text="product.tag" :type="product.tagType || 'new'" size="sm" class="product-card__tag" />
 			<!-- 礼盒标识 -->
 			<view class="product-card__gift-badge" v-if="product.is_gift">
-				<text>🎁 礼盒</text>
+				<text>{{ $t("🎁 礼盒") }}</text>
 			</view>
 		</view>
 		<view class="product-card__info">
-			<view class="product-card__name">{{ product.name }}</view>
+			<view class="product-card__name">{{ $t($localized(product, "name")) }}</view>
 			<!-- 尺寸/口味标签行 -->
 			<view class="product-card__labels" v-if="product.sizes || product.flavors">
-				<text class="product-card__label" v-for="(sz, i) in product.sizes" :key="'sz-'+i">{{ sz }}</text>
-				<text class="product-card__label product-card__label--flavor" v-for="(fl, i) in product.flavors" :key="'fl-'+i">{{ fl }}</text>
+				<text class="product-card__label" v-for="(sz, i) in product.sizes" :key="'sz-'+i">{{ $t(sz) }}</text>
+				<text class="product-card__label product-card__label--flavor" v-for="(fl, i) in product.flavors" :key="'fl-'+i">{{ $t(fl) }}</text>
 			</view>
-			<view class="product-card__desc" v-if="product.content">{{ product.content }}</view>
+			<view class="product-card__desc" v-if="product.content">{{ $t($localized(product, "content")) }}</view>
 			<view class="product-card__bottom">
 				<PriceTag :price="product.price" :size="'sm'" />
 				<view class="product-card__action" @tap.stop v-if="showStepper">

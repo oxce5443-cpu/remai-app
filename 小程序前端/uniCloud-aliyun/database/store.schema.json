@@ -21,6 +21,18 @@
       "bsonType": "string",
       "label": "门店地址"
     },
+    "name_en": {
+      "bsonType": "string",
+      "label": "门店英文名称（可选）"
+    },
+    "address_en": {
+      "bsonType": "string",
+      "label": "门店英文地址（可选）"
+    },
+    "notice_en": {
+      "bsonType": "string",
+      "label": "英文公告（可选）"
+    },
     "tel": {
       "bsonType": "string",
       "label": "联系电话"

@@ -1,6 +1,6 @@
 <template>
 	<list-cell :hover="false" last class="w-100 d-flex align-items-baseline">
-		<view class="font-size-extra-lg text-color-primary mr-40">{{ label }}</view>
+		<view class="font-size-extra-lg text-color-primary mr-40">{{ $t(label) }}</view>
 		<view class="flex-fill d-flex flex-column">
 			<view class="d-flex align-items-center mb-20">
 				<image v-for="(item, index) in 5" :key="index" @tap="handleScoreClick(index)"
@@ -10,14 +10,14 @@
 					   mode="aspectFit">
 				</image>
 			</view>
-			<view class="font-size-base text-color-base">{{ tips }}</view>
+			<view class="font-size-base text-color-base">{{ $t(tips) }}</view>
 		</view>
 	</list-cell>
 </template>
 
 <script>
 	import listCell from '@/components/list-cell/list-cell'
-	
+
 	export default {
 		name: 'rateFormItem',
 		components: {

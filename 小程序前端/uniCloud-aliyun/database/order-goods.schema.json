@@ -39,6 +39,10 @@
       "bsonType": "string",
       "label": "商品名称（快照）"
     },
+    "goods_name_en": {
+      "bsonType": "string",
+      "label": "商品英文名称（服务器目录快照，可选）"
+    },
     "price": {
       "bsonType": "double",
       "label": "单价快照（元）"
